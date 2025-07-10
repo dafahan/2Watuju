@@ -1,15 +1,19 @@
 import adapter from '@sveltejs/adapter-static';
 
+const base = process.env.PUBLIC_BASE_PATH || '';
+
 const config = {
   kit: {
     adapter: adapter({
       pages: 'build',
       assets: 'build',
-      fallback: null, // or 'index.html' if SPA fallback is needed
-      precompress: false
+      fallback: null
     }),
     paths: {
-      base: process.env.NODE_ENV === 'production' ? '/2watuju' : ''
+      base
+    },
+    prerender: {
+      handleHttpError: 'warn' // or 'fail' for stricter
     }
   }
 };
