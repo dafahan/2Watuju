@@ -5,12 +5,20 @@
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { Code, Palette, Zap, ExternalLink, Twitter, ArrowRight } from 'lucide-svelte';
    import Banner from '$lib/components/Banner.svelte';
+   import ProgressiveImage from '$lib/components/ProgressiveImage.svelte';
+
 
   // Register GSAP plugins
   gsap.registerPlugin(ScrollTrigger);
 
   // Animation cleanup function
   let cleanup: (() => void) | null = null;
+  export let src: string;
+  export let placeholder: string;
+  export let alt = '';
+  export let className = '';
+
+  let loaded = false;
 
   onMount(() => {
     // Set up animations
@@ -143,12 +151,12 @@
   <section class="min-h-screen xl:px-64 flex items-center justify-center flex-col relative w-full bg-[#56AAB7] transition-all duration-300">
     <!-- Hero Image Container -->
     <div class="flex w-full h-fit bg-no-repeat bg-center hero-image group items-center justify-center">
-      <img 
-        src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/hero.webp" 
-        class="object-contain w-full " 
-        alt="Architecture Studio Hero"
-        loading="eager"
-      />
+        <ProgressiveImage
+            src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/hero.webp"
+            placeholder="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/blur-hero.png"
+            alt="Architecture Studio Hero"
+    
+          />
       <!-- <Banner navHeight={60} /> -->
     </div>
     
@@ -248,10 +256,11 @@
           <div class="flex w-full px-4 py-6 border-b-2 border-gray-200 flex-col gap-4 font-roboto-mono h-144 overflow-hidden text-balance project-card group hover:border-[#56AAB7] hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50">
             <div class="relative overflow-hidden rounded-lg">
               <img 
-                src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/dummy.webp" 
+            
                 alt="Classic Style Project {index + 1}" 
                 class="object-cover w-full rounded-lg h-48 sm:h-64 transition-transform duration-700 group-hover:scale-110"
                 loading="lazy"
+                
               />
             </div>
             
