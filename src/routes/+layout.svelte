@@ -89,7 +89,7 @@
 <svelte:window bind:scrollY on:keydown={handleKeydown} />
 
 <!-- Sophisticated background with enhanced gradients -->
-<div class="min-h-screen text-neutral-900 font-sans relative font-roboto-condensed selection:bg-[#56AAB7]/20 selection:text-[#56AAB7]">
+<div class="min-h-screen text-neutral-900 font-sans relative font-roboto-condensed selection:bg-[#56AAB7]/20 selection:text-black">
   <!-- Primary elegant gradient background -->
   <div class="fixed inset-0 bg-gradient-to-br from-neutral-50 via-white to-neutral-100"></div>
   
@@ -101,12 +101,12 @@
   </div>
 
   <!-- Header -->
-  <header class="py-4 lg:py-6 fixed top-0 w-full px-4 lg:px-12 z-[300] transition-all duration-500 border-b {!scrolled ? 'bg-white/95 backdrop-blur-xl border-neutral-200/60 shadow-lg shadow-neutral-900/5' : 'bg-white/80 backdrop-blur-sm border-transparent'}">
+  <header class="py-1 lg:py-3 fixed top-0 w-full px-4 lg:px-12 z-[300] transition-all duration-500 border-b {!scrolled ? 'bg-white/95 backdrop-blur-xl border-neutral-200/60 shadow-lg shadow-neutral-900/5' : 'bg-white/80 backdrop-blur-sm border-transparent'}">
     <div class="flex items-center justify-between max-w-7xl mx-auto relative">
       <!-- Logo -->
       <div class="flex items-center space-x-3 group">
         <a href="/" class="transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded-lg p-1" aria-label="2WATUJU Homepage">
-          <img src="/images/logo.svg" alt="2WATUJU Logo" class="w-10 h-10 lg:w-12 lg:h-12 object-contain transition-all duration-300 group-hover:brightness-110" />
+          <img src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/logo.webp" alt="2WATUJU Logo" class="w-10 h-10 lg:w-12 lg:h-12 object-contain transition-all duration-300 group-hover:brightness-110" />
         </a>  
         <div class="hidden sm:block">
           <h1 class="text-xs lg:text-sm font-bold tracking-wider text-neutral-800 lg:hidden group-hover:text-[#56AAB7] transition-colors duration-300">2WATUJU</h1>
@@ -193,7 +193,7 @@
   {/if}
 
   <!-- Page Content with proper spacing -->
-  <main class="relative z-10 xl:pt-12">
+  <main class="relative z-10 xl:pt-16">
     <slot />
   </main>
 
@@ -206,7 +206,7 @@
           <!-- Logo Section -->
           <div class="flex items-start space-x-4 group">
             <div class="w-28 h-28 bg-white rounded-xl p-3 flex-shrink-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border border-neutral-200">
-              <img src="/images/logo.svg" alt="2WATUJU Logo" class="w-full h-full object-contain transition-all duration-300 group-hover:brightness-110" />
+              <img src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/logo.webp" alt="2WATUJU Logo" class="w-full h-full object-contain transition-all duration-300 group-hover:brightness-110" />
             </div>
             <div class="text-sm leading-relaxed max-w-md">
               <p class="font-roboto text-neutral-600 group-hover:text-neutral-800 transition-colors duration-300">
