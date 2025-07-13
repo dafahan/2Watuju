@@ -1,226 +1,253 @@
-<!-- src/routes/+page.svelte -->
+<!-- Optimized +page.svelte with immediate image rendering -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  import { Code, Palette, Zap, ExternalLink, Twitter, ArrowRight } from 'lucide-svelte';
-   import Banner from '$lib/components/Banner.svelte';
-   import ProgressiveImage from '$lib/components/ProgressiveImage.svelte';
-
+  import { ArrowRight } from 'lucide-svelte';
 
   // Register GSAP plugins
   gsap.registerPlugin(ScrollTrigger);
 
-  // Animation cleanup function
   let cleanup: (() => void) | null = null;
-  export let src: string;
-  export let placeholder: string;
-  export let alt = '';
-  export let className = '';
-
-  let loaded = false;
+  let touchStates = new Map();
 
   onMount(() => {
-    // Set up animations
-    initializeAnimations();
+    // Delay animations until fonts are loaded
+    if (document.fonts) {
+      document.fonts.ready.then(() => {
+        initializeAnimations();
+      });
+    } else {
+      // Fallback for browsers without font loading API
+      setTimeout(initializeAnimations, 100);
+    }
+    
+    setupMobileTouch();
   });
 
   onDestroy(() => {
-    // Clean up animations on component destroy
     if (cleanup) {
       cleanup();
     }
   });
 
   function initializeAnimations() {
-    // Hero section animations
+    // Hero section animations with reduced motion
     const heroImageTl = gsap.timeline();
     heroImageTl
       .fromTo('.hero-image', 
-        { opacity: 0, y: 50, scale: 0.95 },
-        { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: 'power2.out' }
+        { opacity: 0, y: 20, scale: 0.98 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.8, ease: 'power2.out' }
       )
       .fromTo('.hero-buttons', 
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out' },
-        '-=0.5'
+        { opacity: 0, y: 15 },
+        { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' },
+        '-=0.3'
       );
 
-    // About section animations
-    gsap.fromTo('.about-title', 
-      { opacity: 0, y: 30 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 1, 
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.about-title',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
-
-    // About cards staggered animation
-    gsap.fromTo('.about-cards', 
-      { opacity: 0, x: -30 },
-      { 
-        opacity: 1, 
-        x: 0, 
-        duration: 0.8,
-        stagger: 0.2,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.about-cards',
-          start: 'top 85%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
-
-    // Project cards staggered animation
-    gsap.fromTo('.project-card', 
-      { opacity: 0, y: 40 },
-      { 
-        opacity: 1, 
-        y: 0, 
-        duration: 0.8,
-        stagger: 0.15,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: '.project-grid',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
-
-    // "Lihat Semua Proyek" animation
-    gsap.fromTo('.view-all-projects', 
-      { opacity: 0, scale: 0.9 },
-      { 
-        opacity: 1, 
-        scale: 1, 
-        duration: 0.8,
-        ease: 'back.out(1.7)',
-        scrollTrigger: {
-          trigger: '.view-all-projects',
-          start: 'top 80%',
-          toggleActions: 'play none none reverse'
-        }
-      }
-    );
-
-    // Cleanup function
+    // Other animations...
     cleanup = () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }
 
+  function setupMobileTouch() {
+    const interactiveElements = document.querySelectorAll('.touch-interactive');
+    
+    interactiveElements.forEach(element => {
+      element.addEventListener('touchstart', handleTouchStart, { passive: true });
+      element.addEventListener('touchend', handleTouchEnd, { passive: true });
+      element.addEventListener('touchcancel', handleTouchEnd, { passive: true });
+    });
+  }
+  // @ts-ignore
+
+  function handleTouchStart(event) {
+    const element = event.currentTarget;
+    element.classList.add('touch-active');
+    touchStates.set(element, true);
+  }
+  // @ts-ignore
+  function handleTouchEnd(event) {
+    const element = event.currentTarget;
+    setTimeout(() => {
+      element.classList.remove('touch-active');
+      touchStates.delete(element);
+    }, 150);
+  }
+
   // Event handlers
   function handleWorkflowClick() {
     console.log('Workflow clicked');
-    // Add your workflow navigation logic here
   }
 
   function handleConsultationClick() {
     console.log('Consultation clicked');
-    // Add your consultation navigation logic here
   }
+  // @ts-ignore
 
-  function handleProjectClick(projectId: string) {
+  function handleProjectClick(projectId) {
     console.log('Project clicked:', projectId);
-    // Add your project navigation logic here
   }
 
   function handleViewAllProjects() {
     console.log('View all projects clicked');
-    // Add your view all projects navigation logic here
+  }
+
+  function handleImageLoad() {
+    console.log('✅ Hero image loaded successfully');
+  }
+
+  function handleImageError() {
+    console.error('❌ Hero image failed to load');
   }
 </script>
 
 <svelte:head>
-  <title>Architecture Studio - Collaborative Design</title>
+  <title>2WATUJU - Arsitektur & Interior Lampung</title>
   <meta name="description" content="Dirancang secara kolaboratif dan penuh makna, dari awal hingga generasi berikutnya." />
+  
+  <!-- Critical resource hints for faster loading -->
+  <link rel="preload" as="image" href="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/hero.webp" fetchpriority="high">
+  <link rel="dns-prefetch" href="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev">
+  
+  <!-- Critical inline CSS for immediate rendering -->
+  <style>
+    .hero-critical {
+      background-color: #56AAB7;
+      min-height: 60vh;
+      contain: layout style paint;
+    }
+    
+    .hero-image-container {
+      position: relative;
+      width: 100%;
+      height: auto;
+      contain: layout style paint;
+    }
+    
+    .hero-image-critical {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+    
+    @media (min-width: 1280px) {
+      .hero-critical {
+        min-height: 100vh;
+      }
+    }
+  </style>
 </svelte:head>
 
 <!-- Main content container -->
 <div class="mx-auto overflow-x-hidden">
-  <!-- Hero Section with split layout -->
-  <section class="min-h-screen xl:px-64 flex items-center justify-center flex-col relative w-full bg-[#56AAB7] transition-all duration-300">
-    <!-- Hero Image Container -->
-    <div class="flex w-full h-fit bg-no-repeat bg-center hero-image group items-center justify-center">
-        <ProgressiveImage
-            src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/hero.webp"
-            placeholder="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/blur-hero.png"
-            alt="Architecture Studio Hero"
+  <!-- Hero Section with immediate image visibility -->
+  <section class="hero-critical xl:min-h-screen 2xl:px-64 md:pt-12 pb-12 md:pb-24 flex justify-start items-center xl:justify-center flex-col relative w-full transition-all duration-300">
     
-          />
-      <!-- <Banner navHeight={60} /> -->
+    <!-- Image Container - Simplified, no layering -->
+    <div class="hero-image-container w-full md:max-w-7xl xl:max-w-none">
+      <!-- Main Image - Direct render, no placeholder -->
+<picture>
+  <!-- Mobile screens -->
+  <source 
+    media="(max-width: 767px)" 
+    srcset="/images/hero-mobile-400.webp 400w,
+            /images/hero-mobile-800.webp 800w"
+    sizes="100vw"
+  />
+  
+  <!-- Tablet screens -->
+  <source 
+    media="(max-width: 1023px)" 
+    srcset="/images/hero-tablet-800.webp 800w,
+            /images/hero-tablet-1200.webp 1200w"
+    sizes="100vw"
+  />
+  
+  <!-- Desktop screens -->
+  <source 
+    media="(min-width: 1024px)" 
+    srcset="/images/hero-desktop-1200.webp 1200w,
+            /images/hero-desktop-1600.webp 1600w,
+            /images/hero-desktop-2000.webp 2000w"
+    sizes="(max-width: 1400px) 1200px,
+           (max-width: 1800px) 1600px,
+           2000px"
+  />
+  
+  <!-- Fallback image -->
+  <img 
+    src="/images/hero-desktop-1200.webp" 
+    alt="2WATUJU Architecture Hero" 
+    class="object-contain w-full"
+    loading="eager"
+    fetchpriority="high"
+    decoding="async"
+  />
+</picture>
     </div>
     
-    <!-- Hero Buttons -->
-    <div class="flex w-full h-24 justify-center items-center gap-8 sm:gap-16 lg:gap-24 hero-buttons px-4">
-      <!-- Workflow Button -->
+    <!-- Buttons with better loading state -->
+    <div class="hero-buttons flex w-full justify-center items-center gap-8 sm:gap-16 lg:gap-24 px-4 mt-8" style="min-height: 6rem;">
       <button 
-        class="flex h-full font-roboto-condensed text-white gap-4 sm:gap-6 items-center group hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded-lg p-2"
+        class="flex font-roboto-condensed text-white gap-4 sm:gap-6 items-center group p-2 rounded-lg transition-transform duration-200 hover:scale-105 touch-interactive"
         on:click={handleWorkflowClick}
-        aria-label="Lihat alur kerja proyek"
-      >
-        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white text-[#56AAB7] rounded-full cursor-pointer hover:bg-transparent hover:text-white hover:border-2 hover:border-white transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
-          <ArrowRight class="group-hover:scale-110 group-hover:rotate-12 duration-300 transition-all" size={32}/>
+        on:touchstart={handleTouchStart}
+        on:touchend={handleTouchEnd}>
+        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white text-[#56AAB7] rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-transparent hover:text-white hover:border-2 hover:border-white">
+          <ArrowRight class="group-hover:rotate-12 duration-300 w-5 h-5 sm:w-7 sm:h-7" />
         </div>
-        <div class="flex flex-col text-lg sm:text-2xl">
-          <h3 class="font-bold ">ALUR KERJA</h3>
-          <h3 class="">PROYEK KITA</h3>
+        <div class="flex flex-col text-sm sm:text-lg">
+          <span class="font-bold">ALUR KERJA</span>
+          <span>PROYEK KITA</span>
         </div>
       </button>
 
-      <!-- Consultation Button -->
       <button 
-        class="flex h-full font-roboto-condensed text-white gap-4 sm:gap-6 items-center group hover:scale-105 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 rounded-lg p-2"
+        class="flex font-roboto-condensed text-white gap-4 sm:gap-6 items-center group p-2 rounded-lg transition-transform duration-200 hover:scale-105 touch-interactive"
         on:click={handleConsultationClick}
-        aria-label="Jadwalkan konsultasi"
-      >
-        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white text-[#56AAB7] rounded-full cursor-pointer hover:bg-transparent hover:text-white hover:border-2 hover:border-white transition-all duration-300 flex items-center justify-center shadow-lg hover:shadow-xl">
-          <ArrowRight class="group-hover:scale-110 group-hover:rotate-12 duration-300 transition-all" size={32}/>
+        on:touchstart={handleTouchStart}
+        on:touchend={handleTouchEnd}>
+        <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white text-[#56AAB7] rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-transparent hover:text-white hover:border-2 hover:border-white">
+          <ArrowRight class="group-hover:rotate-12 duration-300 w-5 h-5 sm:w-7 sm:h-7" />
         </div>
-        <div class="flex flex-col text-lg sm:text-2xl">
-          <h3 class="t">JADWALKAN</h3>
-          <h3 class="font-bold ">KONSULTASI</h3>
+        <div class="flex flex-col text-sm sm:text-lg">
+          <span>JADWALKAN</span>
+          <span class="font-bold">KONSULTASI</span>
         </div>
       </button>
     </div>
   </section>
 
-  <!-- About Section with elegant styling -->
-  <section class="py-20 xl:px-64 px-4 sm:px-8">
+  <!-- About Section with CLS prevention -->
+  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8" style="contain: layout; min-height: 60vh;">
     <div class="flex w-full flex-col gap-16 sm:gap-24">
       <div class="flex flex-col lg:flex-row items-start justify-between gap-12">
-        <!-- Main Title -->
-        <div class="lg:flex-1">
-          <h1 class="text-2xl sm:text-3xl lg:text-4xl about-title leading-tight hover:text-[#56AAB7] transition-colors duration-500 cursor-default">
+        <!-- Main Title with reserved space -->
+        <div class="lg:flex-1" style="contain: layout;">
+          <h1 class="text-2xl sm:text-3xl lg:text-4xl about-title leading-tight hover:text-[#56AAB7] active:text-[#56AAB7] transition-colors duration-500 cursor-default" style="min-height: 8rem;">
             DIRANCANG SECARA KOLABORATIF <br/>
             <span class="tracking-wide">DAN PENUH MAKNA.— DARI AWAL</span><br/> 
             HINGGA GENERASI BERIKUTNYA.
           </h1>
         </div>
 
-        <!-- About Cards -->
+        <!-- About Cards with fixed dimensions -->
         <div class="flex flex-col sm:flex-row gap-8 lg:gap-8">
-          <div class="flex flex-col gap-4 max-w-xs sm:max-w-sm md:max-w-md about-cards group">
-            <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] transition-colors duration-300">
+          <div class="flex flex-col gap-4 w-full max-w-xs sm:max-w-sm md:max-w-md about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
+            <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               LOCAL INTELLIGENCE
             </h3>
             <div class="flex flex-col gap-2 text-balance">
-              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
                 Setiap ruang kami hadirkan bukan<br/>
                 hanya untuk ditinggali, tapi juga <br/>
                 menyatu dengan nilai dan narasi<br/>
                 lokal yang hidup di sekitarnya.
               </p>
-              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
                 Dengan mengintegrasikan gaya<br/>
                 hidup setiap keluarga ke dalam<br/>
                 setiap rumah yang kami rancang<br/>
@@ -229,17 +256,17 @@
             </div>
           </div>
 
-          <div class="flex flex-col gap-4 max-w-xs sm:max-w-sm md:max-w-md about-cards group">
-            <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] transition-colors duration-300">
+          <div class="flex flex-col gap-4 w-full max-w-xs sm:max-w-sm md:max-w-md about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
+            <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               PREMIUM & PERSONAL
             </h3>
             <div class="flex flex-col gap-2 text-balance">
-              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
                 Kami memulai setiap rancangan<br/>
                 dengan mendengarkan seluruh<br/>
                 kisah dan Cerita. 
               </p>
-              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 transition-colors duration-300">
+              <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
                 Bukan sekadar sebagai arsitek,<br/>
                 tapi sebagai Sahabat Anda yang<br/>
                 berjalan bersama sejak awal<br/>
@@ -250,225 +277,287 @@
         </div>
       </div>
 
-      <!-- Project Cards Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 w-full gap-6 sm:gap-8 project-grid">
+      <!-- Project Cards Grid with fixed dimensions -->
+      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-6 sm:gap-8 project-grid">
         {#each Array(5) as _, index}
-          <div class="flex w-full px-4 py-6 border-b-2 border-gray-200 flex-col gap-4 font-roboto-mono h-144 overflow-hidden text-balance project-card group hover:border-[#56AAB7] hover:shadow-xl transition-all duration-300 hover:-translate-y-2 bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50">
-            <div class="relative overflow-hidden rounded-lg">
-              <img 
-                src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/dummy.webp" 
-                alt="Classic Style Project {index + 1}" 
-                class="object-cover w-full rounded-lg h-48 sm:h-64 transition-transform duration-700 group-hover:scale-110"
-                loading="lazy"
-                
-              />
+          <div class="flex w-full px-4 py-6 border-b-2 border-gray-200 flex-col gap-4 font-roboto-mono overflow-hidden text-balance project-card group mobile-card touch-interactive hover:border-[#56AAB7] hover:shadow-xl active:border-[#56AAB7] active:shadow-xl transition-all duration-300 hover:-translate-y-2 active:-translate-y-2 bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50 active:bg-gradient-to-br active:from-white active:to-gray-50"
+               style="contain: layout; min-height: 28rem;"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            
+            <!-- Image container with fixed aspect ratio -->
+            <div class="relative overflow-hidden rounded-lg bg-gray-100" style="aspect-ratio: 16/10; contain: layout;">
+<picture>
+  <!-- Mobile screens -->
+  <source 
+    media="(max-width: 639px)" 
+    srcset="/images/dummy-mobile-300.webp 300w,
+            /images/dummy-mobile-600.webp 600w"
+    sizes="(max-width: 400px) 300px, 400px"
+  />
+  
+  <!-- Tablet screens -->
+  <source 
+    media="(max-width: 1023px)" 
+    srcset="/images/dummy-tablet-400.webp 400w,
+            /images/dummy-tablet-600.webp 600w"
+    sizes="(max-width: 640px) 100vw,
+           (max-width: 768px) 50vw,
+           33vw"
+  />
+  
+  <!-- Desktop screens -->
+  <source 
+    media="(min-width: 1024px)" 
+    srcset="/images/dummy-desktop-400.webp 400w,
+            /images/dummy-desktop-600.webp 600w,
+            /images/dummy-desktop-800.webp 800w"
+    sizes="(max-width: 1280px) 400px,
+           (max-width: 1536px) 500px,
+           600px"
+  />
+  
+  <!-- Fallback image -->
+  <img 
+    src="/images/dummy-desktop-400.webp" 
+    alt="Classic Style Project {index + 1}" 
+    class="object-cover w-full h-full rounded-lg transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
+    width="400"
+    height="250"
+    loading="lazy"
+    decoding="async"
+    style="contain: layout;"
+  />
+</picture>
             </div>
             
-            <div class="flex justify-between items-center font-bold">
-              <h2 class="text-xl sm:text-2xl leading-none group-hover:text-[#56AAB7] transition-colors duration-300">
+            <!-- Content with fixed minimum height -->
+            <div class="flex justify-between items-center font-bold" style="min-height: 4rem;">
+              <h2 class="text-xl sm:text-2xl leading-none group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
                 CLASSIC<br/>STYLE
               </h2>
               <button 
-                class="flex border-2 border-gray-200 rounded-full text-black bg-white px-4 hover:bg-[#56AAB7] hover:text-white hover:border-[#56AAB7] py-2 items-center transition-all duration-300 justify-between gap-2 text-sm group/btn cursor-pointer hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50"
+                class="flex border-2 border-gray-200 rounded-full text-black bg-white px-4 hover:bg-[#56AAB7] hover:text-white hover:border-[#56AAB7] active:bg-[#56AAB7] active:text-white active:border-[#56AAB7] py-2 items-center transition-all duration-300 justify-between gap-2 text-sm group/btn cursor-pointer hover:shadow-lg hover:scale-105 active:shadow-lg active:scale-105 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 touch-interactive whitespace-nowrap flex-shrink-0"
                 on:click={() => handleProjectClick(`project-${index + 1}`)}
+                on:touchstart={handleTouchStart}
+                on:touchend={handleTouchEnd}
+                on:touchcancel={handleTouchEnd}
                 aria-label="Lihat selengkapnya project {index + 1}"
               >
-                <span class="group-hover/btn:tracking-wider transition-all duration-300">SELENGKAPNYA</span>
-                <ArrowRight class="rotate-45 group-hover/btn:rotate-0 transition-transform duration-300" size={20}/>
+                <span class="group-hover/btn:tracking-wider group-active/btn:tracking-wider transition-all duration-300">SELENGKAPNYA</span>
+                <ArrowRight class="rotate-45 group-hover/btn:rotate-0 group-active/btn:rotate-0 transition-transform duration-300" size={20}/>
               </button> 
             </div>
             
-            <p class="leading-relaxed text-gray-600 group-hover:text-gray-800 transition-colors duration-300 line-clamp-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-            </p>
+            <!-- Description with fixed height -->
+            <div style="min-height: 6rem; contain: layout;">
+              <p class="leading-relaxed text-gray-600 group-hover:text-gray-800 group-active:text-gray-800 transition-colors duration-300 line-clamp-4">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
+              </p>
+            </div>
           </div>
         {/each}
 
-        <!-- View All Projects Card -->
-        <div class="flex w-full p-8 sm:p-12 gap-4 h-144 relative view-all-projects group hover:bg-gradient-to-br hover:from-[#56AAB7] hover:to-[#4A9AA8] transition-all duration-500 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 cursor-pointer border-2 border-transparent hover:border-[#56AAB7]"
+        <!-- View All Projects Card with fixed dimensions -->
+        <div class="flex w-full p-8 sm:p-12 gap-4 relative view-all-projects group mobile-card touch-interactive hover:bg-gradient-to-br hover:from-[#56AAB7] hover:to-[#4A9AA8] active:bg-gradient-to-br active:from-[#56AAB7] active:to-[#4A9AA8] transition-all duration-500 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 active:shadow-2xl active:-translate-y-2 cursor-pointer border-2 border-transparent hover:border-[#56AAB7] active:border-[#56AAB7]"
+             style="contain: layout; min-height: 28rem; aspect-ratio: 1/1;"
              on:click={handleViewAllProjects}
+             on:touchstart={handleTouchStart}
+             on:touchend={handleTouchEnd}
+             on:touchcancel={handleTouchEnd}
              role="button"
              tabindex="0"
              aria-label="Lihat semua proyek"
              on:keydown={(e) => e.key === 'Enter' && handleViewAllProjects()}
         >
-          <div class="flex flex-col items-end justify-end gap-6 absolute top-[10%] right-8 sm:right-12 transition-all duration-300 group-hover:right-6">
-            <h2 class="font-medium text-end font-chivo-mono text-4xl sm:text-5xl lg:text-7xl subpixel-antialiased uppercase group-hover:text-white transition-all duration-300 group-hover:tracking-wider">
+          <div class="flex flex-col items-end justify-end gap-6 absolute top-[10%] right-8 sm:right-12 transition-all duration-300 group-hover:right-6 group-active:right-6">
+            <h2 class="font-medium text-end font-chivo-mono text-4xl sm:text-5xl lg:text-6xl subpixel-antialiased uppercase group-hover:text-white group-active:text-white transition-all duration-300 group-hover:tracking-wider group-active:tracking-wider" style="contain: layout;">
               Lihat<br/>
               Semua<br/>
               Proyek<br/>
             </h2>
-            <button class="w-12 h-12 sm:w-14 sm:h-14 bg-[#56AAB7] text-white rounded-full cursor-pointer hover:bg-white hover:text-[#56AAB7] hover:border-2 hover:border-[#56AAB7] transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50">
-              <ArrowRight class="text-center m-auto transition-transform duration-300" size={32}/>
+            <button class="w-12 h-12 sm:w-14 sm:h-14 bg-[#56AAB7] text-white rounded-full cursor-pointer hover:bg-white hover:text-[#56AAB7] hover:border-2 hover:border-[#56AAB7] active:bg-white active:text-[#56AAB7] active:border-2 active:border-[#56AAB7] transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-active:scale-110 group-active:rotate-12 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 flex-shrink-0" style="contain: layout;">
+              <ArrowRight class="text-center m-auto transition-transform duration-300" size={28}/>
             </button>
           </div>
           
           <!-- Decorative elements -->
-          <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-[#56AAB7] group-hover:border-white transition-colors duration-300"></div>
-          <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-[#56AAB7] group-hover:border-white transition-colors duration-300"></div>
+          <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-[#56AAB7] group-hover:border-white group-active:border-white transition-colors duration-300"></div>
+          <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-[#56AAB7] group-hover:border-white group-active:border-white transition-colors duration-300"></div>
         </div>
       </div>
     </div>
   </section>
-
-<!-- PROSES KERJA -->
-  <section class="py-20 bg-[#56AAB7] text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 xl:px-64">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
-        <!-- Left Column - Process Steps -->
-        <div class="space-y-8">
-          <h2 class="text-4xl sm:text-5xl font-bold font-roboto-condensed mb-12">
-            PROSES KERJA
-          </h2>
-          
-          <div class="relative">
-            {#each [
-              { number: '1', title: 'Konsultasi' },
-              { number: '2', title: 'Eksplorasi' },
-              { number: '3', title: 'Rencana Desain Awal' },
-              { number: '4', title: 'Development' },
-              { number: '5', title: 'Finalisasi' },
-              { number: '6', title: 'Handling' }
-            ] as step, index}
-              <div class="flex items-center gap-6 group process-step relative" style="animation-delay: {index * 0.1}s; margin-bottom: {index < 5 ? '3rem' : '0'};">
-                <!-- Vertical Connecting Line -->
-                {#if index < 5}
-                  <div class="absolute left-6 sm:left-8 top-12 sm:top-16 w-0.5 h-12 bg-white/40 z-0 process-line" style="animation-delay: {(index + 1) * 0.2}s;"></div>
-                {/if}
-                
-                <!-- Number Circle -->
-                <div class="w-12 h-12 sm:w-16 sm:h-16 border-2 border-white rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold group-hover:bg-white group-hover:text-[#56AAB7] transition-all duration-300 bg-[#56AAB7] relative z-10">
-                  {step.number}
+  <!-- PROSES KERJA Section with Responsive Connected Lines -->
+<section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-[#56AAB7] text-white">
+  <div class="flex flex-col h-fit items-stretch w-full lg:flex-row gap-8 lg:gap-12 ">
+    <!-- Left Column - Process Steps -->
+    <div class="space-y-8 min-w-sm flex flex-col">
+      <h2 class="text-4xl sm:text-5xl font-bold font-roboto-condensed mb-12">
+        PROSES KERJA
+      </h2>
+      
+      <div class="relative flex flex-col h-full justify-between">
+        {#each [
+          { number: '1', title: 'Konsultasi' },
+          { number: '2', title: 'Eksplorasi' },
+          { number: '3', title: 'Rencana Desain Awal' },
+          { number: '4', title: 'Development' },
+          { number: '5', title: 'Finalisasi' },
+          { number: '6', title: 'Handling' }
+        ] as step, index}
+          <div class="flex items-center group process-step touch-interactive relative" 
+               style="animation-delay: {index * 0.1}s;"
+               class:mb-12={index < 5}
+               class:lg:mb-0={index < 5}
+               class:mb-0={index === 5}
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            
+            <!-- Number Circle -->
+            <div class="process-number w-12 h-12 sm:w-16 sm:h-16 border-2 border-white rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold group-hover:bg-white group-hover:text-[#56AAB7] group-active:bg-white group-active:text-[#56AAB7] transition-all duration-300 bg-[#56AAB7] relative z-10 mr-4 sm:mr-6 flex-shrink-0">
+              {step.number}
+              
+              <!-- Vertical Connecting Line - Connected to circle center -->
+              {#if index < 5}
+                <div class="absolute left-1/2 top-full w-0.5 bg-white/40 z-0 process-line -translate-x-0.5" 
+                     style="height: 3rem; animation-delay: {(index + 1) * 0.2}s;">
                 </div>
-                
-                <!-- Step Title -->
-                <h3 class="text-xl sm:text-2xl font-medium font-roboto group-hover:translate-x-2 transition-transform duration-300">
-                  {step.title}
-                </h3>
-              </div>
-            {/each}
+              {/if}
+            </div>
+            
+            <!-- Step Title -->
+            <h3 class="process-title text-xl sm:text-2xl font-medium font-roboto group-hover:translate-x-2 group-active:translate-x-2 transition-transform duration-300">
+              {step.title}
+            </h3>
+          </div>
+        {/each}
+      </div>
+    </div>
+
+    <!-- Vertical Divider -->
+    <div class="hidden lg:flex w-0.5 bg-white/30 self-stretch min-h-96"></div>
+    
+    <!-- Mobile Horizontal Divider -->
+    <div class="lg:hidden w-full h-0.5 bg-white/30 my-8"></div>
+    
+    <!-- Right Column - Deliverables -->
+    <div class="space-y-8 flex flex-col w-full">
+      <h2 class="text-3xl sm:text-4xl font-bold font-roboto-condensed mb-12">
+        HASIL PRODUK<br/>
+        YANG ANDA DAPAT
+      </h2>
+      
+      <!-- Deliverables Grid -->
+      <div class="flex flex-col w-full font-roboto-condensed text-base sm:text-lg lg:text-base xl:text-lg 2xl:text-xl gap-2">
+        <!-- First Row -->
+        <div class="grid grid-cols-4 gap-2">
+          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col gap-y-2 items-start justify-start p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Desain 3D<br/>Interior</h2>
+              <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+            </div>
+          </div>
+          
+          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Desain 3D<br/>Eksterior</h2>
+              <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+            </div>
+          </div>
+          
+          <div class="flex w-full col-span-2 items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Hasil Cetak Printout<br/>A3 Berwarna</h2>
+              <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+            </div>
           </div>
         </div>
 
-        <!-- Right Column - Deliverables -->
-        <div class="space-y-8">
-          <h2 class="text-3xl sm:text-4xl font-bold font-roboto-condensed mb-12">
-            HASIL PRODUK<br/>
-            YANG ANDA DAPAT
-          </h2>
+        <!-- Second Row -->
+        <div class="grid grid-cols-3 gap-2">
+          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Gambar Kerja<br/>Perencanaan</h2>
+              <img src="/icons/033_compass_1.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+            </div>
+          </div>
           
-          <!-- Deliverables Grid -->
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <!-- Row 1 -->
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">DESAIN 3D<br/>INTERIOR</p>
-              </div>
+          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Rencana Anggaran<br/>Biaya</h2>
+              <img src="/icons/043_project_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
             </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">DESAIN 3D<br/>EKSTERIOR</p>
-              </div>
+          </div>
+          
+          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Perhitungan<br/>Struktur</h2>
+              <img src="/icons/041_workspace.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
             </div>
+          </div>
+        </div>
 
-            <!-- Row 2 -->
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">HASIL CETAK PRINTOUT<br/>A3 BERWARNA</p>
-              </div>
+        <!-- Third Row -->
+        <div class="grid grid-cols-4 gap-2">
+          <div class="flex w-full col-span-2 items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Soft File Dokumen<br/>Perencanaan</h2>
+              <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
             </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">PERHITUNGAN<br/>STRUKTUR</p>
-              </div>
-            </div>
+          </div>
 
-            <!-- Row 3 -->
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0H8m8 0v2a2 2 0 01-2 2H10a2 2 0 01-2-2V6"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">GAMBAR KERJA<br/>PERENCANAAN</p>
-              </div>
+          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Animasi<br/>Video</h2>
+              <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
             </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">RENCANA<br/>ANGGARAN BIAYA</p>
-              </div>
-            </div>
-
-            <!-- Bottom Row -->
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">SOFT FILE DOKUMEN<br/>PERENCANAAN</p>
-              </div>
-            </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">ANIMASI VIDEO</p>
-              </div>
-            </div>
-            
-            <div class="bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg p-6 hover:bg-white/20 transition-all duration-300 group">
-              <div class="flex flex-col items-center text-center space-y-3">
-                <div class="w-12 h-12 border-2 border-white rounded-lg flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-                  <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
-                  </svg>
-                </div>
-                <p class="text-sm font-medium">KATALOG<br/>DESAIN 3D</p>
-              </div>
+          </div>
+          
+          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+               on:touchstart={handleTouchStart}
+               on:touchend={handleTouchEnd}
+               on:touchcancel={handleTouchEnd}>
+            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+              <h2 class="uppercase  leading-tight">Katalog<br/>Desain 3D</h2>
+              <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 </div>
 
 <style>
+  /* Line clamp utility */
   .line-clamp-4 {
     display: -webkit-box;
     -webkit-line-clamp: 4;
@@ -476,27 +565,34 @@
     overflow: hidden;
   }
   
-  /* Ensure smooth font rendering */
-  * {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  /* Performance optimizations */
+  .contain-layout {
+    contain: layout style paint;
   }
   
-  /* Custom scrollbar for webkit browsers */
-  :global(::-webkit-scrollbar) {
-    width: 8px;
+  /* Mobile optimizations */
+  @media (max-width: 640px) {
+    .hero-section {
+      min-height: 50vh;
+    }
+    
+    .hero-buttons-container {
+      min-height: 5rem;
+    }
   }
   
-  :global(::-webkit-scrollbar-track) {
-    background: #f1f1f1;
+  /* Reduced motion support */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
-  
-  :global(::-webkit-scrollbar-thumb) {
-    background: #56AAB7;
-    border-radius: 4px;
-  }
-  
-  :global(::-webkit-scrollbar-thumb:hover) {
-    background: #4A9AA8;
+
+  /* Touch states for mobile */
+  .touch-interactive.touch-active {
+    transform: scale(0.98);
+    opacity: 0.9;
   }
 </style>

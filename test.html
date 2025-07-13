@@ -1,19 +1,109 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title><dafahan/></title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'JetBrains Mono', monospace;
-    }
-  </style>
-</head>
-<body class="bg-[#131312] text-white h-screen w-screen flex items-center justify-center">
-  <h1 class="text-white text-9xl font-light">
-    &lt;dafahan/&gt;
-  </h1>
-</body>
-</html>
+        <div class="flex flex-col w-full font-roboto-condensed text-fluid-base">
+          <!-- First Row -->
+          <div class="grid grid-cols-4 gap-responsive-xs mb-2">
+            <div class="aspect-square flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-responsive-xs p-responsive-xs">
+                <h2 class="uppercase text-fluid-xs leading-tight">Desain 3d<br/>Interior</h2>
+                <img src="/icons/001_computer.webp" alt="Desain 3D Interior" class="icon-responsive-base object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+            
+            <div class="aspect-square flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-responsive-xs p-responsive-xs">
+                <h2 class="uppercase text-fluid-xs leading-tight">Desain 3d<br/>Eksterior</h2>
+                <img src="/icons/002_building.webp" alt="Desain 3D Eksterior" class="icon-responsive-base object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+            
+            <div class="col-span-2 flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex items-center justify-between w-full gap-responsive-sm p-responsive-base">
+                <div class="flex flex-col">
+                  <h2 class="uppercase text-fluid-base leading-tight font-bold">Hasil Cetak<br/>Printout A3 Berwarna</h2>
+                  <p class="text-fluid-xs opacity-80 mt-2">High quality architectural prints</p>
+                </div>
+                <img src="/icons/003_printer.webp" alt="Hasil Cetak Printout" class="icon-responsive-lg object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Second Row -->
+          <div class="grid grid-cols-4 gap-responsive-xs mb-2">
+            <div class="col-span-2 flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex items-center justify-between w-full gap-responsive-sm p-responsive-base">
+                <div class="flex flex-col">
+                  <h2 class="uppercase text-fluid-base leading-tight font-bold">Perhitungan<br/>Struktur</h2>
+                  <p class="text-fluid-xs opacity-80 mt-2">Professional structural analysis</p>
+                </div>
+                <img src="/icons/004_calculator.webp" alt="Perhitungan Struktur" class="icon-responsive-lg object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+            
+            <div class="aspect-square flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-responsive-xs p-responsive-xs">
+                <h2 class="uppercase text-fluid-xs leading-tight">Gambar<br/>Kerja</h2>
+                <img src="/icons/005_blueprint.webp" alt="Gambar Kerja" class="icon-responsive-base object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+            
+            <div class="aspect-square flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-responsive-xs p-responsive-xs">
+                <h2 class="uppercase text-fluid-xs leading-tight">Rencana<br/>Anggaran</h2>
+                <img src="/icons/006_budget.webp" alt="Rencana Anggaran" class="icon-responsive-base object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+          </div>
+
+          <!-- Third Row -->
+          <div class="grid grid-cols-4 gap-responsive-xs">
+            <div class="aspect-square flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-responsive-xs p-responsive-xs">
+                <h2 class="uppercase text-fluid-xs leading-tight">Soft File<br/>Dokumen</h2>
+                <img src="/icons/007_files.webp" alt="Soft File Dokumen" class="icon-responsive-base object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+            
+            <div class="aspect-square flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-responsive-xs p-responsive-xs">
+                <h2 class="uppercase text-fluid-xs leading-tight">Animasi<br/>Video</h2>
+                <img src="/icons/008_video.webp" alt="Animasi Video" class="icon-responsive-base object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+            
+            <div class="col-span-2 flex w-full items-center justify-center border-responsive border-white rounded-responsive deliverable-card touch-interactive group"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex items-center justify-between w-full gap-responsive-sm p-responsive-base">
+                <div class="flex flex-col">
+                  <h2 class="uppercase text-fluid-base leading-tight font-bold">Katalog<br/>Desain 3D</h2>
+                  <p class="text-fluid-xs opacity-80 mt-2">Complete design portfolio</p>
+                </div>
+                <img src="/icons/009_catalog.webp" alt="Katalog Desain 3D" class="icon-responsive-lg object-contain group-hover:scale-110 group-active:scale-110 transition-transform duration-300"/>
+              </div>
+            </div>
+          </div>
+        </div>

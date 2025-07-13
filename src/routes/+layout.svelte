@@ -1,4 +1,4 @@
-<!-- src/routes/+layout.svelte -->
+<!-- Clean Layout Component - debug elements removed -->
 <script>
   import '../app.css';
   import { onMount, onDestroy } from 'svelte';
@@ -8,12 +8,19 @@
   let mobileMenuOpen = false;
   let scrollY = 0;
   
+  // Logo state management
+  let logoLoaded = false;
+  let logoError = false;
+  let logoElement;
+  
   // Reactive variables for smooth transitions
- // @ts-ignore
-   $: headerClass = scrolled ? 'scrolled' : '';
+  $: headerClass = scrolled ? 'scrolled' : '';
   
   onMount(() => {
     mounted = true;
+    
+    // Check if logo is already loaded (cached)
+    checkLogoStatus();
     
     const handleScroll = () => {
       scrollY = window.scrollY;
@@ -21,7 +28,6 @@
     };
     
     const handleResize = () => {
-      // Close mobile menu on desktop resize
       if (window.innerWidth >= 1024) {
         mobileMenuOpen = false;
       }
@@ -45,78 +51,202 @@
     mounted = false;
   });
 
+  // Check logo status after component mounts
+  function checkLogoStatus() {
+    //@ts-ignore
+    if (logoElement) {
+      // If image is already loaded (cached), trigger load state
+      if (logoElement.complete && logoElement.naturalWidth > 0) {
+        handleLogoLoad({ target: logoElement });
+      }
+    } else {
+      // Retry after a short delay
+      setTimeout(checkLogoStatus, 100);
+    }
+  }
+
   // Navigation handlers
   function handleAboutClick() {
     console.log('About clicked');
-    // Add navigation logic here
   }
 
   function handleProjectsClick() {
     console.log('Projects clicked');
-    // Add navigation logic here
   }
 
   function toggleMobileMenu() {
     mobileMenuOpen = !mobileMenuOpen;
   }
 
-  // Close mobile menu when clicking outside
   function closeMobileMenu() {
     mobileMenuOpen = false;
   }
+    //@ts-ignore
 
-  // Handle keyboard navigation
-  // @ts-ignore
   function handleKeydown(event) {
     if (event.key === 'Escape' && mobileMenuOpen) {
       closeMobileMenu();
     }
   }
 
-  // Smooth scroll to top
   function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+    //@ts-ignore
+
+  function handleLogoLoad(event) {
+    logoLoaded = true;
+    logoError = false;
+  }
+    //@ts-ignore
+
+  function handleLogoError(event) {
+    logoError = true;
+    logoLoaded = false;
   }
 </script>
 
 <svelte:head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#56AAB7" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  
+  <!-- Preload logo to prevent layout shift -->
+  <link 
+    rel="preload" 
+    as="image" 
+    href="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/logo.webp"
+    fetchpriority="high"
+  >
+  
+  <!-- Critical CSS to prevent layout shifts -->
+  <style>
+    /* Reserve space for logo immediately */
+    .logo-container {
+      width: 2.5rem; /* w-10 */
+      height: 2.5rem; /* h-10 */
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #f3f4f6; /* Subtle background while loading */
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    @media (min-width: 1024px) {
+      .logo-container {
+        width: 3rem; /* lg:w-12 */
+        height: 3rem; /* lg:h-12 */
+      }
+    }
+    
+    .logo-container.loaded {
+      background-color: transparent;
+    }
+    
+    .logo-container.error {
+      background-color: #fef2f2;
+      border: 2px dashed #ef4444;
+    }
+    
+    /* Prevent header layout shift */
+    .header-fixed-height {
+      min-height: 4rem;
+    }
+    
+    @media (min-width: 1024px) {
+      .header-fixed-height {
+        min-height: 5rem;
+      }
+    }
+    
+    /* Logo image styling */
+    .logo-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+    
+    .logo-image.loaded {
+      opacity: 1;
+    }
+    
+    .logo-image.error {
+      opacity: 0;
+    }
+    
+    /* Fallback styling */
+    .logo-fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: bold;
+      color: #6b7280;
+      transition: opacity 0.3s ease;
+    }
+    
+    .logo-fallback.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+  </style>
 </svelte:head>
 
 <svelte:window bind:scrollY on:keydown={handleKeydown} />
 
-<!-- Sophisticated background with enhanced gradients -->
+<!-- Main container -->
 <div class="min-h-screen text-neutral-900 font-sans relative font-roboto-condensed selection:bg-[#56AAB7]/20 selection:text-black">
-  <!-- Primary elegant gradient background -->
+  <!-- Background layers -->
   <div class="fixed inset-0 bg-gradient-to-br from-neutral-50 via-white to-neutral-100"></div>
-  
-  <!-- Enhanced animated background elements -->
-  <div class="fixed inset-0 overflow-hidden pointer-events-none">
-    <div class="absolute top-1/4 left-1/4 w-96 h-96 bg-gradient-to-r from-[#56AAB7]/10 to-purple-200/5 rounded-full blur-3xl animate-pulse opacity-60"></div>
-    <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-gradient-to-r from-violet-200/8 to-[#56AAB7]/5 rounded-full blur-3xl animate-pulse opacity-60" style="animation-delay: 1s; animation-duration: 4s;"></div>
-    <div class="absolute top-1/2 left-1/2 w-64 h-64 bg-gradient-to-r from-indigo-200/6 to-slate-200/4 rounded-full blur-2xl animate-pulse opacity-40" style="animation-delay: 2s; animation-duration: 6s;"></div>
-  </div>
 
   <!-- Header -->
-  <header class="py-1 lg:py-3 fixed top-0 w-full px-4 lg:px-12 z-[300] transition-all duration-500 border-b {!scrolled ? 'bg-white/95 backdrop-blur-xl border-neutral-200/60 shadow-lg shadow-neutral-900/5' : 'bg-white/80 backdrop-blur-sm border-transparent'}">
-    <div class="flex items-center justify-between max-w-7xl mx-auto relative">
-      <!-- Logo -->
+  <header class="header-fixed-height py-1 lg:py-3 fixed top-0 w-full px-4 lg:px-12 z-[300] transition-all duration-500 border-b {!scrolled ? 'bg-white/95 backdrop-blur-xl border-neutral-200/60 shadow-lg shadow-neutral-900/5' : 'bg-white/80 backdrop-blur-sm border-transparent'}">
+    <div class="flex items-center justify-between max-w-7xl mx-auto relative h-full">
+      <!-- Logo Section -->
       <div class="flex items-center space-x-3 group">
         <a href="/" class="transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded-lg p-1" aria-label="2WATUJU Homepage">
-          <img src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/logo.webp" alt="2WATUJU Logo" class="w-10 h-10 lg:w-12 lg:h-12 object-contain transition-all duration-300 group-hover:brightness-110" />
+          <div class="logo-container" 
+               class:loaded={logoLoaded} 
+               class:error={logoError}>
+            
+            <!-- Main logo image -->
+            <img 
+              bind:this={logoElement}
+              src="/images/logo-48.webp" 
+              srcset="/images/logo-24.webp 24w, 
+                      /images/logo-48.webp 48w, 
+                      /images/logo-96.webp 96w"
+              sizes="(max-width: 1023px) 40px, 48px"
+              alt="2WATUJU Logo" 
+              class="logo-image transition-all duration-300 group-hover:brightness-110"
+              class:loaded={logoLoaded}
+              class:error={logoError}
+              width="48"
+              height="48"
+              on:load={handleLogoLoad}
+              on:error={handleLogoError}
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </div>
         </a>  
+        
         <div class="hidden sm:block">
           <h1 class="text-xs lg:text-sm font-bold tracking-wider text-neutral-800 lg:hidden group-hover:text-[#56AAB7] transition-colors duration-300">2WATUJU</h1>
           <p class="text-xs text-neutral-600 lg:hidden group-hover:text-neutral-700 transition-colors duration-300">ARSITEKTUR & INTERIOR LAMPUNG</p>
         </div>
       </div>
 
-      <!-- Center Title (Desktop only) -->
+      <!-- Center Title -->
       <button 
-        class="tracking-wider absolute left-1/2 transform -translate-x-1/2 text-xs lg:text-sm font-medium text-neutral-700 mobile-hidden hover:text-[#56AAB7] transition-all duration-300 hover:tracking-widest focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded px-2 py-1"
+        class="tracking-wider absolute left-1/2 transform -translate-x-1/2 text-xs lg:text-sm font-medium text-neutral-700 mobile-hidden hover:text-[#56AAB7] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded px-2 py-1 whitespace-nowrap"
         on:click={scrollToTop}
         aria-label="Scroll to top"
       >
@@ -126,21 +256,19 @@
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex gap-4 text-sm" role="navigation">
         <button 
-          class="group relative px-6 py-2 text-xs lg:text-sm font-medium text-neutral-700 hover:text-[#56AAB7] transition-all duration-300 border-2 border-transparent hover:border-[#56AAB7] rounded-full hover:bg-[#56AAB7]/5 hover:shadow-lg hover:shadow-[#56AAB7]/20 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50"
+          class="group relative px-6 py-2 text-xs lg:text-sm font-medium text-neutral-700 hover:text-[#56AAB7] transition-all duration-300 border-2 border-transparent hover:border-[#56AAB7] rounded-full hover:bg-[#56AAB7]/5 hover:shadow-lg hover:shadow-[#56AAB7]/20 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 whitespace-nowrap"
           on:click={handleAboutClick}
           aria-label="Tentang Kami"
         >
           <span class="relative z-10 tracking-wide group-hover:tracking-wider transition-all duration-300">TENTANG KAMI</span>
-          <div class="absolute inset-0 bg-gradient-to-r from-[#56AAB7]/0 via-[#56AAB7]/5 to-[#56AAB7]/0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-full"></div>
         </button>
         
         <button 
-          class="group relative px-6 py-2 text-xs lg:text-sm font-medium bg-gradient-to-r from-[#56AAB7] to-[#4A9AA8] text-white rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#56AAB7]/30 hover:scale-105 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 overflow-hidden"
+          class="group relative px-6 py-2 text-xs lg:text-sm font-medium bg-gradient-to-r from-[#56AAB7] to-[#4A9AA8] text-white rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#56AAB7]/30 hover:scale-105 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 overflow-hidden whitespace-nowrap"
           on:click={handleProjectsClick}
           aria-label="Proyek"
         >
           <span class="relative z-10 tracking-wide group-hover:tracking-wider transition-all duration-300">PROYEK</span>
-          <div class="absolute inset-0 bg-gradient-to-r from-[#4A9AA8] to-[#56AAB7] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
         </button>
       </nav>
 
@@ -161,16 +289,16 @@
 
     <!-- Mobile Menu -->
     {#if mobileMenuOpen}
-      <div class="lg:hidden mt-4 pb-4 border-t border-neutral-200 animate-fadeIn">
+      <div class="lg:hidden mt-4 pb-4 border-t border-neutral-200">
         <nav class="flex flex-col space-y-2 pt-4" role="navigation">
           <button 
-            class="group text-left px-4 py-3 text-neutral-700 hover:text-[#56AAB7] hover:bg-[#56AAB7]/5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50"
+            class="group text-left px-4 py-3 text-neutral-700 hover:text-[#56AAB7] hover:bg-[#56AAB7]/5 rounded-lg transition-all duration-200"
             on:click={() => { handleAboutClick(); closeMobileMenu(); }}
           >
             <span class="group-hover:tracking-wider transition-all duration-200">TENTANG KAMI</span>
           </button>
           <button 
-            class="group text-left px-4 py-3 text-neutral-700 hover:text-[#56AAB7] hover:bg-[#56AAB7]/5 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50"
+            class="group text-left px-4 py-3 text-neutral-700 hover:text-[#56AAB7] hover:bg-[#56AAB7]/5 rounded-lg transition-all duration-200"
             on:click={() => { handleProjectsClick(); closeMobileMenu(); }}
           >
             <span class="group-hover:tracking-wider transition-all duration-200">PROYEK</span>
@@ -183,7 +311,7 @@
   <!-- Mobile Menu Overlay -->
   {#if mobileMenuOpen}
     <div 
-      class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[250] lg:hidden animate-fadeIn"
+      class="fixed inset-0 bg-black/20 backdrop-blur-sm z-[250] lg:hidden"
       on:click={closeMobileMenu}
       role="button"
       tabindex="0"
@@ -192,12 +320,12 @@
     ></div>
   {/if}
 
-  <!-- Page Content with proper spacing -->
-  <main class="relative z-10 xl:pt-16">
+  <!-- Page Content -->
+  <main class="relative z-10 pt-20">
     <slot />
   </main>
 
-  <!-- Enhanced Footer -->
+  <!-- Footer -->
   <footer class="relative z-10 bg-gradient-to-t from-neutral-100 to-white text-black">
     <div class="max-w-7xl mx-auto px-4 lg:px-12 py-12 lg:py-16 border-t-2 border-gray-200">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -206,7 +334,18 @@
           <!-- Logo Section -->
           <div class="flex items-start space-x-4 group">
             <div class="w-28 h-28 bg-white rounded-xl p-3 flex-shrink-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border border-neutral-200">
-              <img src="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/logo.webp" alt="2WATUJU Logo" class="w-full h-full object-contain transition-all duration-300 group-hover:brightness-110" />
+            <img 
+              src="/images/logo-112.webp" 
+              srcset="/images/logo-112.webp 112w, 
+                      /images/logo-224.webp 224w"
+              sizes="112px"
+              alt="2WATUJU Logo" 
+              class="w-full h-full object-contain transition-all duration-300 group-hover:brightness-110"
+              width="112"
+              height="112"
+              loading="lazy"
+              decoding="async"
+            />
             </div>
             <div class="text-sm leading-relaxed max-w-md">
               <p class="font-roboto text-neutral-600 group-hover:text-neutral-800 transition-colors duration-300">
