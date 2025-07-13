@@ -144,7 +144,7 @@
 <!-- Main content container -->
 <div class="mx-auto overflow-x-hidden">
   <!-- Hero Section with immediate image visibility -->
-  <section class="hero-critical xl:min-h-screen 2xl:px-64 md:pt-12 pb-12 md:pb-24 flex justify-start items-center xl:justify-center flex-col relative w-full transition-all duration-300">
+  <section class="hero-critical h-[90vh] xl:min-h-screen 2xl:px-64 pt-24 md:pt-12 pb-12 md:pb-24 flex justify-start items-center xl:justify-center flex-col relative w-full transition-all duration-300">
     
     <!-- Image Container - Simplified, no layering -->
     <div class="hero-image-container w-full md:max-w-7xl xl:max-w-none">

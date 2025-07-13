@@ -322,7 +322,7 @@
   {/if}
 
   <!-- Page Content -->
-  <main class="relative z-10 pt-20">
+  <main class="relative z-10 pt-16 md:pt-20">
     <slot />
   </main>
 
