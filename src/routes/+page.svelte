@@ -398,7 +398,7 @@
           PROSES KERJA
         </h2>
         
-        <div class="relative flex flex-col h-full justify-between">
+        <div class="relative flex flex-col h-full justify-between overflow-hidden">
           {#each [
             { number: '1', title: 'Konsultasi' },
             { number: '2', title: 'Eksplorasi' },
@@ -423,7 +423,7 @@
                 <!-- Vertical Connecting Line - Connected to circle center -->
                 {#if index < 5}
                   <div class="absolute left-1/2 top-full w-0.5 bg-white/40 z-0 process-line -translate-x-0.5" 
-                       style="height: 3rem; animation-delay: {(index + 1) * 0.2}s;">
+                       style="height: 6rem; animation-delay: {(index + 1) * 0.2}s;">
                   </div>
                 {/if}
               </div>

@@ -1,6 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment'; // SvelteKit's browser check
+  import { base } from '$app/paths'; // For GitHub Pages support
 
   export let navHeight = 0;
   
@@ -123,19 +124,73 @@
     </span>
   </div>
 
-  <div class="flex w-full aspect-video rounded-[32px] bg-[url('/images/bg-hero.webp')] bg-cover bg-center relative bg-bottom">
-          <img
-        src="/images/logo-white.webp"
-        alt="logo"
-        class="object-contain absolute right-12  w-12 top-[30px]"
+  <!-- Updated hero section with picture element for responsive background -->
+  <div class="flex w-full aspect-video rounded-[32px] bg-cover bg-center relative bg-bottom overflow-hidden">
+    
+    <!-- Responsive background image using picture element -->
+    <picture class="absolute inset-0 w-full h-full">
+      <!-- Mobile screens -->
+      <source 
+        media="(max-width: 767px)" 
+        srcset="{base}/images/hero-mobile-400.webp 400w,
+                {base}/images/hero-mobile-800.webp 800w"
+        sizes="100vw"
       />
-    <div class="flex w-[60%] h-full flex-col">
+      
+      <!-- Tablet screens -->
+      <source 
+        media="(max-width: 1023px)" 
+        srcset="{base}/images/hero-tablet-800.webp 800w,
+                {base}/images/hero-tablet-1200.webp 1200w"
+        sizes="100vw"
+      />
+      
+      <!-- Desktop screens -->
+      <source 
+        media="(min-width: 1024px)" 
+        srcset="{base}/images/hero-desktop-1200.webp 1200w,
+                {base}/images/hero-desktop-1600.webp 1600w,
+                {base}/images/hero-desktop-2000.webp 2000w"
+        sizes="(max-width: 1400px) 1200px,
+               (max-width: 1800px) 1600px,
+               2000px"
+      />
+      
+      <!-- Fallback image -->
+      <img 
+        src="{base}/images/hero-desktop-1200.webp" 
+        alt="2WATUJU Architecture Hero Background" 
+        class="w-full h-full object-cover rounded-[32px]"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </picture>
+    
+    <!-- Logo with responsive picture element -->
+    <picture class="absolute right-12 top-[30px] w-12 h-12 z-20">
+      <source 
+        srcset="{base}/images/logo-white-48.webp 1x,
+                {base}/images/logo-white-96.webp 2x"
+      />
+      <img
+        src="{base}/images/logo-white-48.webp"
+        alt="2WATUJU Logo"
+        class="object-contain w-full h-full"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </picture>
+    
+    <!-- Content overlay -->
+    <div class="flex w-[60%] h-full flex-col relative z-10">
       <div
         bind:this={line2Ref}
         class="relative flex w-full h-1/6 rounded-br-[32px] overflow-visible bg-[#56AAB7] items-center justify-between"
         id="line2"
       >
-        <span class="w-full text-left" style="font-size: {line2FontStyle.fontSize}; letter-spacing: {line2FontStyle.letterSpacing}">
+        <span class="w-full text-left px-4" style="font-size: {line2FontStyle.fontSize}; letter-spacing: {line2FontStyle.letterSpacing}">
           {line2Text}
         </span>
       </div>
@@ -151,14 +206,21 @@
     <div
       id="boxed1"
       bind:this={boxed1Ref}
-      class="flex w-[12%] h-full rounded-bl-[65px] relative"
+      class="flex w-[12%] h-full rounded-bl-[65px] relative z-10"
       style={gradientStyle}
     >
-
     </div>
   </div>
 </div>
 
 <style>
-  /* Add any component-specific styles here if needed */
+  /* Component-specific styles */
+  picture img {
+    transition: opacity 0.3s ease;
+  }
+  
+  /* Ensure picture elements maintain proper sizing */
+  picture {
+    display: block;
+  }
 </style>
