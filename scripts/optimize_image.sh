@@ -44,9 +44,9 @@ if [ ! -f "static/images/logo.webp" ]; then
     exit 1
 fi
 
-if [ ! -f "static/images/hero.webp" ]; then
-    echo -e "${RED}❌ hero.webp not found in static/images/ directory${NC}"
-    echo -e "${YELLOW}💡 Expected: static/images/hero.webp${NC}"
+if [ ! -f "static/images/hero-uncompressed.webp" ]; then
+    echo -e "${RED}❌ hero-uncompressed.webp not found in static/images/ directory${NC}"
+    echo -e "${YELLOW}💡 Expected: static/images/hero-uncompressed.webp${NC}"
     echo -e "${YELLOW}💡 Current files in static/images/:${NC}"
     ls -la static/images/ 2>/dev/null
     exit 1
@@ -72,13 +72,13 @@ echo -e "${GREEN}✅ Logo variants created (5 sizes) with transparency preserved
 
 echo -e "${BLUE}🏠 Optimizing hero image variants...${NC}"
 # Hero image variants - using brand color #56AAB7 as background (no transparency needed)
-$MAGICK_CMD static/images/hero.webp -background "#56AAB7" -resize 400x200 -gravity center -extent 400x200 -quality 80 static/images/hero-mobile-400.webp
-$MAGICK_CMD static/images/hero.webp -background "#56AAB7" -resize 800x400 -gravity center -extent 800x400 -quality 80 static/images/hero-mobile-800.webp
-$MAGICK_CMD static/images/hero.webp -background "#56AAB7" -resize 800x400 -gravity center -extent 800x400 -quality 80 static/images/hero-tablet-800.webp
-$MAGICK_CMD static/images/hero.webp -background "#56AAB7" -resize 1200x600 -gravity center -extent 1200x600 -quality 85 static/images/hero-tablet-1200.webp
-$MAGICK_CMD static/images/hero.webp -background "#56AAB7" -resize 1200x600 -gravity center -extent 1200x600 -quality 85 static/images/hero-desktop-1200.webp
-$MAGICK_CMD static/images/hero.webp -background "#56AAB7" -resize 1600x800 -gravity center -extent 1600x800 -quality 85 static/images/hero-desktop-1600.webp
-$MAGICK_CMD static/images/hero.webp -background "#56AAB7" -resize 2000x1000 -gravity center -extent 2000x1000 -quality 85 static/images/hero-desktop-2000.webp
+$MAGICK_CMD static/images/hero-uncompressed.webp -background "#56AAB7" -resize 400x200 -gravity center -extent 400x200 -quality 80 static/images/hero-mobile-400.webp
+$MAGICK_CMD static/images/hero-uncompressed.webp -background "#56AAB7" -resize 800x400 -gravity center -extent 800x400 -quality 80 static/images/hero-mobile-800.webp
+$MAGICK_CMD static/images/hero-uncompressed.webp -background "#56AAB7" -resize 800x400 -gravity center -extent 800x400 -quality 80 static/images/hero-tablet-800.webp
+$MAGICK_CMD static/images/hero-uncompressed.webp -background "#56AAB7" -resize 1200x600 -gravity center -extent 1200x600 -quality 85 static/images/hero-tablet-1200.webp
+$MAGICK_CMD static/images/hero-uncompressed.webp -background "#56AAB7" -resize 1200x600 -gravity center -extent 1200x600 -quality 85 static/images/hero-desktop-1200.webp
+$MAGICK_CMD static/images/hero-uncompressed.webp -background "#56AAB7" -resize 1600x800 -gravity center -extent 1600x800 -quality 85 static/images/hero-desktop-1600.webp
+$MAGICK_CMD static/images/hero-uncompressed.webp -background "#56AAB7" -resize 2000x1000 -gravity center -extent 2000x1000 -quality 85 static/images/hero-desktop-2000.webp
 echo -e "${GREEN}✅ Hero image variants created (7 sizes) with brand color background${NC}"
 
 echo -e "${BLUE}🏘️ Optimizing project image variants...${NC}"
@@ -128,7 +128,7 @@ echo -e "${GREEN}✅ Project image variants created (7 sizes)${NC}"
 echo -e "${BLUE}📊 File size comparison:${NC}"
 if command -v ls &> /dev/null; then
     echo "Original files:"
-    ls -lh static/images/logo.webp static/images/hero.webp static/images/dummy.webp 2>/dev/null | awk '{print "  " $9 ": " $5}'
+    ls -lh static/images/logo.webp static/images/hero-uncompressed.webp static/images/dummy.webp 2>/dev/null | awk '{print "  " $9 ": " $5}'
     echo ""
     echo "Optimized key variants:"
     ls -lh static/images/logo-48.webp static/images/hero-mobile-400.webp static/images/dummy-desktop-400.webp 2>/dev/null | awk '{print "  " $9 ": " $5}'
