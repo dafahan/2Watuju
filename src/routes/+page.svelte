@@ -287,7 +287,7 @@
                on:touchcancel={handleTouchEnd}>
             
             <!-- Image container with fixed aspect ratio -->
-            <div class="relative overflow-hidden rounded-lg bg-gray-100" style="aspect-ratio: 16/10; contain: layout;">
+            <div class="relative overflow-hidden rounded-lg bg-gray-100" style="contain: layout;">
 <picture>
   <!-- Mobile screens -->
   <source 
