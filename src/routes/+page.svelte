@@ -390,170 +390,170 @@
     </div>
   </section>
   <!-- PROSES KERJA Section with Responsive Connected Lines -->
-<section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-[#56AAB7] text-white">
-  <div class="flex flex-col h-fit items-stretch w-full lg:flex-row gap-8 lg:gap-12 ">
-    <!-- Left Column - Process Steps -->
-    <div class="space-y-8 min-w-sm flex flex-col">
-      <h2 class="text-4xl sm:text-5xl font-bold font-roboto-condensed mb-12">
-        PROSES KERJA
-      </h2>
-      
-      <div class="relative flex flex-col h-full justify-between">
-        {#each [
-          { number: '1', title: 'Konsultasi' },
-          { number: '2', title: 'Eksplorasi' },
-          { number: '3', title: 'Rencana Desain Awal' },
-          { number: '4', title: 'Development' },
-          { number: '5', title: 'Finalisasi' },
-          { number: '6', title: 'Handling' }
-        ] as step, index}
-          <div class="flex items-center group process-step touch-interactive relative" 
-               style="animation-delay: {index * 0.1}s;"
-               class:mb-12={index < 5}
-               class:lg:mb-0={index < 5}
-               class:mb-0={index === 5}
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            
-            <!-- Number Circle -->
-            <div class="process-number w-12 h-12 sm:w-16 sm:h-16 border-2 border-white rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold group-hover:bg-white group-hover:text-[#56AAB7] group-active:bg-white group-active:text-[#56AAB7] transition-all duration-300 bg-[#56AAB7] relative z-10 mr-4 sm:mr-6 flex-shrink-0">
-              {step.number}
+  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-[#56AAB7] text-white">
+    <div class="flex flex-col h-fit items-stretch w-full lg:flex-row gap-8 lg:gap-12">
+      <!-- Left Column - Process Steps -->
+      <div class="space-y-8 min-w-sm flex flex-col">
+        <h2 class="text-4xl sm:text-5xl font-bold font-roboto-condensed mb-12">
+          PROSES KERJA
+        </h2>
+        
+        <div class="relative flex flex-col h-full justify-between">
+          {#each [
+            { number: '1', title: 'Konsultasi' },
+            { number: '2', title: 'Eksplorasi' },
+            { number: '3', title: 'Rencana Desain Awal' },
+            { number: '4', title: 'Development' },
+            { number: '5', title: 'Finalisasi' },
+            { number: '6', title: 'Handling' }
+          ] as step, index}
+            <div class="flex items-center group process-step touch-interactive relative" 
+                 style="animation-delay: {index * 0.1}s;"
+                 class:mb-12={index < 5}
+                 class:lg:mb-0={index < 5}
+                 class:mb-0={index === 5}
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
               
-              <!-- Vertical Connecting Line - Connected to circle center -->
-              {#if index < 5}
-                <div class="absolute left-1/2 top-full w-0.5 bg-white/40 z-0 process-line -translate-x-0.5" 
-                     style="height: 3rem; animation-delay: {(index + 1) * 0.2}s;">
-                </div>
-              {/if}
+              <!-- Number Circle -->
+              <div class="process-number w-12 h-12 sm:w-16 sm:h-16 border-2 border-white rounded-full flex items-center justify-center text-xl sm:text-2xl font-bold group-hover:bg-white group-hover:text-[#56AAB7] group-active:bg-white group-active:text-[#56AAB7] transition-all duration-300 bg-[#56AAB7] relative z-10 mr-4 sm:mr-6 flex-shrink-0">
+                {step.number}
+                
+                <!-- Vertical Connecting Line - Connected to circle center -->
+                {#if index < 5}
+                  <div class="absolute left-1/2 top-full w-0.5 bg-white/40 z-0 process-line -translate-x-0.5" 
+                       style="height: 3rem; animation-delay: {(index + 1) * 0.2}s;">
+                  </div>
+                {/if}
+              </div>
+              
+              <!-- Step Title -->
+              <h3 class="process-title text-xl sm:text-2xl font-medium font-roboto group-hover:translate-x-2 group-active:translate-x-2 transition-transform duration-300">
+                {step.title}
+              </h3>
+            </div>
+          {/each}
+        </div>
+      </div>
+
+      <!-- Vertical Divider -->
+      <div class="hidden lg:flex w-0.5 bg-white/30 self-stretch min-h-96"></div>
+      
+      <!-- Mobile Horizontal Divider -->
+      <div class="lg:hidden w-full h-0.5 bg-white/30 my-8"></div>
+      
+      <!-- Right Column - Deliverables -->
+      <div class="space-y-8 flex flex-col w-full">
+        <h2 class="text-3xl sm:text-4xl font-bold font-roboto-condensed mb-12">
+          HASIL PRODUK<br/>
+          YANG ANDA DAPAT
+        </h2>
+        
+        <!-- Deliverables Grid -->
+        <div class="flex flex-col w-full font-roboto-condensed text-base sm:text-lg lg:text-base xl:text-lg 2xl:text-xl gap-2">
+          <!-- First Row -->
+          <div class="grid grid-cols-4 gap-2">
+            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col gap-y-2 items-start justify-start p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Desain 3D<br/>Interior</h2>
+                <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
             </div>
             
-            <!-- Step Title -->
-            <h3 class="process-title text-xl sm:text-2xl font-medium font-roboto group-hover:translate-x-2 group-active:translate-x-2 transition-transform duration-300">
-              {step.title}
-            </h3>
-          </div>
-        {/each}
-      </div>
-    </div>
-
-    <!-- Vertical Divider -->
-    <div class="hidden lg:flex w-0.5 bg-white/30 self-stretch min-h-96"></div>
-    
-    <!-- Mobile Horizontal Divider -->
-    <div class="lg:hidden w-full h-0.5 bg-white/30 my-8"></div>
-    
-    <!-- Right Column - Deliverables -->
-    <div class="space-y-8 flex flex-col w-full">
-      <h2 class="text-3xl sm:text-4xl font-bold font-roboto-condensed mb-12">
-        HASIL PRODUK<br/>
-        YANG ANDA DAPAT
-      </h2>
-      
-      <!-- Deliverables Grid -->
-      <div class="flex flex-col w-full font-roboto-condensed text-base sm:text-lg lg:text-base xl:text-lg 2xl:text-xl gap-2">
-        <!-- First Row -->
-        <div class="grid grid-cols-4 gap-2">
-          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col gap-y-2 items-start justify-start p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Desain 3D<br/>Interior</h2>
-              <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Desain 3D<br/>Eksterior</h2>
+                <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
             </div>
-          </div>
-          
-          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Desain 3D<br/>Eksterior</h2>
-              <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
-            </div>
-          </div>
-          
-          <div class="flex w-full col-span-2 items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Hasil Cetak Printout<br/>A3 Berwarna</h2>
-              <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
-            </div>
-          </div>
-        </div>
-
-        <!-- Second Row -->
-        <div class="grid grid-cols-3 gap-2">
-          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Gambar Kerja<br/>Perencanaan</h2>
-              <img src="/icons/033_compass_1.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
-            </div>
-          </div>
-          
-          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Rencana Anggaran<br/>Biaya</h2>
-              <img src="/icons/043_project_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
-            </div>
-          </div>
-          
-          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Perhitungan<br/>Struktur</h2>
-              <img src="/icons/041_workspace.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
-            </div>
-          </div>
-        </div>
-
-        <!-- Third Row -->
-        <div class="grid grid-cols-4 gap-2">
-          <div class="flex w-full col-span-2 items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Soft File Dokumen<br/>Perencanaan</h2>
-              <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+            
+            <div class="flex w-full col-span-2 items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Hasil Cetak Printout<br/>A3 Berwarna</h2>
+                <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
             </div>
           </div>
 
-          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Animasi<br/>Video</h2>
-              <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+          <!-- Second Row -->
+          <div class="grid grid-cols-3 gap-2">
+            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Gambar Kerja<br/>Perencanaan</h2>
+                <img src="/icons/033_compass_1.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
+            </div>
+            
+            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Rencana Anggaran<br/>Biaya</h2>
+                <img src="/icons/043_project_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
+            </div>
+            
+            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Perhitungan<br/>Struktur</h2>
+                <img src="/icons/041_workspace.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
             </div>
           </div>
-          
-          <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
-              <h2 class="uppercase  leading-tight">Katalog<br/>Desain 3D</h2>
-              <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+
+          <!-- Third Row -->
+          <div class="grid grid-cols-4 gap-2">
+            <div class="flex w-full col-span-2 items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Soft File Dokumen<br/>Perencanaan</h2>
+                <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
+            </div>
+
+            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Animasi<br/>Video</h2>
+                <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
+            </div>
+            
+            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+                 on:touchstart={handleTouchStart}
+                 on:touchend={handleTouchEnd}
+                 on:touchcancel={handleTouchEnd}>
+              <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Katalog<br/>Desain 3D</h2>
+                <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 </div>
 
 <style>
