@@ -2,6 +2,7 @@
 <script>
   import '../app.css';
   import { onMount, onDestroy } from 'svelte';
+  import { base } from '$app/paths';
   
   let mounted = false;
   let scrolled = false;
@@ -218,10 +219,10 @@
             <!-- Main logo image -->
             <img 
               bind:this={logoElement}
-              src="/images/logo-48.webp" 
-              srcset="/images/logo-24.webp 24w, 
-                      /images/logo-48.webp 48w, 
-                      /images/logo-96.webp 96w"
+              src="{base}/images/logo-48.webp" 
+              srcset="{base}/images/logo-24.webp 24w, 
+                      {base}/images/logo-48.webp 48w, 
+                      {base}/images/logo-96.webp 96w"
               sizes="(max-width: 1023px) 40px, 48px"
               alt="2WATUJU Logo" 
               class="logo-image transition-all duration-300 group-hover:brightness-110"
@@ -335,9 +336,9 @@
           <div class="flex items-start space-x-4 group">
             <div class="w-28 h-28 bg-white rounded-xl p-3 flex-shrink-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border border-neutral-200">
             <img 
-              src="/images/logo-112.webp" 
-              srcset="/images/logo-112.webp 112w, 
-                      /images/logo-224.webp 224w"
+              src="{base}/images/logo-112.webp" 
+              srcset="{base}/images/logo-112.webp 112w, 
+                      {base}/images/logo-224.webp 224w"
               sizes="112px"
               alt="2WATUJU Logo" 
               class="w-full h-full object-contain transition-all duration-300 group-hover:brightness-110"

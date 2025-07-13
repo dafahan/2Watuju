@@ -4,7 +4,7 @@
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { ArrowRight } from 'lucide-svelte';
-
+  import { base } from '$app/paths';
   // Register GSAP plugins
   gsap.registerPlugin(ScrollTrigger);
 
@@ -153,25 +153,25 @@
   <!-- Mobile screens -->
   <source 
     media="(max-width: 767px)" 
-    srcset="/images/hero-mobile-400.webp 400w,
-            /images/hero-mobile-800.webp 800w"
+    srcset="{base}/images/hero-mobile-400.webp 400w,
+            {base}/images/hero-mobile-800.webp 800w"
     sizes="100vw"
   />
   
   <!-- Tablet screens -->
   <source 
     media="(max-width: 1023px)" 
-    srcset="/images/hero-tablet-800.webp 800w,
-            /images/hero-tablet-1200.webp 1200w"
+    srcset="{base}/images/hero-tablet-800.webp 800w,
+            {base}/images/hero-tablet-1200.webp 1200w"
     sizes="100vw"
   />
   
   <!-- Desktop screens -->
   <source 
     media="(min-width: 1024px)" 
-    srcset="/images/hero-desktop-1200.webp 1200w,
-            /images/hero-desktop-1600.webp 1600w,
-            /images/hero-desktop-2000.webp 2000w"
+    srcset="{base}/images/hero-desktop-1200.webp 1200w,
+            {base}/images/hero-desktop-1600.webp 1600w,
+            {base}/images/hero-desktop-2000.webp 2000w"
     sizes="(max-width: 1400px) 1200px,
            (max-width: 1800px) 1600px,
            2000px"
@@ -179,7 +179,7 @@
   
   <!-- Fallback image -->
   <img 
-    src="/images/hero-desktop-1200.webp" 
+    src="{base}/images/hero-desktop-1200.webp" 
     alt="2WATUJU Architecture Hero" 
     class="object-contain w-full"
     loading="eager"
@@ -292,16 +292,16 @@
   <!-- Mobile screens -->
   <source 
     media="(max-width: 639px)" 
-    srcset="/images/dummy-mobile-300.webp 300w,
-            /images/dummy-mobile-600.webp 600w"
+    srcset="{base}/images/dummy-mobile-300.webp 300w,
+            {base}/images/dummy-mobile-600.webp 600w"
     sizes="(max-width: 400px) 300px, 400px"
   />
   
   <!-- Tablet screens -->
   <source 
     media="(max-width: 1023px)" 
-    srcset="/images/dummy-tablet-400.webp 400w,
-            /images/dummy-tablet-600.webp 600w"
+    srcset="{base}/images/dummy-tablet-400.webp 400w,
+            {base}/images/dummy-tablet-600.webp 600w"
     sizes="(max-width: 640px) 100vw,
            (max-width: 768px) 50vw,
            33vw"
@@ -310,9 +310,9 @@
   <!-- Desktop screens -->
   <source 
     media="(min-width: 1024px)" 
-    srcset="/images/dummy-desktop-400.webp 400w,
-            /images/dummy-desktop-600.webp 600w,
-            /images/dummy-desktop-800.webp 800w"
+    srcset="{base}/images/dummy-desktop-400.webp 400w,
+            {base}/images/dummy-desktop-600.webp 600w,
+            {base}/images/dummy-desktop-800.webp 800w"
     sizes="(max-width: 1280px) 400px,
            (max-width: 1536px) 500px,
            600px"
@@ -320,7 +320,7 @@
   
   <!-- Fallback image -->
   <img 
-    src="/images/dummy-desktop-400.webp" 
+    src="{base}/images/dummy-desktop-400.webp" 
     alt="Classic Style Project {index + 1}" 
     class="object-cover w-full h-full rounded-lg transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
     width="400"
@@ -460,7 +460,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-2 items-start justify-start p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Desain 3D<br/>Interior</h2>
-                <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -470,7 +470,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Desain 3D<br/>Eksterior</h2>
-                <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -480,7 +480,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Hasil Cetak Printout<br/>A3 Berwarna</h2>
-                <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
           </div>
@@ -493,7 +493,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Gambar Kerja<br/>Perencanaan</h2>
-                <img src="/icons/033_compass_1.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/033_compass_1.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -503,7 +503,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Rencana Anggaran<br/>Biaya</h2>
-                <img src="/icons/043_project_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/043_project_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -513,7 +513,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Perhitungan<br/>Struktur</h2>
-                <img src="/icons/041_workspace.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/041_workspace.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
           </div>
@@ -526,7 +526,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col items-start justify-center gap-y-2 p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Soft File Dokumen<br/>Perencanaan</h2>
-                <img src="/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
 
@@ -536,7 +536,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Animasi<br/>Video</h2>
-                <img src="/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -546,7 +546,7 @@
                  on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
                 <h2 class="uppercase leading-tight">Katalog<br/>Desain 3D</h2>
-                <img src="/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/029_computer_2.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
           </div>
