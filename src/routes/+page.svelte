@@ -750,10 +750,10 @@
       </div>
 
       <!-- Enhanced corner decorations -->
-      <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
+      <!-- <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
       <div class="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
       <div class="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
-      <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
+      <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div> -->
     </div>
 
     </div>
