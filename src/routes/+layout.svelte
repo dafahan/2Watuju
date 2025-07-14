@@ -66,10 +66,6 @@
     }
   }
 
-  // Navigation handlers
-  function handleAboutClick() {
-    console.log('About clicked');
-  }
 
   function handleProjectsClick() {
     console.log('Projects clicked');
@@ -246,23 +242,27 @@
       </div>
 
       <!-- Center Title -->
-      <button 
+      <a 
         class="tracking-wider absolute left-1/2 transform -translate-x-1/2 text-xs lg:text-sm font-medium text-neutral-700 mobile-hidden hover:text-[#56AAB7] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded px-2 py-1 whitespace-nowrap"
-        on:click={scrollToTop}
+        href="/"
         aria-label="Scroll to top"
       >
         2WATUJU | ARSITEKTUR & INTERIOR LAMPUNG
-      </button>
+      </a>
 
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex gap-4 text-sm" role="navigation">
-        <button 
-          class="group relative px-6 py-2 text-xs lg:text-sm font-medium text-neutral-700 hover:text-[#56AAB7] transition-all duration-300 border-2 border-transparent hover:border-[#56AAB7] rounded-full hover:bg-[#56AAB7]/5 hover:shadow-lg hover:shadow-[#56AAB7]/20 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 whitespace-nowrap"
-          on:click={handleAboutClick}
-          aria-label="Tentang Kami"
-        >
-          <span class="relative z-10 tracking-wide group-hover:tracking-wider transition-all duration-300">TENTANG KAMI</span>
-        </button>
+          <a
+            href="/about"
+            data-sveltekit-prefetch
+            class="group relative px-6 py-2 text-xs lg:text-sm font-medium text-neutral-700 hover:text-[#56AAB7] transition-all duration-300 border-2 border-transparent hover:border-[#56AAB7] rounded-full hover:bg-[#56AAB7]/5 hover:shadow-lg hover:shadow-[#56AAB7]/20 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 whitespace-nowrap"
+            aria-label="Tentang Kami"
+          >
+            <span class="relative z-10 tracking-wide group-hover:tracking-wider transition-all duration-300">
+              TENTANG KAMI
+            </span>
+          </a>
+
         
         <button 
           class="group relative px-6 py-2 text-xs lg:text-sm font-medium bg-gradient-to-r from-[#56AAB7] to-[#4A9AA8] text-white rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#56AAB7]/30 hover:scale-105 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 overflow-hidden whitespace-nowrap"
@@ -328,7 +328,7 @@
 
   <!-- Footer -->
   <footer class="relative z-10 bg-gradient-to-t from-neutral-100 to-white text-black">
-    <div class="max-w-7xl mx-auto px-4 lg:px-12 py-12 lg:py-16 border-t-2 border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 lg:px-12 py-12 lg:py-16 ">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         <!-- Left Column - Company Info -->
         <div class="lg:col-span-6 space-y-6">

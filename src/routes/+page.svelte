@@ -5,6 +5,7 @@
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { ArrowRight } from 'lucide-svelte';
   import { base } from '$app/paths';
+  import Cta from "$lib/components/Cta.svelte"
   
   // Register GSAP plugins
   gsap.registerPlugin(ScrollTrigger);
@@ -317,42 +318,42 @@
         </div>
 
         <!-- About Cards with fixed dimensions -->
-        <div class="flex flex-col sm:flex-row gap-8 lg:gap-8">
-          <div class="flex flex-col gap-4 w-full max-w-xs sm:max-w-sm md:max-w-md about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
+        <div class="flex flex-col sm:flex-row gap-8 lg:gap-8 ">
+          <div class="flex flex-col gap-4  w-60 about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
             <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               LOCAL INTELLIGENCE
             </h3>
             <div class="flex flex-col gap-2 text-balance">
               <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
-                Setiap ruang kami hadirkan bukan<br/>
-                hanya untuk ditinggali, tapi juga <br/>
-                menyatu dengan nilai dan narasi<br/>
+                Setiap ruang kami hadirkan bukan
+                hanya untuk ditinggali, tapi juga 
+                menyatu dengan nilai dan narasi
                 lokal yang hidup di sekitarnya.
               </p>
               <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
-                Dengan mengintegrasikan gaya<br/>
-                hidup setiap keluarga ke dalam<br/>
-                setiap rumah yang kami rancang<br/>
+                Dengan mengintegrasikan gaya
+                hidup setiap keluarga ke dalam
+                setiap rumah yang kami rancang
                 terutama Masyarakat Lampung.
               </p>
             </div>
           </div>
 
-          <div class="flex flex-col gap-4 w-full max-w-xs sm:max-w-sm md:max-w-md about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
+          <div class="flex flex-col gap-4  w-60 about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
             <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               PREMIUM & PERSONAL
             </h3>
-            <div class="flex flex-col gap-2 text-balance">
+            <div class="flex flex-col gap-2 text-balance  ">
               <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
-                Kami memulai setiap rancangan<br/>
-                dengan mendengarkan seluruh<br/>
+                Kami memulai setiap rancangan
+                dengan mendengarkan seluruh
                 kisah dan Cerita. 
               </p>
               <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
-                Bukan sekadar sebagai arsitek,<br/>
-                tapi sebagai Sahabat Anda yang<br/>
-                berjalan bersama sejak awal<br/>
-                hingga rumah itu hidup <br/>sepenuhnya.
+                Bukan sekadar sebagai arsitek,
+                tapi sebagai Sahabat Anda yang
+                berjalan bersama sejak awal
+                hingga rumah itu hidup sepenuhnya.
               </p>
             </div>
           </div>
@@ -464,9 +465,7 @@
             </button>
           </div>
           
-          <!-- Decorative elements -->
-          <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-[#56AAB7] group-hover:border-white group-active:border-white transition-colors duration-300"></div>
-          <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-[#56AAB7] group-hover:border-white group-active:border-white transition-colors duration-300"></div>
+
         </div>
       </div>
     </div>
@@ -677,86 +676,9 @@
         {/each}
       </div>
 
-<div class="relative overflow-hidden bg-[#56AAB7] min-h-[20rem] flex items-center justify-center group/section">
-  <!-- Animated background elements -->
-  <div class="absolute inset-0 opacity-10">
-    <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-white rounded-full blur-xl animate-pulse"></div>
-    <div class="absolute bottom-1/3 right-1/3 w-24 h-24 bg-white rounded-full blur-lg animate-pulse" style="animation-delay: 1s;"></div>
-    <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-white rounded-full blur-md animate-pulse" style="animation-delay: 2s;"></div>
+      <Cta/>
+
   </div>
-
-  <!-- Main content container -->
-  <div class="relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center px-6 lg:px-12 py-12">
-    
-    <!-- Enhanced Text with Background Animation -->
-    <div class="text-center lg:text-left">
-      <h1 class="font-roboto text-4xl sm:text-5xl lg:text-7xl text-white leading-none select-none">
-        <!-- First line with slide-in background -->
-        <span class="inline-block relative overflow-hidden">
-          <span class="inline-block transform transition-all duration-700 ease-out group-hover/section:translate-y-0 translate-y-0">
-            SIAP UNTUK
-          </span>
-          <div class="absolute inset-0 bg-white transform -translate-x-full transition-transform duration-700 ease-out group-hover/section:translate-x-0 opacity-20"></div>
-        </span>
-        <br/>
-        
-        <!-- Second line with special effects -->
-        <span class="inline-block relative overflow-hidden group/collab overflow-visible">
-          <span class="inline-block transform transition-all duration-500 ease-out hover:scale-105 hover:text-[#f0f9ff] cursor-default relative z-10">
-            KOLABORASI
-          </span>
-          
-          <!-- Animated question mark -->
-          <span class="inline-block ml-2 transform transition-all duration-300 ease-out group-hover/collab:scale-125 group-hover/collab:rotate-12 hover:animate-bounce cursor-default">
-            ?
-          </span>
-          
-          <!-- Background gradient effect -->
-          <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform scale-x-0 transition-transform duration-500 ease-out group-hover/collab:scale-x-100 origin-left"></div>
-          
-          <!-- Underline effect -->
-          <div class="absolute bottom-0 left-0 w-full h-1 bg-white transform scale-x-0 transition-transform duration-500 ease-out group-hover/collab:scale-x-100 origin-left"></div>
-        </span>
-      </h1>
-    </div>
-
-    <!-- Enhanced Button with Multiple Animations -->
-    <div class="relative group/button">
-          <!-- Ripple effect background -->
-          <div class="absolute inset-0 rounded-full bg-white opacity-0 transform scale-75 transition-all duration-300 group-hover/button:opacity-30 group-hover/button:scale-110 animate-pulse"></div>
-          
-          <!-- Main button -->
-          <a 
-            href="/" 
-            class="relative z-10 flex items-center justify-center w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-white hover:bg-[#56AAB7] border-4 border-transparent hover:border-white transition-all duration-300 ease-out transform hover:scale-110 hover:rotate-12 group/arrow shadow-lg hover:shadow-2xl"
-            aria-label="Start Collaboration"
-          >
-            <!-- Arrow with enhanced animations -->
-            <ArrowRight 
-              class="w-8 h-8 lg:w-10 lg:h-10 text-[#56AAB7] group-hover/arrow:text-white transition-all duration-300 transform group-hover/button:translate-x-1 group-hover/button:scale-110" 
-            />
-            
-            <!-- Rotating border effect -->
-            <div class="absolute inset-0 rounded-full border-2 border-white opacity-0 group-hover/button:opacity-100 transition-opacity duration-300 animate-spin" style="animation-duration: 3s;"></div>
-          </a>
-          
-          <!-- Floating particles effect -->
-          <div class="absolute inset-0 pointer-events-none">
-            <div class="absolute top-2 right-2 w-2 h-2 bg-white rounded-full opacity-0 group-hover/button:opacity-100 transition-all duration-500 transform group-hover/button:translate-y-[-0.5rem] group-hover/button:translate-x-2"></div>
-            <div class="absolute bottom-3 left-1 w-1 h-1 bg-white rounded-full opacity-0 group-hover/button:opacity-100 transition-all duration-700 transform group-hover/button:translate-y-2 group-hover/button:translate-x-[-0.5rem]" style="transition-delay: 100ms;"></div>
-            <div class="absolute top-1/2 left-[-0.5rem] w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover/button:opacity-100 transition-all duration-600 transform group-hover/button:translate-x-[-1rem]" style="transition-delay: 200ms;"></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Enhanced corner decorations -->
-      <!-- <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
-      <div class="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
-      <div class="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
-      <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div> -->
-    </div>
-
-    </div>
   </section>
 </div>
 
