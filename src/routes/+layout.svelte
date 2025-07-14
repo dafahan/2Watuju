@@ -334,7 +334,7 @@
         <div class="lg:col-span-6 space-y-6">
           <!-- Logo Section -->
           <div class="flex items-start space-x-4 group">
-            <div class="w-28 h-28 bg-white rounded-xl p-3 flex-shrink-0 shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 border border-neutral-200">
+            <div class="w-28 h-28 bg-white rounded-xl p-3 flex-shrink-0  group-hover:scale-105 border border-none">
             <img 
               src="{base}/images/logo-112.webp" 
               srcset="{base}/images/logo-112.webp 112w, 

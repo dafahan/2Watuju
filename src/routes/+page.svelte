@@ -1,15 +1,48 @@
-<!-- Optimized +page.svelte with immediate image rendering -->
+<!-- Optimized +page.svelte with Tailwind CSS and loops -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { ArrowRight } from 'lucide-svelte';
   import { base } from '$app/paths';
+  
   // Register GSAP plugins
   gsap.registerPlugin(ScrollTrigger);
 
   let cleanup: (() => void) | null = null;
   let touchStates = new Map();
+
+  // Testimonials data
+  const testimonials = [
+    {
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
+      name: "RIFKI HAWARI",
+      role: "PENGUSAHA",
+      initials: "RH",
+      position: "right"
+    },
+    {
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
+      name: "AMANDA SARI",
+      role: "DOKTER",
+      initials: "AS",
+      position: "right"
+    },
+    {
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
+      name: "BUDI TANOTO",
+      role: "WIRASWASTA",
+      initials: "BT",
+      position: "right"
+    },
+    {
+      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
+      name: "LINDA MARIA",
+      role: "GURU",
+      initials: "LM",
+      position: "right"
+    }
+  ];
 
   onMount(() => {
     // Delay animations until fonts are loaded
@@ -60,16 +93,15 @@
       element.addEventListener('touchcancel', handleTouchEnd, { passive: true });
     });
   }
-  // @ts-ignore
 
-  function handleTouchStart(event) {
-    const element = event.currentTarget;
+  function handleTouchStart(event: TouchEvent) {
+    const element = event.currentTarget as HTMLElement;
     element.classList.add('touch-active');
     touchStates.set(element, true);
   }
-  // @ts-ignore
-  function handleTouchEnd(event) {
-    const element = event.currentTarget;
+
+  function handleTouchEnd(event: TouchEvent) {
+    const element = event.currentTarget as HTMLElement;
     setTimeout(() => {
       element.classList.remove('touch-active');
       touchStates.delete(element);
@@ -84,9 +116,8 @@
   function handleConsultationClick() {
     console.log('Consultation clicked');
   }
-  // @ts-ignore
 
-  function handleProjectClick(projectId) {
+  function handleProjectClick(projectId: string) {
     console.log('Project clicked:', projectId);
   }
 
@@ -138,6 +169,57 @@
         min-height: 100vh;
       }
     }
+
+    /* Optimized speech bubble styles */
+    .speech-bubble::before,
+    .speech-bubble::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 0;
+    }
+
+    .speech-right::before {
+      right: 40px;
+      bottom: -40px;
+      border: 20px solid;
+      border-color: #56AAB7 #56AAB7 transparent transparent;
+    }
+
+    .speech-right::after {
+      right: 43px;
+      bottom: -34px;
+      border: 18px solid;
+      border-color: #fff #fff transparent transparent;
+    }
+
+    .speech-left::before {
+      left: 40px;
+      bottom: -40px;
+      border: 20px solid;
+      border-color: #56AAB7 transparent transparent #56AAB7;
+    }
+
+    .speech-left::after {
+      left: 43px;
+      bottom: -34px;
+      border: 18px solid;
+      border-color: #fff transparent transparent #fff;
+    }
+
+    @media (max-width: 768px) {
+      .speech-right::before,
+      .speech-left::before {
+        left: 30px;
+        right: 30px;
+      }
+      
+      .speech-right::after,
+      .speech-left::after {
+        left: 33px;
+        right: 33px;
+      }
+    }
   </style>
 </svelte:head>
 
@@ -149,44 +231,44 @@
     <!-- Image Container - Simplified, no layering -->
     <div class="hero-image-container w-full md:max-w-7xl xl:max-w-none">
       <!-- Main Image - Direct render, no placeholder -->
-<picture>
-  <!-- Mobile screens -->
-  <source 
-    media="(max-width: 767px)" 
-    srcset="{base}/images/hero-mobile-400.webp 400w,
-            {base}/images/hero-mobile-800.webp 800w"
-    sizes="100vw"
-  />
-  
-  <!-- Tablet screens -->
-  <source 
-    media="(max-width: 1023px)" 
-    srcset="{base}/images/hero-tablet-800.webp 800w,
-            {base}/images/hero-tablet-1200.webp 1200w"
-    sizes="100vw"
-  />
-  
-  <!-- Desktop screens -->
-  <source 
-    media="(min-width: 1024px)" 
-    srcset="{base}/images/hero-desktop-1200.webp 1200w,
-            {base}/images/hero-desktop-1600.webp 1600w,
-            {base}/images/hero-desktop-2000.webp 2000w"
-    sizes="(max-width: 1400px) 1200px,
-           (max-width: 1800px) 1600px,
-           2000px"
-  />
-  
-  <!-- Fallback image -->
-  <img 
-    src="{base}/images/hero-desktop-1200.webp" 
-    alt="2WATUJU Architecture Hero" 
-    class="object-contain w-full"
-    loading="eager"
-    fetchpriority="high"
-    decoding="async"
-  />
-</picture>
+      <picture>
+        <!-- Mobile screens -->
+        <source 
+          media="(max-width: 767px)" 
+          srcset="{base}/images/hero-mobile-400.webp 400w,
+                  {base}/images/hero-mobile-800.webp 800w"
+          sizes="100vw"
+        />
+        
+        <!-- Tablet screens -->
+        <source 
+          media="(max-width: 1023px)" 
+          srcset="{base}/images/hero-tablet-800.webp 800w,
+                  {base}/images/hero-tablet-1200.webp 1200w"
+          sizes="100vw"
+        />
+        
+        <!-- Desktop screens -->
+        <source 
+          media="(min-width: 1024px)" 
+          srcset="{base}/images/hero-desktop-1200.webp 1200w,
+                  {base}/images/hero-desktop-1600.webp 1600w,
+                  {base}/images/hero-desktop-2000.webp 2000w"
+          sizes="(max-width: 1400px) 1200px,
+                 (max-width: 1800px) 1600px,
+                 2000px"
+        />
+        
+        <!-- Fallback image -->
+        <img 
+          src="{base}/images/hero-desktop-1200.webp" 
+          alt="2WATUJU Architecture Hero" 
+          class="object-contain w-full"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </picture>
     </div>
     
     <!-- Buttons with better loading state -->
@@ -288,48 +370,48 @@
             
             <!-- Image container with fixed aspect ratio -->
             <div class="relative overflow-hidden rounded-lg bg-gray-100" style="contain: layout;">
-<picture>
-  <!-- Mobile screens -->
-  <source 
-    media="(max-width: 639px)" 
-    srcset="{base}/images/dummy-mobile-300.webp 300w,
-            {base}/images/dummy-mobile-600.webp 600w"
-    sizes="(max-width: 400px) 300px, 400px"
-  />
-  
-  <!-- Tablet screens -->
-  <source 
-    media="(max-width: 1023px)" 
-    srcset="{base}/images/dummy-tablet-400.webp 400w,
-            {base}/images/dummy-tablet-600.webp 600w"
-    sizes="(max-width: 640px) 100vw,
-           (max-width: 768px) 50vw,
-           33vw"
-  />
-  
-  <!-- Desktop screens -->
-  <source 
-    media="(min-width: 1024px)" 
-    srcset="{base}/images/dummy-desktop-400.webp 400w,
-            {base}/images/dummy-desktop-600.webp 600w,
-            {base}/images/dummy-desktop-800.webp 800w"
-    sizes="(max-width: 1280px) 400px,
-           (max-width: 1536px) 500px,
-           600px"
-  />
-  
-  <!-- Fallback image -->
-  <img 
-    src="{base}/images/dummy-desktop-400.webp" 
-    alt="Classic Style Project {index + 1}" 
-    class="object-cover w-full h-full rounded-lg transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
-    width="400"
-    height="250"
-    loading="lazy"
-    decoding="async"
-    style="contain: layout;"
-  />
-</picture>
+              <picture>
+                <!-- Mobile screens -->
+                <source 
+                  media="(max-width: 639px)" 
+                  srcset="{base}/images/dummy-mobile-300.webp 300w,
+                          {base}/images/dummy-mobile-600.webp 600w"
+                  sizes="(max-width: 400px) 300px, 400px"
+                />
+                
+                <!-- Tablet screens -->
+                <source 
+                  media="(max-width: 1023px)" 
+                  srcset="{base}/images/dummy-tablet-400.webp 400w,
+                          {base}/images/dummy-tablet-600.webp 600w"
+                  sizes="(max-width: 640px) 100vw,
+                         (max-width: 768px) 50vw,
+                         33vw"
+                />
+                
+                <!-- Desktop screens -->
+                <source 
+                  media="(min-width: 1024px)" 
+                  srcset="{base}/images/dummy-desktop-400.webp 400w,
+                          {base}/images/dummy-desktop-600.webp 600w,
+                          {base}/images/dummy-desktop-800.webp 800w"
+                  sizes="(max-width: 1280px) 400px,
+                         (max-width: 1536px) 500px,
+                         600px"
+                />
+                
+                <!-- Fallback image -->
+                <img 
+                  src="{base}/images/dummy-desktop-400.webp" 
+                  alt="Classic Style Project {index + 1}" 
+                  class="object-cover w-full h-full rounded-lg transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
+                  width="400"
+                  height="250"
+                  loading="lazy"
+                  decoding="async"
+                  style="contain: layout;"
+                />
+              </picture>
             </div>
             
             <!-- Content with fixed minimum height -->
@@ -389,6 +471,7 @@
       </div>
     </div>
   </section>
+
   <!-- PROSES KERJA Section with Responsive Connected Lines -->
   <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-[#56AAB7] text-white">
     <div class="flex flex-col h-fit items-stretch w-full lg:flex-row gap-8 lg:gap-12">
@@ -454,16 +537,18 @@
         <div class="flex flex-col w-full font-roboto-condensed text-base sm:text-lg lg:text-base xl:text-lg 2xl:text-xl gap-2">
           <!-- First Row -->
           <div class="grid grid-cols-4 gap-2">
-            <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
+
+
+              <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
                  on:touchstart={handleTouchStart}
                  on:touchend={handleTouchEnd}
                  on:touchcancel={handleTouchEnd}>
-              <div class="flex flex-col gap-y-2 items-start justify-start p-2 sm:p-3 lg:p-2 xl:p-4">
-                <h2 class="uppercase leading-tight">Desain 3D<br/>Interior</h2>
+              <div class="flex flex-col gap-y-2 items-start justify-center p-2 sm:p-3 lg:p-2 xl:p-4">
+                <h2 class="uppercase leading-tight">Desain 3D<br/>interior</h2>
                 <img src="{base}/icons/001_computer.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
-            
+
             <div class="aspect-square flex w-full items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer"
                  on:touchstart={handleTouchStart}
                  on:touchend={handleTouchEnd}
@@ -483,6 +568,7 @@
                 <img src="{base}/icons/006_plan.webp" alt="icons 1" class="w-6 h-6 sm:w-8 sm:h-8 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
+
           </div>
 
           <!-- Second Row -->
@@ -554,6 +640,124 @@
       </div>
     </div>
   </section>
+
+  <!-- Testimonials Section with Optimized Tailwind and Loop -->
+  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-gray-50">
+    <div class="max-w-7xl mx-auto flex flex-col gap-6">
+
+
+      <!-- Testimonials Grid with Loop -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-16">
+        {#each testimonials as testimonial, index}
+          <div 
+            class="speech-bubble speech-{testimonial.position} relative max-w-full text-left leading-relaxed mt-10 bg-white border border-[#56AAB7] rounded-3xl p-8 text-base shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 touch-interactive"
+            on:touchstart={handleTouchStart}
+            on:touchend={handleTouchEnd}
+            on:touchcancel={handleTouchEnd}
+          >
+            <div class="mb-6">
+              <p class="font-roboto text-[#56AAB7] m-0">
+                "{testimonial.text}"
+              </p>
+            </div>
+            <div class="flex items-center gap-4 pt-4 border-t-2 border-gray-100">
+              <div class="w-12 h-12 bg-[#56AAB7] rounded-full flex items-center justify-center text-white font-bold text-base flex-shrink-0">
+                {testimonial.initials}
+              </div>
+              <div>
+                <h4 class="font-roboto-mono font-semibold text-[#56AAB7] m-0 text-sm">
+                  {testimonial.name}
+                </h4>
+                <p class="font-roboto text-[#56AAB7] text-xs mt-1 m-0">
+                  {testimonial.role}
+                </p>
+              </div>
+            </div>
+          </div>
+        {/each}
+      </div>
+
+<div class="relative overflow-hidden bg-[#56AAB7] min-h-[20rem] flex items-center justify-center group/section">
+  <!-- Animated background elements -->
+  <div class="absolute inset-0 opacity-10">
+    <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-white rounded-full blur-xl animate-pulse"></div>
+    <div class="absolute bottom-1/3 right-1/3 w-24 h-24 bg-white rounded-full blur-lg animate-pulse" style="animation-delay: 1s;"></div>
+    <div class="absolute top-1/2 right-1/4 w-16 h-16 bg-white rounded-full blur-md animate-pulse" style="animation-delay: 2s;"></div>
+  </div>
+
+  <!-- Main content container -->
+  <div class="relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12 items-center justify-center px-6 lg:px-12 py-12">
+    
+    <!-- Enhanced Text with Background Animation -->
+    <div class="text-center lg:text-left">
+      <h1 class="font-roboto text-4xl sm:text-5xl lg:text-7xl text-white leading-none select-none">
+        <!-- First line with slide-in background -->
+        <span class="inline-block relative overflow-hidden">
+          <span class="inline-block transform transition-all duration-700 ease-out group-hover/section:translate-y-0 translate-y-0">
+            SIAP UNTUK
+          </span>
+          <div class="absolute inset-0 bg-white transform -translate-x-full transition-transform duration-700 ease-out group-hover/section:translate-x-0 opacity-20"></div>
+        </span>
+        <br/>
+        
+        <!-- Second line with special effects -->
+        <span class="inline-block relative overflow-hidden group/collab overflow-visible">
+          <span class="inline-block transform transition-all duration-500 ease-out hover:scale-105 hover:text-[#f0f9ff] cursor-default relative z-10">
+            KOLABORASI
+          </span>
+          
+          <!-- Animated question mark -->
+          <span class="inline-block ml-2 transform transition-all duration-300 ease-out group-hover/collab:scale-125 group-hover/collab:rotate-12 hover:animate-bounce cursor-default">
+            ?
+          </span>
+          
+          <!-- Background gradient effect -->
+          <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 transform scale-x-0 transition-transform duration-500 ease-out group-hover/collab:scale-x-100 origin-left"></div>
+          
+          <!-- Underline effect -->
+          <div class="absolute bottom-0 left-0 w-full h-1 bg-white transform scale-x-0 transition-transform duration-500 ease-out group-hover/collab:scale-x-100 origin-left"></div>
+        </span>
+      </h1>
+    </div>
+
+    <!-- Enhanced Button with Multiple Animations -->
+    <div class="relative group/button">
+          <!-- Ripple effect background -->
+          <div class="absolute inset-0 rounded-full bg-white opacity-0 transform scale-75 transition-all duration-300 group-hover/button:opacity-30 group-hover/button:scale-110 animate-pulse"></div>
+          
+          <!-- Main button -->
+          <a 
+            href="/" 
+            class="relative z-10 flex items-center justify-center w-20 h-20 lg:w-24 lg:h-24 rounded-full bg-white hover:bg-[#56AAB7] border-4 border-transparent hover:border-white transition-all duration-300 ease-out transform hover:scale-110 hover:rotate-12 group/arrow shadow-lg hover:shadow-2xl"
+            aria-label="Start Collaboration"
+          >
+            <!-- Arrow with enhanced animations -->
+            <ArrowRight 
+              class="w-8 h-8 lg:w-10 lg:h-10 text-[#56AAB7] group-hover/arrow:text-white transition-all duration-300 transform group-hover/button:translate-x-1 group-hover/button:scale-110" 
+            />
+            
+            <!-- Rotating border effect -->
+            <div class="absolute inset-0 rounded-full border-2 border-white opacity-0 group-hover/button:opacity-100 transition-opacity duration-300 animate-spin" style="animation-duration: 3s;"></div>
+          </a>
+          
+          <!-- Floating particles effect -->
+          <div class="absolute inset-0 pointer-events-none">
+            <div class="absolute top-2 right-2 w-2 h-2 bg-white rounded-full opacity-0 group-hover/button:opacity-100 transition-all duration-500 transform group-hover/button:translate-y-[-0.5rem] group-hover/button:translate-x-2"></div>
+            <div class="absolute bottom-3 left-1 w-1 h-1 bg-white rounded-full opacity-0 group-hover/button:opacity-100 transition-all duration-700 transform group-hover/button:translate-y-2 group-hover/button:translate-x-[-0.5rem]" style="transition-delay: 100ms;"></div>
+            <div class="absolute top-1/2 left-[-0.5rem] w-1.5 h-1.5 bg-white rounded-full opacity-0 group-hover/button:opacity-100 transition-all duration-600 transform group-hover/button:translate-x-[-1rem]" style="transition-delay: 200ms;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced corner decorations -->
+      <div class="absolute top-4 left-4 w-8 h-8 border-l-2 border-t-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
+      <div class="absolute top-4 right-4 w-8 h-8 border-r-2 border-t-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
+      <div class="absolute bottom-4 left-4 w-8 h-8 border-l-2 border-b-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
+      <div class="absolute bottom-4 right-4 w-8 h-8 border-r-2 border-b-2 border-white opacity-30 transform transition-all duration-500 group-hover/section:opacity-60 group-hover/section:scale-110"></div>
+    </div>
+
+    </div>
+  </section>
 </div>
 
 <style>
@@ -594,5 +798,29 @@
   .touch-interactive.touch-active {
     transform: scale(0.98);
     opacity: 0.9;
+  }
+
+    @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  .group\/section:hover .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  /* Text selection styling */
+  ::selection {
+    background-color: rgba(255, 255, 255, 0.3);
+    color: inherit;
+  }
+  
+  /* Smooth cursor interactions */
+  .group\/collab:hover {
+    cursor: default;
+  }
+  
+  .group\/button:hover {
+    cursor: pointer;
   }
 </style>
