@@ -207,7 +207,7 @@
     <div class="flex items-center justify-between max-w-7xl mx-auto relative h-full">
       <!-- Logo Section -->
       <div class="flex items-center space-x-3 group">
-        <a href="/" class="transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded-lg p-1" aria-label="2WATUJU Homepage">
+        <a href="{base}/" class="transition-transform duration-300 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded-lg p-1" aria-label="2WATUJU Homepage">
           <div class="logo-container" 
                class:loaded={logoLoaded} 
                class:error={logoError}>
@@ -244,7 +244,7 @@
       <!-- Center Title -->
       <a 
         class="tracking-wider absolute left-1/2 transform -translate-x-1/2 text-xs lg:text-sm font-medium text-neutral-700 mobile-hidden hover:text-[#56AAB7] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 rounded px-2 py-1 whitespace-nowrap"
-        href="/"
+        href="{base}/"
         aria-label="Scroll to top"
       >
         2WATUJU | ARSITEKTUR & INTERIOR LAMPUNG
@@ -253,7 +253,7 @@
       <!-- Desktop Navigation -->
       <nav class="hidden lg:flex gap-4 text-sm" role="navigation">
           <a
-            href="/about"
+            href="{base}/about"
             data-sveltekit-prefetch
             class="group relative px-6 py-2 text-xs lg:text-sm font-medium text-neutral-700 hover:text-[#56AAB7] transition-all duration-300 border-2 border-transparent hover:border-[#56AAB7] rounded-full hover:bg-[#56AAB7]/5 hover:shadow-lg hover:shadow-[#56AAB7]/20 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 whitespace-nowrap"
             aria-label="Tentang Kami"
