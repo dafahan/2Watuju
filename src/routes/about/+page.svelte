@@ -2,6 +2,7 @@
   import { onMount } from 'svelte';
   import { fade, fly, scale } from 'svelte/transition';
   import Cta from "$lib/components/Cta.svelte";
+  import { base } from '$app/paths';
 
   let mounted = false;
   let heroInView = false;
@@ -125,7 +126,7 @@
           
           <!-- Main logo -->
           <img 
-            src="/images/logo-224.webp" 
+            src="{base}/images/logo-224.webp" 
             alt="logo" 
             class="object-contain w-80 relative z-10 transition-all duration-500 group-hover/logo:scale-110 group-hover/logo:drop-shadow-lg filter group-hover/logo:brightness-110" 
             width="224" 

@@ -307,7 +307,7 @@
   <!-- About Section with CLS prevention -->
   <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8" style="contain: layout; min-height: 60vh;">
     <div class="flex w-full flex-col gap-16 sm:gap-24">
-      <div class="flex flex-col lg:flex-row items-start justify-between gap-12">
+      <div class="flex flex-col lg:flex-row items-start justify-between gap-12 mx-6 md:mx-0">
         <!-- Main Title with reserved space -->
         <div class="lg:flex-1" style="contain: layout;">
           <h1 class="text-2xl sm:text-3xl lg:text-4xl about-title leading-tight hover:text-[#56AAB7] active:text-[#56AAB7] transition-colors duration-500 cursor-default" style="min-height: 8rem;">
@@ -361,7 +361,7 @@
       </div>
 
       <!-- Project Cards Grid with fixed dimensions -->
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-6 sm:gap-8 project-grid">
+      <div class="grid grid-cols-2 xl:grid-cols-3 w-full gap-6 sm:gap-8 project-grid">
         {#each Array(5) as _, index}
           <div class="flex w-full px-4 py-6 border-b-2 border-gray-200 flex-col gap-4 font-roboto-mono overflow-hidden text-balance project-card group mobile-card touch-interactive hover:border-[#56AAB7] hover:shadow-xl active:border-[#56AAB7] active:shadow-xl transition-all duration-300 hover:-translate-y-2 active:-translate-y-2 bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50 active:bg-gradient-to-br active:from-white active:to-gray-50"
                style="contain: layout; min-height: 28rem;"
@@ -416,7 +416,7 @@
             </div>
             
             <!-- Content with fixed minimum height -->
-            <div class="flex justify-between items-center font-bold" style="min-height: 4rem;">
+            <div class="flex flex-col gap-2 sm:gap-0 sm:flex-row sm:justify-between items-start sm:items-center font-bold" style="min-height: 4rem;">
               <h2 class="text-xl sm:text-2xl leading-none group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
                 CLASSIC<br/>STYLE
               </h2>
@@ -646,7 +646,7 @@
 
 
       <!-- Testimonials Grid with Loop -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-16">
+      <div class="grid grid-cols-2 gap-8 lg:gap-12 mb-16">
         {#each testimonials as testimonial, index}
           <div 
             class="speech-bubble speech-{testimonial.position} relative max-w-full text-left leading-relaxed mt-10 bg-white border border-[#56AAB7] rounded-3xl p-8 text-base shadow-lg hover:shadow-xl hover:-translate-y-1 transition-all duration-300 touch-interactive"
@@ -655,7 +655,7 @@
             on:touchcancel={handleTouchEnd}
           >
             <div class="mb-6">
-              <p class="font-roboto text-[#56AAB7] m-0">
+              <p class="font-roboto text-[#56AAB7] m-0 text-xs sm:text-md lg:text-lg">
                 "{testimonial.text}"
               </p>
             </div>
