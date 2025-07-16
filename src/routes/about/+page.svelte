@@ -52,7 +52,7 @@
   <!-- Simple Hero Section -->
   <section 
     id="hero-section"
-    class="hero-critical h-[90vh] xl:min-h-screen 2xl:px-64 pt-24 md:pt-12 pb-12 md:pb-24 flex justify-start items-center xl:justify-center flex-col relative w-full transition-all duration-300"
+    class="hero-critical min-h-[40vh] xl:min-h-screen 2xl:px-64 pt-24 md:pt-12 pb-12 md:pb-24 flex justify-start items-center xl:justify-center flex-col relative w-full transition-all duration-300"
   >
     <img 
       src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&h=600&q=80&fm=webp" 

@@ -474,19 +474,19 @@
   
   /* Custom scrollbar */
   :global(::-webkit-scrollbar) {
-    width: 8px;
+    display: none;
   }
   
   :global(::-webkit-scrollbar-track) {
-    background: #f1f1f1;
+    display: none;
   }
   
   :global(::-webkit-scrollbar-thumb) {
-    background: #56AAB7;
-    border-radius: 4px;
+    display: none;
+
   }
   
   :global(::-webkit-scrollbar-thumb:hover) {
-    background: #4A9AA8;
+        display: none;
   }
 </style>
