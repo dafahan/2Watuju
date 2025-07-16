@@ -1,11 +1,15 @@
-<!-- Optimized +page.svelte with Tailwind CSS and loops -->
+<!-- src/routes/+page.svelte -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   import { ScrollTrigger } from 'gsap/ScrollTrigger';
   import { ArrowRight } from 'lucide-svelte';
   import { base } from '$app/paths';
-  import Cta from "$lib/components/Cta.svelte"
+  import { goto } from '$app/navigation';
+  
+  // Components
+  import FeaturedProjects from '$lib/components/FeaturedProjects.svelte';
+  import Cta from "$lib/components/Cta.svelte";
   
   // Register GSAP plugins
   gsap.registerPlugin(ScrollTrigger);
@@ -16,30 +20,30 @@
   // Testimonials data
   const testimonials = [
     {
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
+      text: "Tim 2WATUJU benar-benar memahami visi kami. Mereka tidak hanya merancang rumah, tapi menciptakan rumah impian yang sesuai dengan gaya hidup keluarga kami. Hasilnya melebihi ekspektasi!",
       name: "RIFKI HAWARI",
       role: "PENGUSAHA",
       initials: "RH",
       position: "right"
     },
     {
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
-      name: "AMANDA SARI",
-      role: "DOKTER",
+      text: "Proses kolaborasi dengan 2WATUJU sangat menyenangkan. Mereka mendengarkan setiap detail kebutuhan kami dan menghadirkan solusi arsitektur yang cerdas dan fungsional untuk praktik medis saya.",
+      name: "DR. AMANDA SARI",
+      role: "DOKTER SPESIALIS",
       initials: "AS",
       position: "right"
     },
     {
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
+      text: "Sebagai pengusaha lokal, saya sangat mengapresiasi pendekatan 2WATUJU yang mengintegrasikan nilai-nilai budaya Lampung dalam desain modern. Rumah kami menjadi kebanggaan keluarga.",
       name: "BUDI TANOTO",
       role: "WIRASWASTA",
       initials: "BT",
       position: "right"
     },
     {
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehend.",
+      text: "Rumah yang dirancang 2WATUJU tidak hanya cantik secara visual, tapi juga sangat nyaman untuk aktivitas sehari-hari. Setiap sudut rumah memiliki fungsi yang optimal untuk keluarga kami.",
       name: "LINDA MARIA",
-      role: "GURU",
+      role: "EDUCATOR",
       initials: "LM",
       position: "right"
     }
@@ -79,7 +83,73 @@
         '-=0.3'
       );
 
-    // Other animations...
+    // About section animations
+    gsap.fromTo('.about-title',
+      { opacity: 0, y: 30 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.about-title',
+          start: 'top 80%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    gsap.fromTo('.about-cards',
+      { opacity: 0, y: 20 },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.about-cards',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Process section animations
+    gsap.fromTo('.process-step',
+      { opacity: 0, x: -30 },
+      {
+        opacity: 1,
+        x: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.process-step',
+          start: 'top 90%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
+    // Testimonials animation
+    gsap.fromTo('.speech-bubble',
+      { opacity: 0, y: 20, scale: 0.95 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.8,
+        stagger: 0.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: '.speech-bubble',
+          start: 'top 85%',
+          toggleActions: 'play none none reverse'
+        }
+      }
+    );
+
     cleanup = () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
@@ -112,18 +182,26 @@
   // Event handlers
   function handleWorkflowClick() {
     console.log('Workflow clicked');
+    // Navigate to workflow page or scroll to process section
+    document.querySelector('.process-section')?.scrollIntoView({ behavior: 'smooth' });
   }
 
   function handleConsultationClick() {
     console.log('Consultation clicked');
+    // Navigate to consultation page or scroll to CTA
+    document.querySelector('.cta-section')?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  function handleProjectClick(projectId: string) {
-    console.log('Project clicked:', projectId);
+  function handleProjectClick(projectSlug: string) {
+    console.log('Project clicked:', projectSlug);
+    // Navigate to project detail page
+    goto(`/projects/${projectSlug}`);
   }
 
   function handleViewAllProjects() {
     console.log('View all projects clicked');
+    // Navigate to projects page
+    goto('/projects');
   }
 
   function handleImageLoad() {
@@ -137,11 +215,18 @@
 
 <svelte:head>
   <title>2WATUJU - Arsitektur & Interior Lampung</title>
-  <meta name="description" content="Dirancang secara kolaboratif dan penuh makna, dari awal hingga generasi berikutnya." />
+  <meta name="description" content="Dirancang secara kolaboratif dan penuh makna, dari awal hingga generasi berikutnya. Studio arsitektur terpercaya di Lampung dengan pendekatan personal dan premium." />
+  <meta name="keywords" content="arsitektur lampung, interior design, rumah modern, desain rumah, arsitek lampung, 2watuju" />
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="2WATUJU - Arsitektur & Interior Lampung" />
+  <meta property="og:description" content="Dirancang secara kolaboratif dan penuh makna, dari awal hingga generasi berikutnya." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://2watuju.com" />
   
   <!-- Critical resource hints for faster loading -->
-  <link rel="preload" as="image" href="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev/hero.webp" fetchpriority="high">
-  <link rel="dns-prefetch" href="https://pub-da54bf79f89f4f2980788c758f380531.r2.dev">
+  <link rel="preload" as="image" href="{base}/images/hero-desktop-1200.webp" fetchpriority="high">
+  <link rel="dns-prefetch" href="https://images.unsplash.com">
   
   <!-- Critical inline CSS for immediate rendering -->
   <style>
@@ -221,6 +306,18 @@
         right: 33px;
       }
     }
+
+        /* Offset for sections to account for fixed header */
+    section[id] {
+      scroll-margin-top: 100px; /* Adjust based on your header height */
+    }
+    
+    /* Better scroll padding for mobile */
+    @media (max-width: 768px) {
+      section[id] {
+        scroll-margin-top: 80px;
+      }
+    }
   </style>
 </svelte:head>
 
@@ -230,7 +327,7 @@
   <section class="hero-critical h-[90vh] xl:min-h-screen 2xl:px-64 pt-24 md:pt-12 pb-12 md:pb-24 flex justify-start items-center xl:justify-center flex-col relative w-full transition-all duration-300">
     
     <!-- Image Container - Simplified, no layering -->
-    <div class="hero-image-container w-full md:max-w-7xl xl:max-w-none">
+    <div class="hero-image-container w-full md:max-w-7xl xl:max-w-none hero-image">
       <!-- Main Image - Direct render, no placeholder -->
       <picture>
         <!-- Mobile screens -->
@@ -268,17 +365,18 @@
           loading="eager"
           fetchpriority="high"
           decoding="async"
+          on:load={handleImageLoad}
+          on:error={handleImageError}
         />
       </picture>
     </div>
     
     <!-- Buttons with better loading state -->
     <div class="hero-buttons flex w-full justify-center items-center gap-8 sm:gap-16 lg:gap-24 px-4 mt-8" style="min-height: 6rem;">
-      <button 
-        class="flex font-roboto-condensed text-white gap-4 sm:gap-6 items-center group p-2 rounded-lg transition-transform duration-200 hover:scale-105 touch-interactive"
-        on:click={handleWorkflowClick}
-        on:touchstart={handleTouchStart}
-        on:touchend={handleTouchEnd}>
+      <a 
+        class="flex cursor-pointer font-roboto-condensed text-white gap-4 sm:gap-6 items-center group p-2 rounded-lg transition-transform duration-200 hover:scale-105 touch-interactive"
+          href="#alur"
+          >
         <div class="w-12 h-12 sm:w-14 sm:h-14 bg-white text-[#56AAB7] rounded-full flex items-center justify-center shadow-lg transition-all duration-300 hover:bg-transparent hover:text-white hover:border-2 hover:border-white">
           <ArrowRight class="group-hover:rotate-12 duration-300 w-5 h-5 sm:w-7 sm:h-7" />
         </div>
@@ -286,9 +384,9 @@
           <span class="font-bold">ALUR KERJA</span>
           <span>PROYEK KITA</span>
         </div>
-      </button>
+      </a>
 
-      <button 
+      <a href="wh" 
         class="flex font-roboto-condensed text-white gap-4 sm:gap-6 items-center group p-2 rounded-lg transition-transform duration-200 hover:scale-105 touch-interactive"
         on:click={handleConsultationClick}
         on:touchstart={handleTouchStart}
@@ -300,7 +398,7 @@
           <span>JADWALKAN</span>
           <span class="font-bold">KONSULTASI</span>
         </div>
-      </button>
+      </a>
     </div>
   </section>
 
@@ -319,7 +417,7 @@
 
         <!-- About Cards with fixed dimensions -->
         <div class="flex flex-col sm:flex-row gap-12 ">
-          <div class="flex flex-col gap-4  w-72 about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
+          <div class="flex flex-col gap-4 w-72 about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
             <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               LOCAL INTELLIGENCE
             </h3>
@@ -339,7 +437,7 @@
             </div>
           </div>
 
-          <div class="flex flex-col gap-4  w-72 about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
+          <div class="flex flex-col gap-4 w-72 about-cards group touch-interactive" style="contain: layout; min-height: 16rem;">
             <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               PREMIUM & PERSONAL
             </h3>
@@ -360,119 +458,18 @@
         </div>
       </div>
 
-      <!-- Project Cards Grid with fixed dimensions -->
-      <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 w-full gap-6 sm:gap-8 project-grid">
-        {#each Array(5) as _, index}
-          <div class="flex w-full px-4 py-6 border-b-2 border-gray-200 flex-col gap-4 font-roboto-mono overflow-hidden text-balance project-card group mobile-card touch-interactive hover:border-[#56AAB7] hover:shadow-xl active:border-[#56AAB7] active:shadow-xl transition-all duration-300 hover:-translate-y-2 active:-translate-y-2 bg-white hover:bg-gradient-to-br hover:from-white hover:to-gray-50 active:bg-gradient-to-br active:from-white active:to-gray-50"
-               style="contain: layout; min-height: 28rem;"
-               on:touchstart={handleTouchStart}
-               on:touchend={handleTouchEnd}
-               on:touchcancel={handleTouchEnd}>
-            
-            <!-- Image container with fixed aspect ratio -->
-            <div class="relative overflow-hidden rounded-lg bg-gray-100" style="contain: layout;">
-              <picture>
-                <!-- Mobile screens -->
-                <source 
-                  media="(max-width: 639px)" 
-                  srcset="{base}/images/dummy-mobile-300.webp 300w,
-                          {base}/images/dummy-mobile-600.webp 600w"
-                  sizes="(max-width: 400px) 300px, 400px"
-                />
-                
-                <!-- Tablet screens -->
-                <source 
-                  media="(max-width: 1023px)" 
-                  srcset="{base}/images/dummy-tablet-400.webp 400w,
-                          {base}/images/dummy-tablet-600.webp 600w"
-                  sizes="(max-width: 640px) 100vw,
-                         (max-width: 768px) 50vw,
-                         33vw"
-                />
-                
-                <!-- Desktop screens -->
-                <source 
-                  media="(min-width: 1024px)" 
-                  srcset="{base}/images/dummy-desktop-400.webp 400w,
-                          {base}/images/dummy-desktop-600.webp 600w,
-                          {base}/images/dummy-desktop-800.webp 800w"
-                  sizes="(max-width: 1280px) 400px,
-                         (max-width: 1536px) 500px,
-                         600px"
-                />
-                
-                <!-- Fallback image -->
-                <img 
-                  src="{base}/images/dummy-desktop-400.webp" 
-                  alt="Classic Style Project {index + 1}" 
-                  class="object-cover w-full h-full rounded-lg transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
-                  width="400"
-                  height="250"
-                  loading="lazy"
-                  decoding="async"
-                  style="contain: layout;"
-                />
-              </picture>
-            </div>
-            
-            <!-- Content with fixed minimum height -->
-            <div class="flex flex-col gap-2 sm:gap-0 sm:flex-row sm:justify-between items-start sm:items-center font-bold" style="min-height: 4rem;">
-              <h2 class="text-xl sm:text-2xl leading-none group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
-                CLASSIC<br/>STYLE
-              </h2>
-              <button 
-                class="flex border-2 border-gray-200 rounded-full text-black bg-white px-4 hover:bg-[#56AAB7] hover:text-white hover:border-[#56AAB7] active:bg-[#56AAB7] active:text-white active:border-[#56AAB7] py-2 items-center transition-all duration-300 justify-between gap-2 text-sm group/btn cursor-pointer hover:shadow-lg hover:scale-105 active:shadow-lg active:scale-105 focus:outline-none focus:ring-2 focus:ring-[#56AAB7] focus:ring-opacity-50 touch-interactive whitespace-nowrap flex-shrink-0"
-                on:click={() => handleProjectClick(`project-${index + 1}`)}
-                on:touchstart={handleTouchStart}
-                on:touchend={handleTouchEnd}
-                on:touchcancel={handleTouchEnd}
-                aria-label="Lihat selengkapnya project {index + 1}"
-              >
-                <span class="group-hover/btn:tracking-wider group-active/btn:tracking-wider transition-all duration-300">SELENGKAPNYA</span>
-                <ArrowRight class="rotate-45 group-hover/btn:rotate-0 group-active/btn:rotate-0 transition-transform duration-300" size={20}/>
-              </button> 
-            </div>
-            
-            <!-- Description with fixed height -->
-            <div style="min-height: 6rem; contain: layout;">
-              <p class="leading-relaxed text-gray-600 group-hover:text-gray-800 group-active:text-gray-800 transition-colors duration-300 line-clamp-4">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.
-              </p>
-            </div>
-          </div>
-        {/each}
-
-        <!-- View All Projects Card with fixed dimensions -->
-        <div class="flex w-full p-8 sm:p-12 gap-4 relative view-all-projects group mobile-card touch-interactive hover:bg-gradient-to-br hover:from-[#56AAB7] hover:to-[#4A9AA8] active:bg-gradient-to-br active:from-[#56AAB7] active:to-[#4A9AA8] transition-all duration-500 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 active:shadow-2xl active:-translate-y-2 cursor-pointer border-2 border-transparent hover:border-[#56AAB7] active:border-[#56AAB7]"
-             style="contain: layout; min-height: 28rem; aspect-ratio: 1/1;"
-             on:click={handleViewAllProjects}
-             on:touchstart={handleTouchStart}
-             on:touchend={handleTouchEnd}
-             on:touchcancel={handleTouchEnd}
-             role="button"
-             tabindex="0"
-             aria-label="Lihat semua proyek"
-             on:keydown={(e) => e.key === 'Enter' && handleViewAllProjects()}
-        >
-          <div class="flex flex-col items-end justify-end gap-6 absolute top-[10%] right-8 sm:right-12 transition-all duration-300 group-hover:right-6 group-active:right-6">
-            <h2 class="font-medium text-end font-chivo-mono text-4xl sm:text-5xl lg:text-6xl subpixel-antialiased uppercase group-hover:text-white group-active:text-white transition-all duration-300 group-hover:tracking-wider group-active:tracking-wider" style="contain: layout;">
-              Lihat<br/>
-              Semua<br/>
-              Proyek<br/>
-            </h2>
-            <button class="w-12 h-12 sm:w-14 sm:h-14 bg-[#56AAB7] text-white rounded-full cursor-pointer hover:bg-white hover:text-[#56AAB7] hover:border-2 hover:border-[#56AAB7] active:bg-white active:text-[#56AAB7] active:border-2 active:border-[#56AAB7] transition-all duration-300 group-hover:scale-110 group-hover:rotate-12 group-active:scale-110 group-active:rotate-12 shadow-lg hover:shadow-xl focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 flex-shrink-0" style="contain: layout;">
-              <ArrowRight class="text-center m-auto transition-transform duration-300" size={28}/>
-            </button>
-          </div>
-          
-
-        </div>
-      </div>
+      <!-- Featured Projects Component -->
+      <FeaturedProjects 
+        onProjectClick={handleProjectClick}
+        onViewAllProjects={handleViewAllProjects}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+      />
     </div>
   </section>
 
   <!-- PROSES KERJA Section with Responsive Connected Lines -->
-  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-[#56AAB7] text-white">
+  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-[#56AAB7] text-white process-section" id="alur">
     <div class="flex flex-col h-fit items-stretch w-full lg:flex-row gap-8 lg:gap-12">
       <!-- Left Column - Process Steps -->
       <div class="space-y-8 min-w-sm flex flex-col">
@@ -533,20 +530,17 @@
         </h2>
         
         <!-- Deliverables Grid -->
-
-
         <div class="flex flex-col w-full font-roboto-condensed text-base sm:text-lg lg:text-base xl:text-lg 2xl:text-xl gap-2">
           <!-- First Row -->
-          <div class="flex gap-2 w-full h-fit  ">
-
-                        <!-- Square Box -->
+          <div class="flex gap-2 w-full h-fit">
+            <!-- Square Box -->
             <div class="flex-1 aspect-square flex items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer min-w-0"
                 on:touchstart={handleTouchStart}
                 on:touchend={handleTouchEnd}
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-1 sm:gap-y-2 items-start justify-center p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Desain 3d <br/>Interior</h2>
-                <img src="{base}/icons/001_computer.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/001_computer.webp" alt="Computer Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             <!-- Square Box -->
@@ -555,18 +549,18 @@
                 on:touchend={handleTouchEnd}
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-1 sm:gap-y-2 items-start justify-center p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
-                <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Desain 3d<br/>EKsterior</h2>
-                <img src="{base}/icons/029_computer_2.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Desain 3d<br/>Eksterior</h2>
+                <img src="{base}/icons/029_computer_2.webp" alt="Computer 2 Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
-                        <!-- Wide Box (2x width) -->
+            <!-- Wide Box (2x width) -->
             <div class="flex-2 self-stretch flex items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer min-w-0"
                 on:touchstart={handleTouchStart}
                 on:touchend={handleTouchEnd}
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col items-start justify-center gap-y-1 sm:gap-y-2 p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Hasil Cetak Printout <br/>a3 Berwarna</h2>
-                <img src="{base}/icons/006_plan.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/006_plan.webp" alt="Plan Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
           </div>
@@ -580,7 +574,7 @@
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-1 sm:gap-y-2 items-start justify-center p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Gambar Kerja<br/>Perencanaan</h2>
-                <img src="{base}/icons/033_compass_1.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/033_compass_1.webp" alt="Compass Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -590,7 +584,7 @@
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-1 sm:gap-y-2 items-start justify-center p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Rencana Anggaran<br/>Biaya</h2>
-                <img src="{base}/icons/043_project_2.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/043_project_2.webp" alt="Project Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -600,7 +594,7 @@
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-1 sm:gap-y-2 items-start justify-center p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Perhitungan<br/>Struktur</h2>
-                <img src="{base}/icons/041_workspace.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/041_workspace.webp" alt="Workspace Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
           </div>
@@ -609,13 +603,13 @@
           <div class="flex gap-2 w-full h-fit">
             <!-- Wide Box (2x width) -->
             <div class="flex-2 self-stretch flex items-center justify-start border-2 border-white rounded-md hover:bg-white/10 transition-colors duration-300 cursor-pointer min-w-0"
-                style="flex: 2 ;"
+                style="flex: 2;"
                 on:touchstart={handleTouchStart}
                 on:touchend={handleTouchEnd}
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col items-start justify-center gap-y-1 sm:gap-y-2 p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Soft File Dokumen<br/>Perencanaan</h2>
-                <img src="{base}/icons/024_contract.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/024_contract.webp" alt="Contract Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
 
@@ -626,7 +620,7 @@
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-1 sm:gap-y-2 items-start justify-center p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Animasi<br/>Video</h2>
-                <img src="{base}/icons/018_computer_1.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/018_computer_1.webp" alt="Computer 1 Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
             
@@ -637,21 +631,18 @@
                 on:touchcancel={handleTouchEnd}>
               <div class="flex flex-col gap-y-1 sm:gap-y-2 items-start justify-center p-1 sm:p-2 lg:p-2 xl:p-3 w-full">
                 <h2 class="uppercase leading-tight text-xs sm:text-sm lg:text-base">Katalog<br/>Desain 3D</h2>
-                <img src="{base}/icons/026_house_plan_2.webp" alt="icons 1" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
+                <img src="{base}/icons/026_house_plan_2.webp" alt="House Plan Icon" class="w-4 h-4 sm:w-6 sm:h-6 lg:w-6 lg:h-6 xl:w-8 xl:h-8 object-contain"/>
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
   </section>
 
   <!-- Testimonials Section with Optimized Tailwind and Loop -->
-  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-gray-50">
+  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-gray-50 cta-section">
     <div class="w-full mx-auto flex flex-col gap-6">
-
-
       <!-- Testimonials Grid with Loop -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-16">
         {#each testimonials as testimonial, index}
@@ -684,14 +675,12 @@
       </div>
 
       <Cta/>
-
-  </div>
+    </div>
   </section>
 </div>
 
 <style>
-
-    /* Ensure proper aspect ratio on small screens */
+  /* Ensure proper aspect ratio on small screens */
   .aspect-square {
     aspect-ratio: 1 / 1;
   }
@@ -729,6 +718,7 @@
       min-height: 100px;
     }
   }
+
   /* Line clamp utility */
   .line-clamp-4 {
     display: -webkit-box;
@@ -768,7 +758,7 @@
     opacity: 0.9;
   }
 
-    @keyframes float {
+  @keyframes float {
     0%, 100% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
   }

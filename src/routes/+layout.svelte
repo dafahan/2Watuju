@@ -264,13 +264,14 @@
           </a>
 
         
-        <button 
+        <a
+          href="{base}/projects"
+            data-sveltekit-prefetch
           class="group relative px-6 py-2 text-xs lg:text-sm font-medium bg-gradient-to-r from-[#56AAB7] to-[#4A9AA8] text-white rounded-full transition-all duration-300 hover:shadow-xl hover:shadow-[#56AAB7]/30 hover:scale-105 hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-white focus:ring-opacity-50 overflow-hidden whitespace-nowrap"
-          on:click={handleProjectsClick}
           aria-label="Proyek"
         >
           <span class="relative z-10 tracking-wide group-hover:tracking-wider transition-all duration-300">PROYEK</span>
-        </button>
+        </a>
       </nav>
 
       <!-- Mobile Menu Button -->
@@ -292,18 +293,22 @@
     {#if mobileMenuOpen}
       <div class="lg:hidden mt-4 pb-4 border-t border-neutral-200">
         <nav class="flex flex-col space-y-2 pt-4" role="navigation">
-          <button 
+          <a 
             class="group text-left px-4 py-3 text-neutral-700 hover:text-[#56AAB7] hover:bg-[#56AAB7]/5 rounded-lg transition-all duration-200"
-            on:click={() => { handleAboutClick(); closeMobileMenu(); }}
+            href="{base}/about"
+            data-sveltekit-prefetch
+            on:click={() => closeMobileMenu()}
           >
             <span class="group-hover:tracking-wider transition-all duration-200">TENTANG KAMI</span>
-          </button>
-          <button 
+          </a>
+          <a 
             class="group text-left px-4 py-3 text-neutral-700 hover:text-[#56AAB7] hover:bg-[#56AAB7]/5 rounded-lg transition-all duration-200"
-            on:click={() => { handleProjectsClick(); closeMobileMenu(); }}
+            href="{base}/projects"
+            data-sveltekit-prefetch
+            on:click={() => closeMobileMenu()}
           >
             <span class="group-hover:tracking-wider transition-all duration-200">PROYEK</span>
-          </button>
+          </a>
         </nav>
       </div>
     {/if}
