@@ -1,9 +1,10 @@
 <script lang="ts">
   import { ArrowRight } from 'lucide-svelte';
+  export let className = '';
 
 </script>
 
-<div class="relative overflow-hidden bg-[#56AAB7] min-h-[20rem] flex items-center justify-center group/section">
+<div class={`relative overflow-hidden bg-[#56AAB7] min-h-[20rem] flex items-center justify-center group/section ${className}`}>
   <!-- Animated background elements -->
   <div class="absolute inset-0 opacity-10">
     <div class="absolute top-1/4 left-1/4 w-32 h-32 bg-white rounded-full blur-xl animate-pulse"></div>

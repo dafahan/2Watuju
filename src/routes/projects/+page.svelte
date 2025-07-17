@@ -6,6 +6,7 @@
   import ProjectPageCard from '$lib/components/ProjectPageCard.svelte';
   import SeeMoreButton from '$lib/components/SeeMoreButton.svelte';
   import { getAllProjects, getProjectsByCategory, projectCategories } from '$lib/data/projects.js';
+  import Cta from '$lib/components/Cta.svelte';
   
   let selectedCategory = 'All';
   let filteredProjects = getAllProjects();
@@ -142,37 +143,14 @@
           text="LIHAT SEMUA PROYEK"
           onClick={() => handleCategoryChange('All')}
           variant="primary"
+          class="py-2 px-4"
           size="md"
         />
       </div>
     {/if}
     
     <!-- Call to Action -->
-    <div class="mt-16 pt-16 text-center">
-      <h3 class="text-2xl md:text-3xl font-bold text-gray-800 mb-4 font-roboto-condensed">
-        TERTARIK DENGAN PROYEK KAMI?
-      </h3>
-      <p class="text-gray-600 mb-8 max-w-2xl mx-auto font-roboto">
-        Mari wujudkan rumah impian Anda bersama tim ahli 2WATUJU. 
-        Konsultasi gratis untuk membahas kebutuhan dan visi arsitektur Anda.
-      </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <SeeMoreButton
-          text="KONSULTASI GRATIS"
-          onClick={() => goto('/consultation')}
-          variant="primary"
-          size="lg"
-          class="px-8 py-3"
-        />
-        <SeeMoreButton
-          text="HUBUNGI KAMI"
-          onClick={() => goto('/contact')}
-          variant="outline"
-          size="lg"
-          class="px-8 py-3"
-        />
-      </div>
-    </div>
+    <Cta className="mt-12"/>
   </section>
 </div>
 
