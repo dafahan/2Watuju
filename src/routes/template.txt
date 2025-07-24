@@ -1,0 +1,14 @@
+<script lang="ts">
+
+</script>
+
+<svelte:head>
+<title>Tentang Kami - 2WATUJU Arsitektur & Interior Lampung</title>
+<meta name="description" content="Kenali lebih dalam tentang nilai-nilai yang membentuk 2WATUJU sebagai studio arsitektur & interior di Lampung." />
+
+</svelte:head>
+
+<!-- Main content container -->
+<div class="mx-auto overflow-x-hidden">
+
+</div>

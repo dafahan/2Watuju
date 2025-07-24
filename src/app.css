@@ -1,0 +1,64 @@
+/* Import Google Fonts */
+
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+/* Font utilities */
+.font-roboto {
+  font-family: 'Roboto', sans-serif;
+}
+
+.font-roboto-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.font-roboto-condensed {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.font-chivo-mono {
+  font-family: 'Chivo Mono', monospace;
+}
+
+/* Button effect */
+.btn-border-reveal {
+  @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-2 px-4 overflow-hidden transition-colors duration-300;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 0;
+}
+
+.debug{
+  @apply border-2 border-red-500;
+}
+
+.btn-border-reveal::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #56AAB7;
+  z-index: -1;
+  transition: width 0.3s ease;
+}
+
+.btn-border-reveal:hover::after {
+  width: 100%;
+}
+
+.btn-border-reveal:hover {
+  color: white;
+}
+
+/* Optional: gradient example */
+.bg-gradient-red-20 {
+  background: linear-gradient(to bottom right, 
+    #7f1d1d 0%, 
+    #7f1d1d 20%, 
+    #131312 20%, 
+    #131312 100%
+  );
+}

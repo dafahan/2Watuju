@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cool Button Animations</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Version 1: Enhanced Border Reveal with Ripple */
+        .btn-border-reveal-v1 {
+            @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 overflow-hidden transition-all duration-500 transform hover:scale-105;
+            background-color: transparent;
+            cursor: pointer;
+            z-index: 0;
+            box-shadow: 0 4px 15px rgba(86, 170, 183, 0.2);
+        }
+
+        .btn-border-reveal-v1::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 100%;
+            top: 0;
+            left: 50%;
+            background: linear-gradient(45deg, #56AAB7, #4a9aa6);
+            z-index: -1;
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateX(-50%);
+            border-radius: inherit;
+        }
+
+        .btn-border-reveal-v1:hover::before {
+            width: 120%;
+        }
+
+        .btn-border-reveal-v1:hover {
+            color: white;
+            border-color: transparent;
+            box-shadow: 0 8px 25px rgba(86, 170, 183, 0.4);
+        }
+
+        /* Version 2: Slide In from Multiple Directions */
+        .btn-slide-multi {
+            @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 overflow-hidden transition-all duration-300;
+            background-color: transparent;
+            cursor: pointer;
+            z-index: 0;
+        }
+
+        .btn-slide-multi::before,
+        .btn-slide-multi::after {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 50%;
+            background-color: #56AAB7;
+            z-index: -1;
+            transition: width 0.4s ease;
+        }
+
+        .btn-slide-multi::before {
+            top: 0;
+            left: 0;
+        }
+
+        .btn-slide-multi::after {
+            bottom: 0;
+            right: 0;
+        }
+
+        .btn-slide-multi:hover::before,
+        .btn-slide-multi:hover::after {
+            width: 100%;
+        }
+
+        .btn-slide-multi:hover {
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(86, 170, 183, 0.3);
+        }
+
+        /* Version 3: Circular Reveal */
+        .btn-circle-reveal {
+            @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 overflow-hidden transition-all duration-300;
+            background-color: transparent;
+            cursor: pointer;
+            z-index: 0;
+        }
+
+        .btn-circle-reveal::before {
+            content: "";
+            position: absolute;
+            width: 0;
+            height: 0;
+            top: 50%;
+            left: 50%;
+            background: radial-gradient(circle, #56AAB7 0%, #4a9aa6 100%);
+            z-index: -1;
+            transition: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translate(-50%, -50%);
+            border-radius: 50%;
+        }
+
+        .btn-circle-reveal:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-circle-reveal:hover {
+            color: white;
+            border-color: #56AAB7;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(86, 170, 183, 0.4);
+        }
+
+        /* Version 4: Liquid Fill */
+        .btn-liquid-fill {
+            @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 overflow-hidden transition-all duration-500;
+            background-color: transparent;
+            cursor: pointer;
+            z-index: 0;
+        }
+
+        .btn-liquid-fill::before {
+            content: "";
+            position: absolute;
+            width: 120%;
+            height: 0;
+            bottom: 0;
+            left: -10%;
+            background: linear-gradient(45deg, #56AAB7, #66BAC7);
+            z-index: -1;
+            transition: height 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 50% 50% 0 0;
+        }
+
+        .btn-liquid-fill:hover::before {
+            height: 180%;
+        }
+
+        .btn-liquid-fill:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(86, 170, 183, 0.3);
+        }
+
+        /* Version 5: Magnetic Effect */
+        .btn-magnetic {
+            @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 transition-all duration-300;
+            background: linear-gradient(45deg, transparent 0%, rgba(86, 170, 183, 0.05) 50%, transparent 100%);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .btn-magnetic::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-magnetic:hover {
+            color: white;
+            background: linear-gradient(45deg, #56AAB7, #4a9aa6);
+            border-color: #56AAB7;
+            transform: scale(1.05) rotate(1deg);
+            box-shadow: 0 8px 25px rgba(86, 170, 183, 0.4);
+        }
+
+        .btn-magnetic:hover::before {
+            left: 100%;
+        }
+
+        /* Glowing Effect for Solid Button */
+        .btn-glow {
+            @apply bg-[#56AAB7] text-white rounded-full py-3 px-6 transition-all duration-300 relative overflow-hidden;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(86, 170, 183, 0.3);
+        }
+
+        .btn-glow::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            opacity: 0;
+            transition: all 0.5s ease;
+            animation: rotate 2s linear infinite;
+        }
+
+        .btn-glow:hover {
+            transform: scale(1.1) translateY(-2px);
+            box-shadow: 0 10px 40px rgba(86, 170, 183, 0.6);
+        }
+
+        .btn-glow:hover::before {
+            opacity: 1;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Particle Effect */
+        .btn-particles {
+            @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 overflow-visible transition-all duration-300;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .btn-particles:hover {
+            color: white;
+            background-color: #56AAB7;
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(86, 170, 183, 0.4);
+        }
+
+        .btn-particles::after {
+            content: "✨";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            opacity: 0;
+            transform: scale(0);
+            transition: all 0.3s ease;
+            animation: float 2s ease-in-out infinite;
+        }
+
+        .btn-particles:hover::after {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-5px) scale(1.1); }
+        }
+
+        /* Neon Glow */
+        .btn-neon {
+            @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 transition-all duration-300;
+            background-color: transparent;
+            cursor: pointer;
+            text-shadow: 0 0 5px rgba(86, 170, 183, 0.5);
+            box-shadow: 
+                inset 0 0 10px rgba(86, 170, 183, 0.1),
+                0 0 20px rgba(86, 170, 183, 0.2);
+        }
+
+        .btn-neon:hover {
+            color: white;
+            background-color: #56AAB7;
+            transform: scale(1.05);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+            box-shadow: 
+                inset 0 0 20px rgba(255, 255, 255, 0.2),
+                0 0 30px rgba(86, 170, 183, 0.6),
+                0 0 50px rgba(86, 170, 183, 0.4);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-6xl mx-auto">
+        <h1 class="text-3xl font-bold text-center mb-8 text-gray-800">Cool Button Animation Styles</h1>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Version 1: Enhanced Border Reveal -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Enhanced Border Reveal</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-border-reveal-v1">TENTANG KAMI</button>
+                    <button class="btn-glow">PROYEK</button>
+                </div>
+            </div>
+
+            <!-- Version 2: Multi-Direction Slide -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Multi-Direction Slide</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-slide-multi">TENTANG KAMI</button>
+                    <button class="btn-glow">PROYEK</button>
+                </div>
+            </div>
+
+            <!-- Version 3: Circular Reveal -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Circular Reveal</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-circle-reveal">TENTANG KAMI</button>
+                    <button class="btn-glow">PROYEK</button>
+                </div>
+            </div>
+
+            <!-- Version 4: Liquid Fill -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Liquid Fill</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-liquid-fill">TENTANG KAMI</button>
+                    <button class="btn-glow">PROYEK</button>
+                </div>
+            </div>
+
+            <!-- Version 5: Magnetic Effect -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Magnetic Effect</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-magnetic">TENTANG KAMI</button>
+                    <button class="btn-glow">PROYEK</button>
+                </div>
+            </div>
+
+            <!-- Version 6: Particle Effect -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Particle Effect</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-particles">TENTANG KAMI</button>
+                    <button class="btn-glow">PROYEK</button>
+                </div>
+            </div>
+
+            <!-- Version 7: Neon Glow -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Neon Glow</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-neon">TENTANG KAMI</button>
+                    <button class="btn-glow">PROYEK</button>
+                </div>
+            </div>
+
+            <!-- Your Original Style (Improved) -->
+            <div class="bg-white p-6 rounded-lg shadow-lg text-center">
+                <h3 class="text-lg font-semibold mb-4 text-gray-700">Original (Enhanced)</h3>
+                <div class="flex gap-4 justify-center">
+                    <button class="btn-border-reveal-v1">TENTANG KAMI</button>
+                    <button class="cursor-pointer bg-[#56AAB7] text-white rounded-full py-3 px-6 transition-all duration-300 hover:scale-110 hover:shadow-lg">PROYEK</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Code Examples -->
+        <div class="mt-12 bg-white p-6 rounded-lg shadow-lg">
+            <h2 class="text-2xl font-bold mb-4">My Top Recommendation</h2>
+            <p class="text-gray-600 mb-4">Here's the enhanced version of your original style with better performance and smoother animations:</p>
+            
+            <div class="bg-gray-900 text-green-400 p-4 rounded-lg mb-4 overflow-x-auto">
+                <pre class="text-sm"><code>/* Enhanced Border Reveal with Gradient */
+.btn-border-reveal {
+  @apply relative text-[#56AAB7] border-2 border-[#56AAB7] rounded-full py-3 px-6 overflow-hidden transition-all duration-500 transform hover:scale-105;
+  background-color: transparent;
+  cursor: pointer;
+  z-index: 0;
+  box-shadow: 0 4px 15px rgba(86, 170, 183, 0.2);
+}
+
+.btn-border-reveal::before {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  background: linear-gradient(45deg, #56AAB7, #4a9aa6);
+  z-index: -1;
+  transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform: translateX(-50%);
+  border-radius: inherit;
+}
+
+.btn-border-reveal:hover::before {
+  width: 120%;
+}
+
+.btn-border-reveal:hover {
+  color: white;
+  border-color: transparent;
+  box-shadow: 0 8px 25px rgba(86, 170, 183, 0.4);
+}</code></pre>
+            </div>
+
+            <div class="flex gap-4 justify-center">
+                <button class="btn-border-reveal-v1">TENTANG KAMI</button>
+                <button class="btn-glow">PROYEK</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
