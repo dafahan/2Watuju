@@ -477,7 +477,7 @@
           PROSES KERJA
         </h2>
         
-        <div class="relative flex flex-col h-full justify-between overflow-hidden">
+        <div class="relative flex flex-col h-full justify-between overflow-y-hidden">
           {#each [
             { number: '1', title: 'Konsultasi' },
             { number: '2', title: 'Eksplorasi' },

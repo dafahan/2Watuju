@@ -120,143 +120,142 @@
   </section>
   
   <!-- Project Details Section -->
-  <section class="py-16 xl:px-32 2xl:px-64 px-4 sm:px-8 font-roboto-mono">
-    <div class="max-w-5xl mx-auto flex flex-col gap-y-8 justify-center items-center">
-      
-      <!-- Project Details Grid -->
-      {#each Object.entries(project.projectDetails || {}) as [key, value], i}
-        {#if i % 2 === 0}
-          <div class="flex w-full justify-between"> <!-- Row container -->
-            <!-- Current item (left side) -->
-            <div class="flex w-fit flex-col">
-              <h1 class="uppercase font-bold text-3xl">
-                {key}
-              </h1>
-              <h2 class="text-xl">
-                {value}
-              </h2>
-            </div>
-            
-            <!-- Next item (right side) -->
-            {#if Object.entries(project.projectDetails || {})[i + 1]}
-              {@const [nextKey, nextValue] = Object.entries(project.projectDetails || {})[i + 1]}
+  <section class="py-16 xl:px-32 2xl:px-64 px-4 sm:px-8 font-roboto-mono border-b-2 border-gray-200">
+    <div class="flex w-full border-b-2 border-gray-200 pb-12">
+      <div class="max-w-5xl mx-auto flex flex-col gap-y-8 justify-center items-center">
+        
+        <!-- Project Details Grid -->
+        {#each Object.entries(project.projectDetails || {}) as [key, value], i}
+          {#if i % 2 === 0} 
+            <div class="flex w-full justify-between"> <!-- Row container -->
+              <!-- Current item (left side) -->
               <div class="flex w-fit flex-col">
                 <h1 class="uppercase font-bold text-3xl">
-                  {nextKey}
+                  {key}
                 </h1>
                 <h2 class="text-xl">
-                  {nextValue}
+                  {value}
                 </h2>
               </div>
-            {/if}
-          </div>
-        {/if}
-      {/each}
-      
-      <!-- Project Statistics -->
-      {#if project.stats}
-        <div class="w-full border-t border-gray-200 pt-8 mt-8">
-          <h3 class="text-2xl font-bold mb-6 text-center">PROJECT STATISTICS</h3>
-          <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {#each Object.entries(project.stats) as [key, value]}
-              <div class="text-center bg-gray-50 p-4 rounded-lg">
-                <h4 class="uppercase text-sm font-bold text-gray-600 mb-2">{key}</h4>
-                <p class="text-2xl font-bold text-[#56AAB7]">{value}</p>
-              </div>
-            {/each}
-          </div>
-        </div>
-      {/if}
-      
-      <!-- Project Features -->
-      {#if project.features && project.features.length > 0}
-        <div class="w-full border-t border-gray-200 pt-8 mt-8">
-          <h3 class="text-2xl font-bold mb-6 text-center">KEY FEATURES</h3>
-          <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
-            {#each project.features as feature}
-              <div class="flex items-center gap-3 bg-white border border-gray-200 p-4 rounded-lg hover:shadow-md transition-shadow duration-300">
-                <div class="w-3 h-3 bg-[#56AAB7] rounded-full flex-shrink-0"></div>
-                <span class="text-sm font-medium">{feature}</span>
-              </div>
-            {/each}
-          </div>
-        </div>
-      {/if}
-      
-      <!-- Project Description -->
-      <div class="w-full border-t border-gray-200 pt-8 mt-8">
-        <h3 class="text-2xl font-bold mb-6 text-center">PROJECT DESCRIPTION</h3>
-        <div class="max-w-3xl mx-auto">
-          <p class="text-lg leading-relaxed text-gray-700 font-roboto text-center">
-            {project.description}
-          </p>
-        </div>
-      </div>
-      
-      <!-- Project Status -->
-      <div class="w-full border-t border-gray-200 pt-8 mt-8">
-        <div class="text-center">
-          <h3 class="text-2xl font-bold mb-4">PROJECT STATUS</h3>
-          <div class="inline-flex items-center gap-3">
-            <div class="w-4 h-4 rounded-full {project.status === 'completed' ? 'bg-green-500' : project.status === 'in-progress' ? 'bg-yellow-500' : 'bg-blue-500'}"></div>
-            <span class="text-lg font-semibold text-gray-800">
-              {projectStatuses[project.status] || project.status}
-            </span>
-          </div>
-          {#if project.client}
-            <p class="text-gray-600 mt-2">Client: {project.client}</p>
-          {/if}
-        </div>
-      </div>
-      
-      <!-- Image Gallery -->
-      <div class="w-full border-t border-gray-200 pt-8 mt-8">
-        <h3 class="text-2xl font-bold mb-6 text-center">PROJECT GALLERY</h3>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {#each projectImages as imageUrl, index}
-            <div class="group relative overflow-hidden rounded-lg aspect-video bg-gray-100 hover:shadow-lg transition-shadow duration-300">
-              <img 
-                src={imageUrl} 
-                alt="{project.title} - Image {index + 1}"
-                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                on:error={handleImageError}
-              />
-              <div class="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300"></div>
+              
+              <!-- Next item (right side) -->
+              {#if Object.entries(project.projectDetails || {})[i + 1]}
+                {@const [nextKey, nextValue] = Object.entries(project.projectDetails || {})[i + 1]}
+                <div class="flex w-fit flex-col">
+                  <h1 class="uppercase font-bold text-3xl">
+                    {nextKey}
+                  </h1>
+                  <h2 class="text-xl">
+                    {nextValue}
+                  </h2>
+                </div>
+              {/if}
             </div>
-          {/each}
-        </div>
-      </div>
-      
-      <!-- Navigation Actions -->
-      <div class="w-full border-t border-gray-200 pt-8 mt-8">
-        <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <button 
-            on:click={handleBackToProjects}
-            class="touch-interactive group flex items-center gap-3 px-8 py-4 border-2 border-[#56AAB7] text-[#56AAB7] rounded-full font-medium transition-all duration-300 hover:bg-[#56AAB7] hover:text-white hover:scale-105"
-          >
-            <ArrowLeft size={20} />
-            <span>Back to Projects</span>
-          </button>
-          
-          <button 
-            on:click={handleContactClick}
-            class="touch-interactive group flex items-center gap-3 px-8 py-4 bg-[#56AAB7] text-white rounded-full font-medium transition-all duration-300 hover:bg-[#4a9aa6] hover:scale-105 hover:shadow-lg"
-          >
-            <span>Contact Us for Similar Project</span>
-            <ArrowRight size={20} />
-          </button>
-          
-          <button 
-            on:click={handleBackToHome}
-            class="touch-interactive group flex items-center gap-3 px-8 py-4 border-2 border-gray-300 text-gray-700 rounded-full font-medium transition-all duration-300 hover:border-gray-400 hover:bg-gray-50"
-          >
-            <Home size={20} />
-            <span>Back to Home</span>
-          </button>
-        </div>
+          {/if}
+        {/each}
+        
+        <!-- Project Statistics -->
+        {#if project.stats}
+          <div class="w-full pt-8 mt-8">
+            <!-- Use flexbox with justify-between for 3 columns -->
+            <div class="flex w-full justify-between">
+              <!-- Column 1: Land Area & Room -->
+              <div class="flex flex-col gap-6">
+                <!-- Land Area -->
+                <div class="flex flex-row items-center justify-start gap-3">
+                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
+                    <img src={`${base}/icons/land.webp`} alt="icon" class="object-contain w-16 h-16">
+                  </div>
+                  <div class="flex flex-col font-roboto-mono">
+                    <h1 class="font-bold text-lg leading-tight">LAND AREA</h1>
+                    <h2 class="font-normal text-base">{project.stats.land}</h2>
+                  </div>
+                </div>
+
+                <!-- Room -->
+                <div class="flex flex-row items-center justify-start gap-3">
+                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
+                    <img src={`${base}/icons/room.webp`} alt="icon" class="object-contain w-16 h-16">
+                  </div>
+                  <div class="flex flex-col font-roboto-mono">
+                    <h1 class="font-bold text-lg leading-tight">ROOM</h1>
+                    <h2 class="font-normal text-base">{project.stats.room}</h2>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column 2: Floor Area & Bathroom -->
+              <div class="flex flex-col gap-6">
+                <!-- Floor Area -->
+                <div class="flex flex-row items-center justify-start gap-3">
+                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
+                    <img src={`${base}/icons/floor.webp`} alt="icon" class="object-contain w-16 h-16">
+                  </div>
+                  <div class="flex flex-col font-roboto-mono">
+                    <h1 class="font-bold text-lg leading-tight">FLOOR AREA</h1>
+                    <h2 class="font-normal text-base">{project.stats.floor}</h2>
+                  </div>
+                </div>
+
+                <!-- Bathroom -->
+                <div class="flex flex-row items-center justify-start gap-3">
+                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
+                    <img src={`${base}/icons/bathroom.webp`} alt="icon" class="object-contain w-16 h-16">
+                  </div>
+                  <div class="flex flex-col font-roboto-mono">
+                    <h1 class="font-bold text-lg leading-tight">BATHROOM</h1>
+                    <h2 class="font-normal text-base">{project.stats.bathroom}</h2>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Column 3: Garage & Pool -->
+              <div class="flex flex-col gap-6">
+                <!-- Garage -->
+                <div class="flex flex-row items-center justify-start gap-3">
+                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
+                    <img src={`${base}/icons/garage.webp`} alt="icon" class="object-contain w-16 h-16">
+                  </div>
+                  <div class="flex flex-col font-roboto-mono">
+                    <h1 class="font-bold text-lg leading-tight">GARAGE</h1>
+                    <h2 class="font-normal text-base">{project.stats.garage}</h2>
+                  </div>
+                </div>
+
+                <!-- Pool -->
+                <div class="flex flex-row items-center justify-start gap-3">
+                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
+                    <img src={`${base}/icons/pool.webp`} alt="icon" class="object-contain w-16 h-16">
+                  </div>
+                  <div class="flex flex-col font-roboto-mono">
+                    <h1 class="font-bold text-lg leading-tight">POOL</h1>
+                    <h2 class="font-normal text-base">{project.stats.pool}</h2>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        {/if}
+        
       </div>
     </div>
+    <div class="flex w-full border-b-2 border-gray-200 py-12">
+        <div class="flex w-full py-8 flex-col gap-4" >
+          <img src={project.images.desktop} alt="thumb" class="object-cover flex aspect-video w-full shadow-lg rounded-sm mb-12"/>
+          <h1 class="font-bold font-roboto-mono text-xl lg:text-3xl xl:text-5xl">Fasad Yang Mencerminkan Kehangatan</h1>
+
+          <p class="text-pretty text-sm lg:text-base xl:text-xl font-roboto">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            <br/> <br/>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </p>
+        </div>
+    </div>
+  
+
   </section>
+  
   
   <!-- Related Projects Section -->
   {#if relatedProjects && relatedProjects.length > 0}
@@ -367,6 +366,26 @@
       flex-direction: column;
       gap: 1rem;
       text-align: center;
+    }
+  }
+
+    .stat-card {
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  
+  /* Mobile adjustments */
+  @media (max-width: 768px) {
+    .grid-cols-3 {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .grid-cols-3 > :last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      justify-self: center;
     }
   }
 </style>
