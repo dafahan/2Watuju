@@ -10,7 +10,7 @@
   export let ariaLabel: string = '';
   export let disabled: boolean = false;
   export let variant: 'default' | 'primary' | 'outline' = 'default';
-  export let size: 'sm' | 'md' | 'lg' = 'md';
+  export let size: 'sm' | 'md' | 'lg' | 'xl' | '2xl' | '3xl' | '4xl' = 'md';
   export let fullWidth: boolean = false;
   
   // Custom class support
@@ -26,13 +26,34 @@
     outline: 'border-2 border-[#56AAB7] rounded-full text-[#56AAB7] bg-transparent hover:bg-[#56AAB7] hover:text-white active:bg-[#56AAB7] active:text-white hover:shadow-lg hover:scale-105 active:shadow-lg active:scale-105'
   };
   
+  // Size classes for padding and text
+  $: sizeClasses = {
+    sm: 'px-3 py-1.5 text-xs font-medium',
+    md: 'px-4 py-2 text-sm font-semibold',
+    lg: 'px-6 py-3 text-base font-semibold',
+    xl: 'px-8 py-3 text-lg font-bold',
+    '2xl': 'px-10 py-3 text-xl font-bold',
+    '3xl': 'px-12 py-3 text-2xl font-bold',
+    '4xl': 'px-16 py-3 text-3xl font-bold'
+  };
 
   $: widthClasses = fullWidth ? 'w-full flex-grow' : 'flex-shrink-0';
   
   $: disabledClasses = disabled ? 'opacity-50 cursor-not-allowed pointer-events-none' : '';
   
   // Combine all classes including custom class
-  $: buttonClasses = `${baseClasses} ${variantClasses[variant]}  ${widthClasses} ${disabledClasses} ${className}`;
+  $: buttonClasses = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClasses} ${disabledClasses} ${className}`;
+  
+  // Arrow icon sizes based on button size
+  $: arrowSize = {
+    sm: 14,
+    md: 18,
+    lg: 22,
+    xl: 26,
+    '2xl': 30,
+    '3xl': 34,
+    '4xl': 38
+  };
   
   function handleClick() {
     if (!disabled) {
@@ -67,7 +88,7 @@
   </span>
   <ArrowRight 
     class="rotate-45 group-hover/btn:rotate-0 group-active/btn:rotate-0 transition-transform duration-300" 
-    size={size === 'sm' ? 16 : size === 'md' ? 20 : 24}
+    size={arrowSize[size]}
   />
 </button>
 

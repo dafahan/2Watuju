@@ -460,6 +460,7 @@
 
       <!-- Featured Projects Component -->
       <FeaturedProjects 
+        contentMode="full"
         onProjectClick={handleProjectClick}
         onViewAllProjects={handleViewAllProjects}
         onTouchStart={handleTouchStart}

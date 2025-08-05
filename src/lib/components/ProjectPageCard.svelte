@@ -8,10 +8,12 @@
   export let onTouchStart = () => {};
   export let onTouchEnd = () => {};
   export let imagePosition = 'left'; // 'left' or 'right' for alternating layout
+  export let isLast = false; // New prop to determine if this is the last card
   
   function handleClick() {
-    onProjectClick(project.slug);
+    onProjectClick(project.id);
   }
+
   
   function handleImageError(event) {
     // Fallback to a placeholder image if Unsplash image fails
@@ -19,14 +21,16 @@
   }
 </script>
 
-<div class="flex w-full py-16 flex-col lg:justify-around lg:flex-row gap-12 h-fit border-b-2 border-gray-200 project-page-card group touch-interactive"
+<div class="flex w-full py-16 flex-col lg:justify-around lg:flex-row gap-12 h-fit project-page-card group touch-interactive"
      class:lg:flex-row-reverse={imagePosition === 'right'}
+     class:border-b-2={!isLast}
+     class:border-gray-200={!isLast}
      on:touchstart={onTouchStart}
      on:touchend={onTouchEnd}
      on:touchcancel={onTouchEnd}>
   
   <!-- Image Container with Picture Element -->
-  <div class="flex max-w-xl self-center relative overflow-hidden rounded-lg bg-gray-100">
+  <div class="flex max-w-lg self-center relative overflow-hidden rounded-lg bg-gray-100">
     <picture>
       <!-- Mobile screens -->
       <source 
@@ -58,7 +62,7 @@
       <!-- Fallback image -->
       <img 
         src="{project.images.thumbnail}" 
-        alt="{project.title} - {project.location}" 
+        alt="{project.name}" 
         class="aspect-4/3 w-full object-cover rounded-lg transition-transform duration-700 group-hover:scale-105"
         width="600"
         height="450"
@@ -68,17 +72,12 @@
       />
     </picture>
     
-    <!-- Project Status Badge -->
-    <!-- {#if project.status !== 'completed'}
-      <div class="absolute top-4 right-4 px-3 py-1.5 bg-[#56AAB7] text-white text-sm rounded-full font-roboto-condensed uppercase tracking-wide shadow-lg">
-        {project.status === 'in-progress' ? 'Dalam Proses' : 'Perencanaan'}
-      </div>
-    {/if} -->
-    
-    <!-- Year Badge -->
-    <!-- <div class="absolute bottom-4 left-4 px-3 py-1.5 bg-black/70 text-white text-sm rounded-full font-roboto-condensed backdrop-blur-sm">
-      {project.year}
-    </div> -->
+    <!-- Hover Overlay with Project Title -->
+    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center rounded-lg" style="background-color: rgba(86, 170, 183, 0.6);">
+      <h3 class="text-white text-2xl sm:text-3xl md:text-4xl font-bold text-center px-4 font-roboto-mono">
+        {project.name}
+      </h3>
+    </div>
   </div>
   
   <!-- Content Container -->
@@ -87,7 +86,7 @@
     <div class="flex w-full justify-between items-start font-bold h-fit gap-4">
       <div class="flex flex-col max-w-6/9 ">
         <h2 class="text-3xl md:text-4xl lg:text-5xl leading-none group-hover:text-[#56AAB7] transition-colors duration-300 mb-2">
-          {project.title}
+          {project.name}
         </h2>
         
         <!-- Location and Category -->
@@ -99,7 +98,7 @@
             {project.location}
           </span>
           <span class="text-gray-400">•</span>
-          <span>{project.category}</span>
+          <span>{project.year}</span>
           {#if project.client}
             <span class="text-gray-400">•</span>
             <span>{project.client}</span>
@@ -122,7 +121,7 @@
       </div>
       
       <!-- See More Button -->
-       <a href="{base}/projects/{project.slug}" 
+       <a href="{base}/projects/{project.id}" 
           data-sveltekit-prefetch
           >
             <SeeMoreButton
@@ -130,7 +129,7 @@
               onClick={handleClick}
               onTouchStart={onTouchStart}
               onTouchEnd={onTouchEnd}
-              ariaLabel="Lihat selengkapnya {project.title}"
+              ariaLabel="Lihat selengkapnya {project.name}"
               variant="default"
               size="lg"
               class="h-fit text-sm sm:text-base md:text-lg px-4 py-2 font-semibold flex-shrink-0"
@@ -151,7 +150,7 @@
         {#each Object.entries(project.stats) as [key, value]}
           <div class="text-center">
             <div class="text-2xl font-bold text-[#56AAB7]">{value}</div>
-            <div class="text-sm text-gray-600 capitalize">{key}</div>
+            <div class="text-sm text-gray-600 capitalize">{key.replace(/([A-Z])/g, ' $1').trim()}</div>
           </div>
         {/each}
       </div>

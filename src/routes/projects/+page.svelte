@@ -5,17 +5,13 @@
   import { onMount } from 'svelte';
   import ProjectPageCard from '$lib/components/ProjectPageCard.svelte';
   import SeeMoreButton from '$lib/components/SeeMoreButton.svelte';
-  import { getAllProjects, getProjectsByCategory, projectCategories } from '$lib/data/projects.js';
+  import { getAllCategories } from '$lib/data/category-projects.js';
   import Cta from '$lib/components/Cta.svelte';
   
   let selectedCategory = 'All';
-  let filteredProjects = getAllProjects();
+  let filteredProjects = getAllCategories();
   let touchStates = new Map();
   
-  // Filter projects when category changes
-  $: {
-    filteredProjects = getProjectsByCategory(selectedCategory);
-  }
   
   onMount(() => {
     setupMobileTouch();
@@ -82,35 +78,6 @@
     </div>  
   </section>
   
-  <!-- Filter Section -->
-  <!-- <section class="py-8 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-gray-50">
-    <div class="flex flex-wrap gap-3 justify-center md:justify-start">
-      {#each projectCategories as category}
-        <button
-          class="px-4 py-2 rounded-full border-2 transition-all duration-300 font-roboto-condensed text-sm font-medium"
-          class:bg-[#56AAB7]={selectedCategory === category}
-          class:text-white={selectedCategory === category}
-          class:border-[#56AAB7]={selectedCategory === category}
-          class:bg-white={selectedCategory !== category}
-          class:text-[#56AAB7]={selectedCategory !== category}
-          class:border-gray-300={selectedCategory !== category}
-          class:hover:border-[#56AAB7]={selectedCategory !== category}
-          class:hover:text-[#56AAB7]={selectedCategory !== category}
-          on:click={() => handleCategoryChange(category)}
-        >
-          {category === 'All' ? 'Semua' : category}
-        </button>
-      {/each}
-    </div> -->
-    
-    <!-- Project Count -->
-    <!-- <div class="mt-4 text-center md:text-left">
-      <p class="text-gray-600 font-roboto text-sm">
-        Menampilkan {filteredProjects.length} proyek
-        {selectedCategory !== 'All' ? `dalam kategori ${selectedCategory}` : ''}
-      </p>
-    </div>
-  </section> -->
 
   <!-- Projects Section -->
   <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 flex flex-col">
@@ -121,6 +88,7 @@
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
         imagePosition='left'
+        isLast={index === filteredProjects.length - 1}
       />
     {/each}
     
