@@ -37,10 +37,10 @@ export const projects = [
       }
     ],
     "panoramic": {
-      outside: 'assets/panorama/2.png',
-      courtyard: 'assets/panorama/5.png',
-      bedroom: 'assets/panorama/3.png',
-      terrace: 'assets/panorama/4.png'
+      outside: 'assets/panorama/2.webp',
+      courtyard: 'assets/panorama/5.webp',
+      bedroom: 'assets/panorama/3.webp',
+      terrace: 'assets/panorama/4.webp'
     },
     "hotspots": [
       { "x": 79.02, "y": 51.94, "scene": "outside", "label": "Enter House", "type": "nav", "targetScene": "courtyard", "icon": "door" },
@@ -155,10 +155,10 @@ export const projects = [
       }
     ],
     "panoramic": {
-      exterior: 'assets/panorama/2.png',
-      livingRoom: 'assets/panorama/1.png',
-      poolArea: 'assets/panorama/3.png',
-      diningRoom: 'assets/panorama/4.png'
+      exterior: 'assets/panorama/2.webp',
+      livingRoom: 'assets/panorama/1.webp',
+      poolArea: 'assets/panorama/3.webp',
+      diningRoom: 'assets/panorama/4.webp'
     },
     "hotspots": [
       { x: 50, y: 55, scene: 'livingRoom', label: 'Main Entrance', icon: 'door' },
@@ -217,10 +217,10 @@ export const projects = [
       }
     ],
     "panoramic": {
-      exterior: 'assets/panorama/3.png',
-      livingRoom: 'assets/panorama/4.png',
-      kitchen: 'assets/panorama/1.png',
-      studyRoom: 'assets/panorama/2.png'
+      exterior: 'assets/panorama/3.webp',
+      livingRoom: 'assets/panorama/4.webp',
+      kitchen: 'assets/panorama/1.webp',
+      studyRoom: 'assets/panorama/2.webp'
     },
     "hotspots": [
       { x: 50, y: 50, scene: 'livingRoom', label: 'Living Area', icon: 'door' },
