@@ -971,4 +971,4 @@ function createCustomHotspot(hotSpotDiv, args) {
       transition-duration: 0.01ms !important;
     }
   }
-</style>
+</style>  

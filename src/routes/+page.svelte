@@ -195,7 +195,7 @@
   function handleProjectClick(projectSlug: string) {
     console.log('Project clicked:', projectSlug);
     // Navigate to project detail page
-    goto(`/projects/${projectSlug}`);
+    goto(`${base}/projects/${projectSlug}`);
   }
 
   function handleViewAllProjects() {

@@ -122,7 +122,7 @@
 
   <!-- View All Projects/Categories Card -->
   <a 
-    href="{base}/{showCategories ? 'categories' : 'projects'}"
+    href="{base}/{showCategories ? 'categories' : 'projects'}" 
     class="flex w-full h-full p-8 sm:p-12 gap-4 relative view-all-projects group mobile-card touch-interactive hover:bg-gradient-to-br hover:from-[#56AAB7] hover:to-[#4A9AA8] active:bg-gradient-to-br active:from-[#56AAB7] active:to-[#4A9AA8] transition-all duration-500 bg-gray-50 hover:shadow-2xl hover:-translate-y-2 active:shadow-2xl active:-translate-y-2 cursor-pointer border-2 border-transparent hover:border-[#56AAB7] active:border-[#56AAB7] no-underline"
     style="contain: layout; {contentMode === 'full' ? 'min-height: 28rem; aspect-ratio: 1/1;' : 'min-height: auto;'}"
     on:click={handleViewAllClick}
