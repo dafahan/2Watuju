@@ -1,7 +1,7 @@
-<!-- Complete Fixed PannellumPanoramicViewer.svelte -->
+<!-- Clean PannellumPanoramicViewer.svelte -->
 <script>
   import { onMount, onDestroy } from 'svelte';
-  import { Maximize, RotateCcw, Home, Minimize, MousePointer, Eye, ZoomIn, ZoomOut, Compass, Info, Navigation, AlertTriangle, ToggleLeft, ToggleRight } from 'lucide-svelte';
+  import { Maximize, RotateCcw, Home, Minimize, MousePointer, Eye, ZoomIn, ZoomOut, Compass, Info, Navigation, AlertTriangle,ToggleLeft,ToggleRight } from 'lucide-svelte';
   import { base } from '$app/paths';
 
   // Props
@@ -93,7 +93,6 @@
   let isPanoramicMode = false;
   let isLoading = false;
   let loadingProgress = 0;
-  let loadingText = 'Initializing...';
   let error = null;
   let containerRef;
   let pannellumContainer;
@@ -107,7 +106,6 @@
   // Pannellum viewer instance
   let viewer = null;
   let pannellumLoaded = false;
-  let imageValidationResults = {};
 
   // Helper function to resolve image paths
   const resolveImagePath = (imagePath) => {
@@ -118,21 +116,11 @@
     return `${base}/${cleanPath}`;
   };
 
-  // Create resolved panoramic data with validation
+  // Create resolved panoramic data
   $: resolvedPanoramicData = Object.fromEntries(
     Object.entries(panoramicData).map(([key, value]) => [key, resolveImagePath(value)])
   );
   $: resolvedThumbnailUrl = resolveImagePath(thumbnailUrl);
-
-  // Debug logging
-  $: {
-    console.log('=== DEBUG: Resolved Panoramic Data ===');
-    Object.entries(resolvedPanoramicData).forEach(([key, value]) => {
-      console.log(`${key}:`, value);
-    });
-    console.log('Current scene:', currentScene);
-    console.log('Available scenes:', Object.keys(resolvedPanoramicData));
-  }
 
   // Scene names
   const sceneNames = {
@@ -163,56 +151,6 @@
     tatamiRoom: 'Tatami Room'
   };
 
-  // Image validation function
-  const validateImages = async () => {
-    const issues = [];
-    const validationResults = {};
-    
-    for (const [sceneKey, imageUrl] of Object.entries(resolvedPanoramicData)) {
-      if (!imageUrl || typeof imageUrl !== 'string') {
-        issues.push(`${sceneKey}: Invalid image URL`);
-        validationResults[sceneKey] = { valid: false, error: 'Invalid URL' };
-      } else if (!imageUrl.match(/\.(jpg|jpeg|png|webp)$/i)) {
-        issues.push(`${sceneKey}: Unsupported image format`);
-        validationResults[sceneKey] = { valid: false, error: 'Unsupported format' };
-      } else {
-        // Check if image exists and get size info
-        try {
-          const response = await fetch(imageUrl, { method: 'HEAD' });
-          if (response.ok) {
-            const contentLength = response.headers.get('content-length');
-            const sizeInMB = contentLength ? parseInt(contentLength) / (1024 * 1024) : 0;
-            validationResults[sceneKey] = { 
-              valid: true, 
-              sizeInMB: sizeInMB,
-              isLarge: sizeInMB > 5,
-              isHuge: sizeInMB > 10
-            };
-            
-            if (sizeInMB > 10) {
-              console.warn(`⚠️ Very large image detected for ${sceneKey}: ${sizeInMB.toFixed(2)}MB`);
-            }
-          } else {
-            issues.push(`${sceneKey}: Image not accessible (${response.status})`);
-            validationResults[sceneKey] = { valid: false, error: `HTTP ${response.status}` };
-          }
-        } catch (error) {
-          console.warn(`Cannot validate ${sceneKey}:`, error.message);
-          validationResults[sceneKey] = { valid: true, sizeInMB: 0 }; // Assume valid for offline development
-        }
-      }
-    }
-    
-    imageValidationResults = validationResults;
-    
-    if (issues.length > 0) {
-      console.error('Image validation issues:', issues);
-      throw new Error(`Image validation failed: ${issues.slice(0, 3).join(', ')}${issues.length > 3 ? '...' : ''}`);
-    }
-    
-    return validationResults;
-  };
-
   // Load Pannellum library from CDN
   const loadPannellum = () => {
     return new Promise((resolve, reject) => {
@@ -232,11 +170,9 @@
       script.src = 'https://cdn.jsdelivr.net/npm/pannellum@2.5.6/build/pannellum.js';
       script.onload = () => {
         pannellumLoaded = true;
-        console.log('✓ Pannellum loaded from CDN');
         resolve();
       };
       script.onerror = (error) => {
-        console.error('✗ Failed to load Pannellum from CDN:', error);
         reject(error);
       };
       document.head.appendChild(script);
@@ -244,7 +180,7 @@
   };
 
   // Enhanced hotspot creation function
-  function createCustomHotspot(hotSpotDiv, args) {
+function createCustomHotspot(hotSpotDiv, args) {
     const { label, type, targetSceneKey } = typeof args === 'object' ? args : { label: args, type: 'info', targetSceneKey: '' };
     
     hotSpotDiv.classList.add('custom-tooltip');
@@ -260,40 +196,40 @@
     `;
     
     if (type === 'nav') {
-      iconContainer.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m18 15-6-6-6 6"/>
-        </svg>
-      `;
-      // Glass morphism for navigation
-      hotSpotDiv.style.background = `
-        linear-gradient(135deg, rgba(86, 170, 183, 0.3), rgba(74, 154, 166, 0.2)),
-        rgba(255, 255, 255, 0.1)
-      `;
-      hotSpotDiv.style.backdropFilter = 'blur(10px)';
-      hotSpotDiv.style.webkitBackdropFilter = 'blur(10px)';
-      hotSpotDiv.style.border = '1px solid rgba(255, 255, 255, 0.2)';
-      hotSpotDiv.style.borderRadius = '12px';
-      hotSpotDiv.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
-      hotSpotDiv.style.cursor = 'pointer';
+        iconContainer.innerHTML = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m18 15-6-6-6 6"/>
+            </svg>
+        `;
+        // Glass morphism for navigation
+        hotSpotDiv.style.background = `
+            linear-gradient(135deg, rgba(86, 170, 183, 0.3), rgba(74, 154, 166, 0.2)),
+            rgba(255, 255, 255, 0.1)
+        `;
+        hotSpotDiv.style.backdropFilter = 'blur(10px)';
+        hotSpotDiv.style.webkitBackdropFilter = 'blur(10px)';
+        hotSpotDiv.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+        hotSpotDiv.style.borderRadius = '12px';
+        hotSpotDiv.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+        hotSpotDiv.style.cursor = 'pointer';
     } else {
-      iconContainer.innerHTML = `
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="10"/>
-          <line x1="12" y1="16" x2="12" y2="12"/>
-          <line x1="12" y1="8" x2="12.01" y2="8"/>
-        </svg>
-      `;
-      // Glass morphism for info
-      hotSpotDiv.style.background = `
-        linear-gradient(135deg, rgba(86, 170, 183, 0.3), rgba(74, 154, 166, 0.2)),
-        rgba(255, 255, 255, 0.1)
-      `;
-      hotSpotDiv.style.backdropFilter = 'blur(10px)';
-      hotSpotDiv.style.webkitBackdropFilter = 'blur(10px)';
-      hotSpotDiv.style.border = '1px solid rgba(255, 255, 255, 0.2)';
-      hotSpotDiv.style.borderRadius = '12px';
-      hotSpotDiv.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
+        iconContainer.innerHTML = `
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="16" x2="12" y2="12"/>
+                <line x1="12" y1="8" x2="12.01" y2="8"/>
+            </svg>
+        `;
+        // Glass morphism for info
+        hotSpotDiv.style.background = `
+            linear-gradient(135deg, rgba(86, 170, 183, 0.3), rgba(74, 154, 166, 0.2)),
+            rgba(255, 255, 255, 0.1)
+        `;
+        hotSpotDiv.style.backdropFilter = 'blur(10px)';
+        hotSpotDiv.style.webkitBackdropFilter = 'blur(10px)';
+        hotSpotDiv.style.border = '1px solid rgba(255, 255, 255, 0.2)';
+        hotSpotDiv.style.borderRadius = '12px';
+        hotSpotDiv.style.boxShadow = '0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2)';
     }
     
     hotSpotDiv.appendChild(iconContainer);
@@ -302,99 +238,45 @@
     span.innerHTML = label;
     hotSpotDiv.appendChild(span);
     span.style.width = span.scrollWidth - 20 + 'px';
-    span.style.marginLeft = -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2 + 20 + 'px';
+    span.style.marginLeft = -(span.scrollWidth - hotSpotDiv.offsetWidth) / 2+20 + 'px';
     span.style.marginTop = -span.scrollHeight - 62 + 'px';
     
     if (type === 'nav' && targetSceneKey) {
-      hotSpotDiv.onclick = (e) => {
-        e.stopPropagation();
-        navigateToScene(targetSceneKey);
-      };
+        hotSpotDiv.onclick = (e) => {
+            e.stopPropagation();
+            navigateToScene(targetSceneKey);
+        };
     }
-  }
+}
 
   // Get hotspots for current scene
   const getHotspotsForScene = (sceneKey) => {
     return hotspots.filter(hotspot => hotspot.scene === sceneKey);
   };
 
-  // Progressive image loading
-  const createProgressiveLoader = (imageUrl, sceneKey) => {
-    return new Promise((resolve, reject) => {
-      const img = new Image();
-      img.crossOrigin = 'anonymous';
-      
-      // Timeout for individual images based on expected size
-      const validation = imageValidationResults[sceneKey];
-      const timeoutDuration = validation?.isHuge ? 15000 : validation?.isLarge ? 10000 : 8000;
-      
-      const timeout = setTimeout(() => {
-        console.warn(`⏱️ Timeout loading ${sceneKey} (${timeoutDuration}ms)`);
-        reject(new Error(`Timeout loading ${sceneKey}`));
-      }, timeoutDuration);
-      
-      img.onload = () => {
-        clearTimeout(timeout);
-        console.log(`✓ Loaded ${sceneKey}: ${img.naturalWidth}x${img.naturalHeight}`);
-        resolve(img);
-      };
-      
-      img.onerror = (error) => {
-        clearTimeout(timeout);
-        console.error(`✗ Failed to load ${sceneKey}:`, error);
-        reject(error);
-      };
-      
-      // Start loading
-      img.src = imageUrl;
-    });
-  };
-
-  // Enhanced Pannellum initialization with comprehensive optimization
+  // Initialize Pannellum viewer
   const initPannellum = async () => {
     try {
       isLoading = true;
-      error = null;
       loadingProgress = 0;
-      loadingText = 'Initializing...';
+      error = null;
 
-      // Step 1: Load Pannellum library
-      console.log('🔄 Loading Pannellum library...');
-      loadingText = 'Loading Pannellum library...';
-      loadingProgress = 5;
+      // Load Pannellum library
       await loadPannellum();
-      console.log('✓ Pannellum library loaded');
+      loadingProgress = 40;
 
-      // Step 2: Validate images
-      console.log('🔄 Validating images...');
-      loadingText = 'Validating images...';
-      loadingProgress = 15;
-      await validateImages();
-      console.log('✓ Images validated');
-
-      // Step 3: Load current scene with priority
-      console.log(`🔄 Priority loading current scene: ${currentScene}`);
-      loadingText = `Loading ${sceneNames[currentScene] || currentScene}...`;
-      loadingProgress = 25;
-      
-      const currentSceneUrl = resolvedPanoramicData[currentScene];
-      if (currentSceneUrl) {
-        await createProgressiveLoader(currentSceneUrl, currentScene);
-        console.log(`✓ Current scene loaded: ${currentScene}`);
-      }
-      loadingProgress = 50;
-
-      // Step 4: Build optimized scene configuration
-      console.log('🔄 Building scene configuration...');
-      loadingText = 'Configuring scenes...';
+      // Create scenes configuration
       const scenes = {};
       const sceneKeys = Object.keys(resolvedPanoramicData);
+      
+      if (sceneKeys.length === 0) {
+        throw new Error('No panoramic scenes available');
+      }
 
-      for (const sceneKey of sceneKeys) {
-        const imageUrl = resolvedPanoramicData[sceneKey]; // FIX: Direct access to URL
-        const sceneHotspots = showHotspots ? getHotspotsForScene(sceneKey) : []; // FIX: Use existing function
-
-        const pannellumHotspots = sceneHotspots.map((hotspot, index) => {
+      for (const [sceneKey, imageUrl] of Object.entries(resolvedPanoramicData)) {
+        const sceneHotspots = getHotspotsForScene(sceneKey);
+        
+        const pannellumHotspots = showHotspots ? sceneHotspots.map((hotspot, index) => {
           const yaw = (hotspot.x / 100) * 360 - 180;
           const pitch = 90 - (hotspot.y / 100) * 180;
           
@@ -410,60 +292,43 @@
               targetSceneKey: hotspot.targetScene || ''
             }
           };
-        });
+        }) : [];
 
-        // Optimized scene configuration
         scenes[sceneKey] = {
           type: 'equirectangular',
           panorama: imageUrl,
-          autoLoad: sceneKey === currentScene, // Only auto-load current scene
+          autoLoad: sceneKey === currentScene,
           hotSpots: pannellumHotspots,
           title: sceneNames[sceneKey] || sceneKey,
           author: '2WATUJU Architecture',
-          
-          // Performance optimized settings
-          hfov: 85,              // Optimized field of view
+          hfov: 100,
           pitch: 0,
           yaw: 0,
-          hotSpotDebug: false,
-          
-          // FIX: Safe preview image handling
-          ...(imageUrl && typeof imageUrl === 'string' && imageUrl.includes('.') ? {
-            preview: imageUrl.replace(/\.(jpg|jpeg|png|webp)$/i, '_preview.$1')
-          } : {}),
-          
-          // Disable auto-rotate for non-current scenes
-          autoRotate: false,
-          
-          // Optimized rendering settings
-          backgroundColor: [0, 0, 0],
-          crossOrigin: "anonymous",
-          
-          // Mobile optimizations
-          orientationOnByDefault: false,
-          touchPanSpeedCoeffFactor: 0.8,
+          hotSpotDebug: false
         };
       }
 
       loadingProgress = 70;
-      loadingText = 'Initializing viewer...';
 
       // Ensure currentScene exists
       if (!scenes[currentScene]) {
         currentScene = sceneKeys[0];
       }
 
-      // Step 5: Enhanced Pannellum configuration
+      loadingProgress = 80;
+
+      // Clear container
+      if (pannellumContainer) {
+        pannellumContainer.innerHTML = '';
+      }
+
+      // Initialize Pannellum viewer
       const config = {
         default: {
           firstScene: currentScene,
           author: '2WATUJU Architecture',
-          
-          // Optimized transitions
-          sceneFadeDuration: 600,    
+          sceneFadeDuration: 1000,
           autoLoad: true,
-          
-          // Control settings
           showZoomCtrl: false,
           showFullscreenCtrl: false,
           showControls: false,
@@ -471,118 +336,52 @@
           doubleClickZoom: true,
           draggable: true,
           keyboardZoom: true,
-          
-          // Performance optimizations
-          friction: 0.12,           
-          hfov: 85,                 
-          maxHfov: 100,            // Reduced max zoom for better performance
-          minHfov: 65,             // Increased min zoom
+          friction: 0.15,
+          hfov: 100,
+          maxHfov: 120,
+          minHfov: 50,
           pitch: 0,
           yaw: 0,
           hotSpotDebug: false,
-          backgroundColor: [0, 0, 0],
-          
-          // Loading optimizations
-          crossOrigin: "anonymous",
-          
-          // Mobile optimizations
-          orientationOnByDefault: false,
-          touchPanSpeedCoeffFactor: 0.8,
-          
-          // Disable auto features for better performance
-          autoRotateInactivityDelay: -1,
-          autoRotateStopDelay: -1
+          backgroundColor: [0, 0, 0]
         },
         scenes: scenes
       };
 
-      // Step 6: Clear and prepare container
-      if (pannellumContainer) {
-        pannellumContainer.innerHTML = '';
-        pannellumContainer.style.transform = '';
-        pannellumContainer.style.transition = '';
-      }
-
-      loadingProgress = 85;
-      loadingText = 'Starting panoramic viewer...';
-
-      // Step 7: Initialize with timeout management
-      console.log('🔄 Initializing Pannellum viewer...');
-      
-      const initTimeout = setTimeout(() => {
+      // Add timeout for loading detection
+      const loadTimeout = setTimeout(() => {
         if (isLoading) {
-          console.warn('⚠️ Pannellum initialization timeout');
-          error = 'Viewer initialization timeout. The images may be too large. Try refreshing the page.';
+          error = 'Load timeout: The panoramic viewer took too long to initialize. Please check your internet connection and try again.';
           isLoading = false;
         }
-      }, 10000); // 10 second timeout for initialization
+      }, 15000);
 
-      // Initialize viewer
       viewer = window.pannellum.viewer(pannellumContainer, config);
 
-      // Enhanced event listeners
+      // Event listeners
       viewer.on('load', () => {
-        console.log('✓ Pannellum viewer loaded successfully');
-        clearTimeout(initTimeout);
+        clearTimeout(loadTimeout);
         loadingProgress = 100;
-        loadingText = 'Ready!';
-        setTimeout(() => {
-          isLoading = false;
-        }, 300);
+        isLoading = false;
       });
 
       viewer.on('error', (err) => {
-        console.error('✗ Pannellum error:', err);
-        clearTimeout(initTimeout);
-        
-        let errorMsg = 'Failed to load panorama';
-        if (typeof err === 'string') {
-          errorMsg = err;
-        } else if (err && err.message) {
-          errorMsg = err.message;
-        }
-        
-        // Enhanced error messages
-        if (errorMsg.includes('404') || errorMsg.includes('Not Found')) {
-          errorMsg = 'Panorama image not found. Please check the file path.';
-        } else if (errorMsg.includes('CORS')) {
-          errorMsg = 'Cross-origin error. Image may not be accessible from this domain.';
-        } else if (errorMsg.includes('network') || errorMsg.includes('NetworkError')) {
-          errorMsg = 'Network error. Please check your internet connection.';
-        } else if (errorMsg.includes('timeout') || errorMsg.includes('Timeout')) {
-          errorMsg = 'Loading timeout. The image may be too large.';
-        }
-        
-        error = `${errorMsg} Try refreshing or using smaller images.`;
+        clearTimeout(loadTimeout);
+        const errorMsg = typeof err === 'string' ? err : 'Failed to load panorama';
+        error = `${errorMsg}. Please verify that panorama images are accessible.`;
         isLoading = false;
       });
 
       viewer.on('scenechange', (sceneId) => {
-        console.log(`🔄 Scene changed to: ${sceneId}`);
         currentScene = sceneId;
       });
 
-      // Performance monitoring
-      if (viewer) {
-        const startTime = Date.now();
-        viewer.on('animatefinished', () => {
-          const loadTime = Date.now() - startTime;
-          console.log(`✓ Scene ready in ${loadTime}ms`);
-          
-          if (loadTime > 5000) {
-            console.warn(`⚠️ Slow scene load detected: ${loadTime}ms`);
-          }
-        });
-      }
-
-      // Auto-rotate if enabled
       if (autoRotate) {
-        viewer.setAutoRotate(1.5); 
+        viewer.setAutoRotate(2);
       }
 
     } catch (err) {
-      console.error('✗ Failed to initialize panoramic viewer:', err);
-      error = `Initialization failed: ${err.message || 'Unknown error'}. Please refresh the page.`;
+      error = `Failed to initialize panoramic viewer: ${err.message || 'Unknown error'}`;
       isLoading = false;
     }
   };
@@ -590,7 +389,6 @@
   // Navigation functions
   const navigateToScene = (sceneName) => {
     if (viewer && resolvedPanoramicData[sceneName]) {
-      console.log(`🧭 Navigating to scene: ${sceneName}`);
       viewer.loadScene(sceneName);
       currentScene = sceneName;
     }
@@ -600,7 +398,7 @@
     if (viewer) {
       viewer.setPitch(0);
       viewer.setYaw(0);
-      viewer.setHfov(85);
+      viewer.setHfov(100);
     }
   };
 
@@ -608,7 +406,7 @@
     autoRotate = !autoRotate;
     if (viewer) {
       if (autoRotate) {
-        viewer.setAutoRotate(1.5);
+        viewer.setAutoRotate(2);
       } else {
         viewer.setAutoRotate(false);
       }
@@ -618,14 +416,14 @@
   const zoomIn = () => {
     if (viewer) {
       const currentHfov = viewer.getHfov();
-      viewer.setHfov(Math.max(65, currentHfov - 10));
+      viewer.setHfov(Math.max(50, currentHfov - 10));
     }
   };
 
   const zoomOut = () => {
     if (viewer) {
       const currentHfov = viewer.getHfov();
-      viewer.setHfov(Math.min(100, currentHfov + 10));
+      viewer.setHfov(Math.min(120, currentHfov + 10));
     }
   };
 
@@ -661,15 +459,10 @@
     showAllControls = !showAllControls;
   };
 
-  const togglePanoramic = async () => {
+  const togglePanoramic = () => {
     if (!isPanoramicMode) {
-      try {
-        isPanoramicMode = true;
-        setTimeout(() => initPannellum(), 100);
-      } catch (err) {
-        error = err.message;
-        console.error('Failed to start panoramic mode:', err);
-      }
+      isPanoramicMode = true;
+      setTimeout(() => initPannellum(), 100);
     } else {
       isPanoramicMode = false;
       cleanup();
@@ -678,16 +471,11 @@
 
   const cleanup = () => {
     if (viewer) {
-      try {
-        viewer.destroy();
-      } catch (err) {
-        console.warn('Error destroying viewer:', err);
-      }
+      viewer.destroy();
       viewer = null;
     }
     isLoading = false;
     loadingProgress = 0;
-    loadingText = 'Initializing...';
     error = null;
     currentScene = 'outside';
     autoRotate = false;
@@ -799,6 +587,7 @@
               <p class="text-sm font-chivo-mono opacity-90 tracking-wide">
                 {subtitle}
               </p>
+
             </div>
             
             <button 
@@ -816,6 +605,8 @@
           </div>
         </div>
       </div>
+
+
     </div>
   {:else}
     <!-- Pannellum Panoramic View -->
@@ -825,7 +616,7 @@
         <!-- Pannellum will render here -->
       </div>
       
-      <!-- Enhanced Loading Overlay -->
+      <!-- Loading Overlay -->
       {#if isLoading}
         <div class="absolute inset-0 flex items-center justify-center z-50" style="background: rgba(0,0,0,0.95);">
           <div class="text-center max-w-md mx-auto px-6">
@@ -847,19 +638,12 @@
             <h3 class="text-xl font-bold text-white font-roboto-condensed mb-2">
               Initializing Professional 360° Viewer
             </h3>
-            <p class="text-gray-300 text-sm font-roboto mb-2">
-              {loadingText}
+            <p class="text-gray-300 text-sm font-roboto mb-4">
+              Loading Pannellum WebGL renderer...
             </p>
             <p class="text-lg font-bold font-chivo-mono" style="color: #56AAB7;">
               {Math.round(loadingProgress)}%
             </p>
-            
-            <!-- Show image size warnings during loading -->
-            {#if Object.values(imageValidationResults).some(r => r.isHuge)}
-              <p class="text-yellow-400 text-xs mt-3 opacity-75">
-                ⚠️ Large images detected - this may take longer
-              </p>
-            {/if}
             
             <button 
               on:click={() => {
@@ -874,7 +658,7 @@
         </div>
       {/if}
       
-      <!-- Enhanced Error State -->
+      <!-- Error State -->
       {#if error}
         <div class="absolute inset-0 flex items-center justify-center z-50" style="background: rgba(0,0,0,0.95);">
           <div class="text-center max-w-lg mx-auto px-6">
@@ -887,23 +671,6 @@
             <p class="text-red-300 font-roboto mb-4 text-sm leading-relaxed">
               {error}
             </p>
-            
-            <!-- Show troubleshooting info -->
-            {#if Object.keys(imageValidationResults).length > 0}
-              <details class="text-left text-xs text-gray-400 mb-4 max-w-sm mx-auto">
-                <summary class="cursor-pointer hover:text-gray-300 mb-2">🔍 Troubleshooting Info</summary>
-                <div class="space-y-1">
-                  {#each Object.entries(imageValidationResults) as [sceneKey, result]}
-                    <div class="flex justify-between">
-                      <span>{sceneKey}:</span>
-                      <span class={result.valid ? 'text-green-400' : 'text-red-400'}>
-                        {result.valid ? `${result.sizeInMB?.toFixed(1)}MB` : result.error}
-                      </span>
-                    </div>
-                  {/each}
-                </div>
-              </details>
-            {/if}
             
             <div class="flex gap-3 justify-center">
               <button 
@@ -919,7 +686,6 @@
                 on:click={() => { 
                   error = null; 
                   loadingProgress = 0;
-                  loadingText = 'Retrying...';
                   initPannellum();
                 }}
                 class="text-white px-6 py-3 rounded-full transition-all duration-300 text-sm font-medium"
@@ -946,6 +712,7 @@
               this={showAllControls ? ToggleRight : ToggleLeft} 
               size={18} 
             />
+            
           </button>
         </div>
 
@@ -991,6 +758,7 @@
                 <Maximize size={18} />
               {/if}
             </button>
+            
           </div>
 
           <!-- Zoom Controls -->
