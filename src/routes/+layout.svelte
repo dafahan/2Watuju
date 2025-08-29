@@ -333,7 +333,7 @@
 
   <!-- Footer -->
   <footer class="relative z-10 bg-gradient-to-t from-neutral-100 to-white text-black">
-    <div class="max-w-7xl mx-auto px-4 lg:px-12 py-12 lg:py-16 ">
+    <div class=" mx-auto px-4 xl:px-32 2xl:px-64 px-4 sm:px-8 py-12 lg:py-16 ">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
         <!-- Left Column - Company Info -->
         <div class="lg:col-span-6 space-y-6">
@@ -354,8 +354,8 @@
             />
             </div>
             <div class="text-sm leading-relaxed max-w-md">
-              <p class="font-roboto text-neutral-600 group-hover:text-neutral-800 transition-colors duration-300">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu.
+              <p class="font-roboto text-neutral-600 group-hover:text-neutral-800 transition-colors duration-300 text-justify">
+                2Watuju mempunyai Visi dan Misi untuk mewujudkan hunian yang sesuai dengan kepribadianmu. Kami yakin bahwa setiap orang bisa mengekspresikan kisah hidupnya menjadi sebuah hunian idaman atau sebaliknya yaitu hunian yang menjadi awal mula dari cerita baru dan perjalanan yang akan dimulai.
               </p>
             </div>
           </div>
@@ -413,13 +413,7 @@
           </div>
         </div>
       </div>
-      
-      <!-- Footer Bottom -->
-      <div class="mt-12 pt-8 border-t border-neutral-200 text-center">
-        <p class="text-sm text-neutral-500 font-roboto">
-          © 2024 2WATUJU. All rights reserved. | Crafted with care in Lampung.
-        </p>
-      </div>
+    
     </div>
   </footer>
 

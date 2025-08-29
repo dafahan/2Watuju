@@ -421,7 +421,7 @@
             <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               LOCAL INTELLIGENCE
             </h3>
-            <div class="flex flex-col gap-2 text-balance">
+            <div class="flex flex-col gap-2 text-balance text-justify">
               <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
                 Setiap ruang kami hadirkan bukan
                 hanya untuk ditinggali, tapi juga 
@@ -441,7 +441,7 @@
             <h3 class="font-chivo-mono text-balance uppercase tracking-wide group-hover:text-[#56AAB7] group-active:text-[#56AAB7] transition-colors duration-300">
               PREMIUM & PERSONAL
             </h3>
-            <div class="flex flex-col gap-2 text-balance  ">
+            <div class="flex flex-col gap-2 text-balance  text-justify">
               <p class="font-roboto text-sm leading-relaxed group-hover:text-gray-600 group-active:text-gray-600 transition-colors duration-300">
                 Kami memulai setiap rancangan
                 dengan mendengarkan seluruh
