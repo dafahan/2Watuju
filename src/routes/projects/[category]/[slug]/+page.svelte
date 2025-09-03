@@ -234,8 +234,8 @@
                     <img src={`${base}/icons/garage.svg`} alt="icon" class="object-contain w-16 h-16">
                   </div>
                   <div class="flex flex-col font-roboto-mono">
-                    <h1 class="font-bold text-lg leading-tight">GARAGE</h1>
-                    <h2 class="font-normal text-base">{project.stats.garage}</h2>
+                    <h1 class="font-bold text-lg leading-tight">CARPORT</h1>
+                    <h2 class="font-normal text-base">{project.stats.carport}</h2>
                   </div>
                 </div>
 

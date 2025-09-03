@@ -83,7 +83,7 @@
   aria-label={ariaLabel || text}
   {disabled}
 >
-  <span class="group-hover/btn:tracking-wider group-active/btn:tracking-wider transition-all duration-300">
+  <span class="">
     {text}
   </span>
   <ArrowRight 

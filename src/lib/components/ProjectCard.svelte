@@ -48,16 +48,16 @@
       <!-- Mobile screens -->
       <source 
         media="(max-width: 639px)" 
-        srcset="{project.images.mobile}&w=300 300w,
-                {project.images.mobile}&w=600 600w"
+        srcset="{project.images.mobile},
+                {project.images.mobile}"
         sizes="(max-width: 400px) 300px, 400px"
       />
       
       <!-- Tablet screens -->
       <source 
         media="(max-width: 1023px)" 
-        srcset="{project.images.tablet}&w=400 400w,
-                {project.images.tablet}&w=600 600w"
+        srcset="{project.images.tablet},
+                {project.images.tablet}"
         sizes="(max-width: 640px) 100vw,
                (max-width: 768px) 50vw,
                33vw"
@@ -66,9 +66,9 @@
       <!-- Desktop screens -->
       <source 
         media="(min-width: 1024px)" 
-        srcset="{project.images.desktop}&w=400 400w,
-                {project.images.desktop}&w=600 600w,
-                {project.images.desktop}&w=800 800w"
+        srcset="{project.images.desktop},
+                {project.images.desktop},
+                {project.images.desktop}"
         sizes="(max-width: 1280px) 400px,
                (max-width: 1536px) 500px,
                600px"

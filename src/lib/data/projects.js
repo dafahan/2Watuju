@@ -9,6 +9,7 @@ export const projects = [
     "categoryId": "japandi",
     "location": "Bandar Lampung",
     "year": 2025,
+    "month" :"DEC",
     "description": "Interactive 360° panoramic experience with multi-scene navigation. Perpaduan harmonis filosofi minimalis Jepang dan kehangatan Skandinavia dalam setiap detail.",
     "images": {
       "thumbnail": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
@@ -52,13 +53,10 @@ export const projects = [
       { "x": 73.8, "y": 51.95, "scene": "terrace", "label": "Bedroom", "type": "nav", "targetScene": "bedroom", "icon": "door" },
       { "x": 3.31, "y": 47.37, "scene": "terrace", "label": "Courtyard", "type": "nav", "targetScene": "courtyard", "icon": "door" }
     ],
-    "features": ["3 Kamar Tidur", "2 Kamar Mandi", "Taman Dalam", "Carport", "Smart Home", "Open Kitchen"],
-    "status": "completed",
-    "client": "Keluarga Raharjo",
     "stats": {
       "land": "150m²",
       "floor": "120m²",
-      "garage": "yes",
+      "carport": "yes",
       "pool": "no",
       "bathroom": "2",
       "room": "3"
@@ -68,8 +66,7 @@ export const projects = [
       "ARCHITECT": "Kurnia Firmanda Ageng, S.Ars",
       "LOKASI": "Sukarame, Bandar Lampung",
       "INTERIOR DESIGNER": "Kurnia Firmanda Ageng, S.Ars"
-    },
-    "featured": true
+    }
   },
   {
     "id": 9,
@@ -78,6 +75,7 @@ export const projects = [
     "categoryId": "japandi",
     "location": "Lampung Tengah",
     "year": 2024,
+    "month" :"DEC",
     "description": "Rumah kedua dengan gaya Japandi yang mengutamakan ketenangan dan kedamaian. Material kayu oak dan bambu menciptakan harmoni dengan taman zen yang dirancang khusus.",
     "images": {
       "thumbnail": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
@@ -99,13 +97,10 @@ export const projects = [
         "content": "Taman zen yang dirancang khusus menjadi focal point dari villa ini. Dengan elemen batu alam, pasir yang diatur rapi, dan pemilihan tanaman yang minimal, taman ini menciptakan ruang meditasi yang sempurna untuk melepas penat dari kehidupan sehari-hari."
       }
     ],
-    "features": ["4 Kamar Tidur", "3 Kamar Mandi", "Zen Garden", "Tea Corner", "Natural Pool"],
-    "status": "completed",
-    "client": "Keluarga Sato",
     "stats": {
       "land": "220m²",
       "floor": "180m²",
-      "garage": "yes",
+      "carport": "yes",
       "pool": "yes",
       "bathroom": "3",
       "room": "4"
@@ -115,139 +110,10 @@ export const projects = [
       "ARCHITECT": "Kurnia Firmanda Ageng, S.Ars",
       "LOKASI": "Lampung Tengah",
       "INTERIOR DESIGNER": "Kurnia Firmanda Ageng, S.Ars"
-    },
-    "featured": true
+    }
   },
 
-  // Tropical Contemporary (2 projects)
-  {
-    "id": 2,
-    "title": "TROPICAL\nCONTEMPORARY",
-    "slug": "tropical-contemporary",
-    "categoryId": "tropical-contemporary",
-    "location": "Metro, Lampung",
-    "year": 2024,
-    "description": "Desain rumah kontemporer tropis yang memadukan elemen tradisional dengan teknologi modern, menciptakan harmoni antara alam dan arsitektur.",
-    "images": {
-      "thumbnail": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop",
-      "mobile": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=400&h=300&fit=crop",
-      "tablet": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=600&h=450&fit=crop",
-      "desktop": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop"
-    },
-    "contentSections": [
-      {
-        "title": "Harmoni Tradisional dan Modern",
-        "image": "https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=800&h=600&fit=crop",
-        "imageDescription": "Fasad rumah tropis kontemporer dengan perpaduan material modern dan elemen tradisional",
-        "content": "Rumah ini memadukan elemen tradisional Indonesia dengan teknologi modern untuk menciptakan hunian yang nyaman di iklim tropis. Penggunaan material lokal seperti kayu jati dan batu alam dikombinasikan dengan teknologi smart home untuk efisiensi energi."
-      },
-      {
-        "title": "Ruang Terbuka yang Menyatu dengan Alam",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-        "imageDescription": "Area ruang tamu yang terbuka dengan view langsung ke kolam renang dan taman tropis",
-        "content": "Konsep open living yang diterapkan memungkinkan aliran udara alami dan pencahayaan optimal. Ruang tamu yang terbuka langsung ke area kolam renang dan taman tropis menciptakan kontinuitas visual antara interior dan eksterior."
-      },
-      {
-        "title": "Kolam Renang Sebagai Pusat Aktivitas",
-        "image": "https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop",
-        "imageDescription": "Kolam renang dengan gazebo kayu dan landscaping tropis yang rimbun",
-        "content": "Area kolam renang dirancang sebagai pusat aktivitas keluarga dengan gazebo kayu yang berfungsi sebagai area santai. Landscaping tropis dengan tanaman lokal menciptakan suasana resort pribadi di rumah sendiri."
-      }
-    ],
-    "panoramic": {
-      exterior: 'assets/panorama/2.webp',
-      livingRoom: 'assets/panorama/1.webp',
-      poolArea: 'assets/panorama/3.webp',
-      diningRoom: 'assets/panorama/4.webp'
-    },
-    "hotspots": [
-      { x: 50, y: 55, scene: 'livingRoom', label: 'Main Entrance', icon: 'door' },
-      { x: 70, y: 65, scene: 'poolArea', label: 'Pool Area', icon: 'waves' },
-      { x: 30, y: 45, scene: 'diningRoom', label: 'Dining Room', icon: 'utensils' }
-    ],
-    "features": ["4 Kamar Tidur", "3 Kamar Mandi", "Kolam Renang", "Gazebo", "Taman Tropis", "Void"],
-    "status": "completed",
-    "client": "Keluarga Sutanto",
-    "stats": {
-      "land": "300m²",
-      "floor": "250m²",
-      "garage": "yes",
-      "pool": "yes",
-      "bathroom": "3",
-      "room": "4"
-    },
-    "projectDetails": {
-      "TIPE PROYEK": "Tropical Contemporary Style",
-      "ARCHITECT": "Kurnia Firmanda Ageng, S.Ars",
-      "LOKASI": "Metro Raya, Metro Lampung",
-      "INTERIOR DESIGNER": "Kurnia Firmanda Ageng, S.Ars"
-    },
-    "featured": true
-  },
 
-  // Add more projects with the same structure...
-  // For brevity, I'll show one more example:
-
-  {
-    "id": 3,
-    "title": "SCANDINAVIAN\nSTYLE",
-    "slug": "scandinavian-style",
-    "categoryId": "scandinavian",
-    "location": "Lampung Selatan",
-    "year": 2023,
-    "description": "Rumah bergaya Skandinavia dengan palet warna natural, furniture kayu, dan desain fungsional yang menghadirkan kehangatan dan kenyamanan.",
-    "images": {
-      "thumbnail": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-      "mobile": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=400&h=300&fit=crop",
-      "tablet": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=600&h=450&fit=crop",
-      "desktop": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop"
-    },
-    "contentSections": [
-      {
-        "title": "Kehangatan Desain Skandinavia",
-        "image": "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop",
-        "imageDescription": "Interior Skandinavia dengan palet warna putih dan kayu natural yang menciptakan suasana hangat",
-        "content": "Desain Skandinavia yang diterapkan mengutamakan fungsionalitas tanpa mengorbankan estetika. Palet warna natural dengan dominasi putih dan kayu menciptakan ruang yang terasa luas, terang, dan hangat meskipun dengan desain yang minimalis."
-      },
-      {
-        "title": "Furniture Fungsional dan Estetis",
-        "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
-        "imageDescription": "Area ruang keluarga dengan furniture kayu birch dan tekstil wool yang nyaman",
-        "content": "Setiap furniture dipilih berdasarkan prinsip form follows function khas Skandinavia. Furniture kayu birch dengan finishing natural dikombinasikan dengan tekstil wool dan linen menciptakan kenyamanan maksimal dengan tampilan yang timeless."
-      }
-    ],
-    "panoramic": {
-      exterior: 'assets/panorama/3.webp',
-      livingRoom: 'assets/panorama/4.webp',
-      kitchen: 'assets/panorama/1.webp',
-      studyRoom: 'assets/panorama/2.webp'
-    },
-    "hotspots": [
-      { x: 50, y: 50, scene: 'livingRoom', label: 'Living Area', icon: 'door' },
-      { x: 75, y: 40, scene: 'kitchen', label: 'Nordic Kitchen', icon: 'utensils' },
-      { x: 25, y: 45, scene: 'studyRoom', label: 'Study Nook', icon: 'book' }
-    ],
-    "features": ["2 Kamar Tidur", "2 Kamar Mandi", "Study Room", "Balkon", "Walk-in Closet", "Fireplace"],
-    "status": "completed",
-    "client": "Keluarga Andersen",
-    "stats": {
-      "land": "200m²",
-      "floor": "180m²",
-      "garage": "yes",
-      "pool": "no",
-      "bathroom": "2",
-      "room": "2"
-    },
-    "projectDetails": {
-      "TIPE PROYEK": "Scandinavian Modern Style",
-      "ARCHITECT": "Kurnia Firmanda Ageng, S.Ars",
-      "LOKASI": "Kalianda, Lampung Selatan",
-      "INTERIOR DESIGNER": "Kurnia Firmanda Ageng, S.Ars"
-    },
-    "featured": true
-  }
-
-  // ... continue with other projects following the same pattern
 ];
 
 export const projectStatuses = {

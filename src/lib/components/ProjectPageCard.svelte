@@ -7,8 +7,8 @@
   export let onProjectClick = () => {};
   export let onTouchStart = () => {};
   export let onTouchEnd = () => {};
-  export let imagePosition = 'left'; // 'left' or 'right' for alternating layout
-  export let isLast = false; // New prop to determine if this is the last card
+  export let imagePosition = 'left'; 
+  export let isLast = false; 
   
   function handleClick() {
     onProjectClick(project.id);
@@ -35,25 +35,25 @@
       <!-- Mobile screens -->
       <source 
         media="(max-width: 639px)" 
-        srcset="{project.images.mobile}&w=400 400w,
-                {project.images.mobile}&w=800 800w"
+        srcset="{project.images.mobile},
+                {project.images.mobile}"
         sizes="(max-width: 400px) 400px, 100vw"
       />
       
       <!-- Tablet screens -->
       <source 
         media="(max-width: 1023px)" 
-        srcset="{project.images.tablet}&w=600 600w,
-                {project.images.tablet}&w=900 900w"
+        srcset="{project.images.tablet},
+                {project.images.tablet}"
         sizes="(max-width: 768px) 100vw, 600px"
       />
       
       <!-- Desktop screens -->
       <source 
         media="(min-width: 1024px)" 
-        srcset="{project.images.desktop}&w=600 600w,
-                {project.images.desktop}&w=800 800w,
-                {project.images.desktop}&w=1000 1000w"
+        srcset="{project.images.desktop},
+                {project.images.desktop},
+                {project.images.desktop}"
         sizes="(max-width: 1280px) 500px,
                (max-width: 1536px) 600px,
                700px"

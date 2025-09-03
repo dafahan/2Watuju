@@ -146,25 +146,25 @@
               <!-- Mobile screens -->
               <source 
                 media="(max-width: 639px)" 
-                srcset="{project.images.mobile}&w=600 600w,
-                        {project.images.mobile}&w=800 800w"
+                srcset="{project.images.mobile},
+                        {project.images.mobile}"
                 sizes="100vw"
               />
               
               <!-- Tablet screens -->
               <source 
                 media="(max-width: 1023px)" 
-                srcset="{project.images.tablet}&w=700 700w,
-                        {project.images.tablet}&w=900 900w"
+                srcset="{project.images.tablet},
+                        {project.images.tablet}"
                 sizes="100vw"
               />
               
               <!-- Desktop screens -->
               <source 
                 media="(min-width: 1024px)" 
-                srcset="{project.images.desktop}&w=600 600w,
-                        {project.images.desktop}&w=800 800w,
-                        {project.images.desktop}&w=1000 1000w"
+                srcset="{project.images.desktop},
+                        {project.images.desktop},
+                        {project.images.desktop}"
                 sizes="50vw"
               />
               
@@ -248,8 +248,8 @@
                     <img src={`${base}/icons/garage.svg`} alt="Garage icon" class="object-contain w-full h-full">
                   </div>
                   <div class="flex flex-col font-roboto-mono">
-                    <h4 class="font-bold text-sm sm:text-base leading-tight">GARAGE</h4>
-                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.garage}</span>
+                    <h4 class="font-bold text-sm sm:text-base leading-tight">CARPORT</h4>
+                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.carport}</span>
                   </div>
                 </div>
 

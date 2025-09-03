@@ -642,7 +642,7 @@
   </section>
 
   <!-- Testimonials Section with Optimized Tailwind and Loop -->
-  <section class="py-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-gray-50 cta-section">
+  <section class="sm:pt-20 xl:px-32 2xl:px-64 px-4 sm:px-8 bg-gray-50 cta-section">
     <div class="w-full mx-auto flex flex-col gap-6">
       <!-- Testimonials Grid with Loop -->
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 mb-16">
@@ -675,8 +675,10 @@
         {/each}
       </div>
 
-      <Cta/>
     </div>
+  </section>
+  <section class="sm:pb-20 xl:px-32 2xl:px-64 sm:px-8 bg-gray-50 cta-section">
+      <Cta/>
   </section>
 </div>
 
