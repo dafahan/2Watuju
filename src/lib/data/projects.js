@@ -1,40 +1,39 @@
 // src/lib/data/projects.js
 
 export const projects = [
-  // Japandi Style (2 projects)
+  // JAPANDI STYLE (2 projects: fin, rui)
   {
     "id": 1753464374772,
-    "title": "MODERN\nMINIMALIST\nHOUSE",
-    "slug": "modern-minimalist-house",
+    "title": "FIN\nJAPANDI\nHOUSE",
+    "slug": "fin-japandi-house",
     "categoryId": "japandi",
-    "location": "Bandar Lampung",
     "year": 2025,
-    "month" :"DEC",
+    "month": "DEC",
     "description": "Interactive 360° panoramic experience with multi-scene navigation. Perpaduan harmonis filosofi minimalis Jepang dan kehangatan Skandinavia dalam setiap detail.",
     "images": {
-      "thumbnail": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
-      "mobile": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop",
-      "tablet": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=450&fit=crop",
-      "desktop": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop"
+      "thumbnail": "/assets/projects/japandi/fin/project-exterior-japandi-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/japandi/fin/project-exterior-japandi-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/japandi/fin/project-exterior-japandi-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/japandi/fin/project-exterior-japandi-lampung-2025.jpg.webp"
     },
     "contentSections": [
       {
         "title": "Fasad Yang Mencerminkan Kehangatan",
-        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
+        "image": "/assets/projects/japandi/fin/project-exterior-japandi-lampung-2025.jpg.webp",
         "imageDescription": "Fasad depan rumah dengan desain minimalis Japandi yang mengutamakan kesederhanaan dan kehangatan material kayu",
         "content": "Perpaduan harmonis filosofi minimalis Jepang dan kehangatan Skandinavia terlihat jelas pada fasad rumah ini. Material kayu oak yang dipilih memberikan kesan hangat namun tetap mempertahankan garis-garis tegas yang menjadi ciri khas desain Japandi. Jendela-jendela besar memungkinkan cahaya alami masuk secara optimal, menciptakan hubungan yang harmonis antara ruang dalam dan luar."
       },
       {
         "title": "Ruang Hidup Yang Menenangkan",
-        "image": "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop",
+        "image": "/assets/projects/japandi/fin/project-interior-japandi-lampung-2025.jpg.webp",
         "imageDescription": "Interior ruang tamu dengan konsep open plan yang menggabungkan area duduk, makan, dan dapur dalam satu kesatuan",
         "content": "Konsep open plan pada ruang utama menciptakan aliran ruang yang natural dan tidak terputus. Pemilihan furnitur dengan bentuk geometris sederhana dan palet warna netural earth tone memberikan kesan tenang dan damai. Material kayu yang konsisten digunakan dari lantai hingga detail furniture menciptakan kesatuan visual yang memperkuat identitas desain Japandi."
       },
       {
-        "title": "Taman Dalam Sebagai Focal Point",
-        "image": "https://images.unsplash.com/photo-1600607687644-c7171b42498f?w=800&h=600&fit=crop",
-        "imageDescription": "Taman dalam (courtyard) dengan elemen air dan tanaman hijau yang menjadi pusat perhatian dari semua ruangan",
-        "content": "Taman dalam menjadi jantung dari desain rumah ini, memberikan ketenangan visual dan udara segar ke seluruh ruangan. Elemen air yang mengalir pelan dan pemilihan tanaman hijau yang minim perawatan mencerminkan filosofi Zen dalam menciptakan ruang meditasi alami di tengah rumah."
+        "title": "Keseimbangan Interior Dan Eksterior",
+        "image": "/assets/projects/japandi/fin/project-interior-japandi-2-lampung-2025.jpg.webp",
+        "imageDescription": "Area transisi antara dalam dan luar dengan elemen air dan tanaman hijau yang menciptakan keseimbangan visual",
+        "content": "Desain Japandi mengutamakan keseimbangan antara ruang dalam dan luar. Elemen air yang mengalir pelan dan pemilihan tanaman hijau yang minim perawatan mencerminkan filosofi Zen dalam menciptakan ruang meditasi alami. Setiap sudut dirancang untuk memberikan ketenangan visual dan kedamaian pikiran."
       }
     ],
     "panoramic": {
@@ -61,38 +60,51 @@ export const projects = [
       "bathroom": "2",
       "room": "3"
     },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
     "projectDetails": {
-      "TIPE PROYEK": "Japandi (Japanese Scandinavian) Style",
-      "ARCHITECT": "Kurnia Firmanda Ageng, S.Ars",
-      "LOKASI": "Sukarame, Bandar Lampung",
-      "INTERIOR DESIGNER": "Kurnia Firmanda Ageng, S.Ars"
+      "TIPE PROYEK": { "value": "Japandi (Japanese Scandinavian) Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Sukarame, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
     }
   },
   {
-    "id": 9,
-    "title": "SERENE\nJAPANDI\nVILLA",
-    "slug": "serene-japandi-villa",
+    "id": 1753464374773,
+    "title": "RUI\nZEN\nVILLA",
+    "slug": "rui-zen-villa",
     "categoryId": "japandi",
-    "location": "Lampung Tengah",
     "year": 2024,
-    "month" :"DEC",
-    "description": "Rumah kedua dengan gaya Japandi yang mengutamakan ketenangan dan kedamaian. Material kayu oak dan bambu menciptakan harmoni dengan taman zen yang dirancang khusus.",
+    "month": "DEC",
+    "description": "Villa zen dengan desain Japandi yang menekankan ketenangan dan kedamaian. Material kayu oak dan bambu menciptakan harmoni dengan taman zen yang dirancang khusus.",
     "images": {
-      "thumbnail": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
-      "mobile": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=400&h=300&fit=crop",
-      "tablet": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=600&h=450&fit=crop",
-      "desktop": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop"
+      "thumbnail": "/assets/projects/japandi/rui/project-exterior-japandi-zen-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/japandi/rui/project-exterior-japandi-zen-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/japandi/rui/project-exterior-japandi-zen-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/japandi/rui/project-exterior-japandi-zen-lampung-2025.jpg.webp"
     },
     "contentSections": [
       {
-        "title": "Villa Retreat dengan Nuansa Zen",
-        "image": "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&h=600&fit=crop",
+        "title": "Villa Zen dengan Nuansa Minimalis",
+        "image": "/assets/projects/japandi/rui/project-exterior-japandi-zen-lampung-2025.jpg.webp",
         "imageDescription": "Eksterior villa dengan material kayu oak dan bambu yang menciptakan harmoni dengan alam sekitar",
-        "content": "Villa ini dirancang sebagai retreat pribadi yang mengutamakan ketenangan dan kedamaian. Material kayu oak dan bambu dipilih untuk menciptakan harmoni dengan alam sekitar, sementara desain yang bersih dan minim ornamen memberikan kesan tenang yang mendalam."
+        "content": "Villa Rui dirancang sebagai retreat pribadi yang mengutamakan ketenangan dan kedamaian. Material kayu oak dan bambu dipilih untuk menciptakan harmoni dengan alam sekitar, sementara desain yang bersih dan minim ornamen memberikan kesan tenang yang mendalam."
       },
       {
-        "title": "Taman Zen Sebagai Elemen Utama",
-        "image": "https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?w=800&h=600&fit=crop",
+        "title": "Interior Yang Mengalir Seperti Air",
+        "image": "/assets/projects/japandi/rui/project-interior-japandi-zen-lampung-2025.jpg.webp",
+        "imageDescription": "Interior dengan konsep open plan yang mengutamakan aliran udara dan cahaya alami",
+        "content": "Ruang interior dirancang dengan konsep terbuka yang memungkinkan aliran udara dan cahaya alami masuk dengan optimal. Setiap elemen furnitur dipilih dengan cermat untuk mendukung filosofi zen dalam menciptakan ketenangan jiwa."
+      },
+      {
+        "title": "Taman Zen Sebagai Focal Point",
+        "image": "/assets/projects/japandi/rui/project-interior-japandi-zen-2-lampung-2025.jpg.webp",
         "imageDescription": "Taman zen dengan elemen batu, pasir, dan tanaman minimal yang dirancang untuk meditasi",
         "content": "Taman zen yang dirancang khusus menjadi focal point dari villa ini. Dengan elemen batu alam, pasir yang diatur rapi, dan pemilihan tanaman yang minimal, taman ini menciptakan ruang meditasi yang sempurna untuk melepas penat dari kehidupan sehari-hari."
       }
@@ -101,19 +113,432 @@ export const projects = [
       "land": "220m²",
       "floor": "180m²",
       "carport": "yes",
+      "pool": "yes", 
+      "bathroom": "3",
+      "room": "4"
+    },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
+    "projectDetails": {
+      "TIPE PROYEK": { "value": "Japandi Zen (Japanese Scandinavian) Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Lampung Tengah", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
+    }
+  },
+
+  // CONTEMPORARY STYLE (2 projects: asakha, naomi)
+  {
+    "id": 1753464374774,
+    "title": "ASAKHA\nCONTEMPORARY\nHOUSE",
+    "slug": "asakha-contemporary-house",
+    "categoryId": "contemporary",
+    "year": 2025,
+    "month": "JAN",
+    "description": "Rumah kontemporer dengan desain yang dinamis dan modern. Memadukan elemen tradisional dengan sentuhan masa kini untuk menciptakan hunian yang nyaman dan stylish.",
+    "images": {
+      "thumbnail": "/assets/projects/contemporary/asakha/project-exterior-kontenporer-asa-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/contemporary/asakha/project-exterior-kontenporer-asa-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/contemporary/asakha/project-exterior-kontenporer-asa-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/contemporary/asakha/project-exterior-kontenporer-asa-lampung-2025.jpg.webp"
+    },
+    "contentSections": [
+      {
+        "title": "Fasad Modern Yang Dinamis",
+        "image": "/assets/projects/contemporary/asakha/project-exterior-kontenporer-asa-lampung-2025.jpg.webp",
+        "imageDescription": "Fasad kontemporer dengan permainan material kaca, beton, dan kayu yang menciptakan komposisi visual yang menarik",
+        "content": "Desain fasad Asakha menampilkan permainan material yang beragam namun harmonis. Kombinasi kaca, beton, dan aksen kayu menciptakan komposisi visual yang dinamis namun tetap elegan. Garis-garis tegas dan bukaan yang strategis memberikan karakter modern yang kuat."
+      },
+      {
+        "title": "Ruang Terbuka Yang Fleksibel",
+        "image": "/assets/projects/contemporary/asakha/project-interior-kontenporer-asa-lampung-2025.jpg.webp",
+        "imageDescription": "Interior dengan konsep ruang terbuka yang fleksibel dan dapat disesuaikan dengan kebutuhan penghuni",
+        "content": "Interior Asakha dirancang dengan konsep ruang terbuka yang fleksibel. Sekat-sekat yang dapat dibuka tutup memungkinkan penghuni mengatur ulang ruang sesuai kebutuhan. Pencahayaan alami yang optimal dan sirkulasi udara yang baik menciptakan kenyamanan sepanjang hari."
+      },
+      {
+        "title": "Detail Interior Yang Sophisticated",
+        "image": "/assets/projects/contemporary/asakha/project-interior-kontenporer-asa2-lampung-2025.jpg.webp",
+        "imageDescription": "Detail interior dengan furniture built-in dan material premium yang menunjukkan perhatian pada kualitas",
+        "content": "Setiap detail interior dipilih dengan cermat untuk menciptakan suasana yang sophisticated namun tetap hangat. Furniture built-in dan pemilihan material premium menunjukkan komitmen pada kualitas dan fungsionalitas yang optimal."
+      }
+    ],
+    "stats": {
+      "land": "180m²",
+      "floor": "140m²",
+      "carport": "yes",
+      "pool": "no",
+      "bathroom": "2",
+      "room": "3"
+    },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
+    "projectDetails": {
+      "TIPE PROYEK": { "value": "Contemporary Modern Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Tanjung Karang, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
+    }
+  },
+  {
+    "id": 1753464374775,
+    "title": "NAOMI\nCONTEMPORARY\nVILLA",
+    "slug": "naomi-contemporary-villa",
+    "categoryId": "contemporary",
+    "year": 2024,
+    "month": "NOV",
+    "description": "Villa kontemporer dengan pendekatan desain yang fresh dan inovatif. Menghadirkan ruang-ruang yang luas dan terbuka dengan sentuhan artistik yang unik.",
+    "images": {
+      "thumbnail": "/assets/projects/contemporary/naomi/project-exterior-kontenporer-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/contemporary/naomi/project-exterior-kontenporer-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/contemporary/naomi/project-exterior-kontenporer-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/contemporary/naomi/project-exterior-kontenporer-lampung-2025.jpg.webp"
+    },
+    "contentSections": [
+      {
+        "title": "Eksterior Yang Memukau",
+        "image": "/assets/projects/contemporary/naomi/project-exterior-kontenporer-lampung-2025.jpg.webp",
+        "imageDescription": "Eksterior villa dengan desain kontemporer yang bold dan berani namun tetap elegan",
+        "content": "Villa Naomi menampilkan eksterior yang bold dan berani dengan tetap mempertahankan elegansi. Permainan volume dan void menciptakan dinamika visual yang menarik, sementara pemilihan material yang kontras memberikan karakter yang kuat dan memorable."
+      },
+      {
+        "title": "Living Space Yang Luas Dan Terbuka",
+        "image": "/assets/projects/contemporary/naomi/project-interior-kontenporer-lampung-2025.jpg.webp",
+        "imageDescription": "Ruang tamu yang luas dengan ceiling tinggi dan bukaan besar menghadap taman",
+        "content": "Ruang tamu yang luas dengan ceiling tinggi menciptakan kesan grandeur yang impressive. Bukaan besar menghadap taman memberikan view yang indah sekaligus memungkinkan cahaya alami masuk secara optimal, menciptakan suasana yang cerah dan segar sepanjang hari."
+      },
+      {
+        "title": "Sentuhan Artistik Dalam Interior",
+        "image": "/assets/projects/contemporary/naomi/project-interior-kontenporer-2-lampung-2025.jpg.webp",
+        "imageDescription": "Detail interior dengan sentuhan artistik melalui pemilihan furniture dan dekorasi yang unik",
+        "content": "Interior villa ini diperkaya dengan sentuhan artistik melalui pemilihan furniture statement dan karya seni yang dipilih khusus. Setiap ruang memiliki karakter yang unik namun tetap terhubung dalam satu tema desain yang kohesif dan harmonis."
+      }
+    ],
+    "stats": {
+      "land": "250m²",
+      "floor": "200m²",
+      "carport": "yes",
       "pool": "yes",
       "bathroom": "3",
       "room": "4"
     },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
     "projectDetails": {
-      "TIPE PROYEK": "Japandi (Japanese Scandinavian) Style",
-      "ARCHITECT": "Kurnia Firmanda Ageng, S.Ars",
-      "LOKASI": "Lampung Tengah",
-      "INTERIOR DESIGNER": "Kurnia Firmanda Ageng, S.Ars"
+      "TIPE PROYEK": { "value": "Contemporary Villa Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Kemiling, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
     }
   },
 
+  // LUXURY STYLE (2 projects: aethera, gigan)
+  {
+    "id": 1753464374776,
+    "title": "AETHERA\nLUXURY\nMANSION",
+    "slug": "aethera-luxury-mansion",
+    "categoryId": "luxury",
+    "year": 2025,
+    "month": "FEB",
+    "description": "Mansion mewah dengan standar luxury yang tinggi. Setiap detail dirancang untuk memberikan pengalaman hidup yang eksklusif dan sophisticated dengan material premium terbaik.",
+    "images": {
+      "thumbnail": "/assets/projects/luxury/aethera/project-exterior-luxury-mewah-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/luxury/aethera/project-exterior-luxury-mewah-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/luxury/aethera/project-exterior-luxury-mewah-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/luxury/aethera/project-exterior-luxury-mewah-lampung-2025.jpg.webp"
+    },
+    "contentSections": [
+      {
+        "title": "Kemewahan Yang Timeless",
+        "image": "/assets/projects/luxury/aethera/project-exterior-luxury-mewah-lampung-2025.jpg.webp",
+        "imageDescription": "Eksterior mansion dengan material premium dan detail arsitektur yang menunjukkan kemewahan tingkat tinggi",
+        "content": "Mansion Aethera menampilkan kemewahan yang timeless dengan penggunaan material premium seperti marmer Carrara, kayu mahoni, dan kaca berlapis kristal. Setiap detail arsitektur dirancang untuk menunjukkan kemewahan tingkat tinggi yang tidak akan pernah lekang oleh waktu."
+      },
+      {
+        "title": "Grand Foyer Yang Memukau",
+        "image": "/assets/projects/luxury/aethera/project-interior-luxury-mewah-lampung-2025.jpg.webp",
+        "imageDescription": "Grand foyer dengan chandelier kristal dan tangga marmer yang menjadi focal point utama",
+        "content": "Grand foyer menjadi statement utama dengan chandelier kristal Swarovski dan tangga marmer yang menawan. Ceiling tinggi dengan detail molding dan finishing emas memberikan kesan mewah yang immediately impressive bagi setiap tamu yang berkunjung."
+      },
+      {
+        "title": "Living Room Yang Sophisticated",
+        "image": "/assets/projects/luxury/aethera/project-interior-luxury-mewah-2-lampung-2025.jpg.webp",
+        "imageDescription": "Ruang tamu luxury dengan furniture custom dan artwork eksklusif",
+        "content": "Living room dirancang dengan furniture custom yang dibuat khusus oleh craftsman terbaik. Artwork eksklusif dan ornamen yang dipilih secara selektif menciptakan atmosfer yang sophisticated dan mencerminkan taste yang refined dari penghuninya."
+      }
+    ],
+    "stats": {
+      "land": "400m²",
+      "floor": "350m²",
+      "carport": "yes",
+      "pool": "yes",
+      "bathroom": "5",
+      "room": "6"
+    },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
+    "projectDetails": {
+      "TIPE PROYEK": { "value": "Luxury Mansion Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Teluk Betung, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
+    }
+  },
+  {
+    "id": 1753464374777,
+    "title": "GIGAN\nLUXURY\nVILLA",
+    "slug": "gigan-luxury-villa",
+    "categoryId": "luxury",
+    "year": 2024,
+    "month": "OCT",
+    "description": "Villa luxury dengan sentuhan modern yang elegan. Menggabungkan kemewahan tradisional dengan teknologi smart home untuk pengalaman hidup yang ultimate.",
+    "images": {
+      "thumbnail": "/assets/projects/luxury/gigan/project-exterior-luxury-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/luxury/gigan/project-exterior-luxury-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/luxury/gigan/project-exterior-luxury-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/luxury/gigan/project-exterior-luxury-lampung-2025.jpg.webp"
+    },
+    "contentSections": [
+      {
+        "title": "Modern Luxury Architecture",
+        "image": "/assets/projects/luxury/gigan/project-exterior-luxury-lampung-2025.jpg.webp",
+        "imageDescription": "Eksterior villa dengan desain modern luxury yang menggabungkan teknologi dan kemewahan",
+        "content": "Villa Gigan menampilkan arsitektur modern luxury yang menggabungkan teknologi terdepan dengan kemewahan tradisional. Smart glass technology dan sistem pencahayaan otomatis menciptakan pengalaman hidup yang futuristik namun tetap nyaman dan homey."
+      },
+      {
+        "title": "Interior Yang Tech-Savvy",
+        "image": "/assets/projects/luxury/gigan/project-interior-luxury-lampung-2025.jpg.webp",
+        "imageDescription": "Interior dengan integrasi teknologi smart home dan material luxury premium",
+        "content": "Interior villa dilengkapi dengan sistem smart home yang terintegrasi penuh. Dari lighting control, climate control, hingga entertainment system dapat dioperasikan melalui voice command atau aplikasi mobile, memberikan kenyamanan maksimal dengan sentuhan futuristik."
+      },
+      {
+        "title": "Master Bedroom Yang Luxurious",
+        "image": "/assets/projects/luxury/gigan/project-interior-luxury-2-lampung-2025.jpg.webp",
+        "imageDescription": "Master bedroom dengan walk-in closet dan bathroom en-suite yang mewah",
+        "content": "Master bedroom dirancang sebagai private sanctuary dengan walk-in closet yang luas dan bathroom en-suite yang mewah. Setiap detail mulai dari pemilihan fabric, lighting, hingga aksesoris dipilih untuk memberikan pengalaman istirahat yang ultimate dan restorative."
+      }
+    ],
+    "stats": {
+      "land": "300m²",
+      "floor": "250m²",
+      "carport": "yes",
+      "pool": "yes",
+      "bathroom": "4",
+      "room": "5"
+    },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
+    "projectDetails": {
+      "TIPE PROYEK": { "value": "Modern Luxury Villa Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Rajabasa, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
+    }
+  },
 
+  // MODERN STYLE (2 projects: adzra, caeli)
+  {
+    "id": 1753464374778,
+    "title": "ADZRA\nMODERN\nHOUSE",
+    "slug": "adzra-modern-house",
+    "categoryId": "modern",
+    "year": 2025,
+    "month": "MAR",
+    "description": "Rumah modern dengan desain yang clean dan fungsional. Mengutamakan efisiensi ruang dan pencahayaan alami dengan garis-garis tegas yang menjadi ciri khas arsitektur modern.",
+    "images": {
+      "thumbnail": "/assets/projects/modern/adzra/project-exterior-modern-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/modern/adzra/project-exterior-modern-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/modern/adzra/project-exterior-modern-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/modern/adzra/project-exterior-modern-lampung-2025.jpg.webp"
+    },
+    "contentSections": [
+      {
+        "title": "Fasad Modern Yang Clean",
+        "image": "/assets/projects/modern/adzra/project-exterior-modern-lampung-2025.jpg.webp",
+        "imageDescription": "Fasad dengan garis-garis tegas dan material modern yang menciptakan kesan bersih dan fungsional",
+        "content": "Fasad Adzra menampilkan karakteristik arsitektur modern dengan garis-garis tegas dan komposisi yang clean. Penggunaan material seperti beton ekspose, kaca, dan metal finishing menciptakan kesan industrial yang refined dan contemporary. Setiap elemen dirancang dengan prinsip form follows function."
+      },
+      {
+        "title": "Open Plan Living Yang Efisien",
+        "image": "/assets/projects/modern/adzra/project-interior-modern-lampung-2025.jpg.webp",
+        "imageDescription": "Interior dengan konsep open plan yang memaksimalkan efisiensi ruang dan pencahayaan alami",
+        "content": "Interior dirancang dengan konsep open plan yang memaksimalkan efisiensi ruang. Minimnya sekat dan penggunaan material transparan memungkinkan cahaya alami mengalir bebas ke seluruh area, menciptakan kesan luas dan terang sepanjang hari."
+      },
+      {
+        "title": "Kitchen Modern Yang Fungsional",
+        "image": "/assets/projects/modern/adzra/project-interior-modern-2-lampung-2025.jpg.webp",
+        "imageDescription": "Kitchen dengan desain modular dan appliances terintegrasi yang mengutamakan fungsionalitas",
+        "content": "Kitchen dirancang dengan pendekatan modular yang sangat fungsional. Built-in appliances dan storage system yang well-organized memungkinkan aktivitas memasak menjadi lebih efisien. Clean lines dan material yang mudah maintenance menjadi prioritas utama dalam desain."
+      }
+    ],
+    "stats": {
+      "land": "160m²",
+      "floor": "130m²",
+      "carport": "yes",
+      "pool": "no",
+      "bathroom": "2",
+      "room": "3"
+    },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
+    "projectDetails": {
+      "TIPE PROYEK": { "value": "Modern Minimalist Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Panjang, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
+    }
+  },
+  {
+    "id": 1753464374779,
+    "title": "CAELI\nMODERN\nVILLA",
+    "slug": "caeli-modern-villa",
+    "categoryId": "modern",
+    "year": 2024,
+    "month": "SEP",
+    "description": "Villa modern dengan sentuhan kekinian yang trendy. Menggabungkan elemen arsitektur modern dengan material dan teknologi terbaru untuk menciptakan hunian yang up-to-date.",
+    "images": {
+      "thumbnail": "/assets/projects/modern/caeli/project-exterior-modern-kekinian-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/modern/caeli/project-exterior-modern-kekinian-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/modern/caeli/project-exterior-modern-kekinian-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/modern/caeli/project-exterior-modern-kekinian-lampung-2025.jpg.webp"
+    },
+    "contentSections": [
+      {
+        "title": "Arsitektur Modern Yang Trendy",
+        "image": "/assets/projects/modern/caeli/project-exterior-modern-kekinian-lampung-2025.jpg.webp",
+        "imageDescription": "Eksterior villa dengan elemen arsitektur modern yang mengikuti tren terkini",
+        "content": "Villa Caeli menampilkan arsitektur modern yang mengikuti tren terkini dengan penggunaan material inovatif dan teknologi building terbaru. Desain yang bold namun tetap fungsional menciptakan statement yang kuat dan memorable dalam lingkungan sekitarnya."
+      },
+      {
+        "title": "Living Space Yang Contemporary",
+        "image": "/assets/projects/modern/caeli/project-interior-modern-kekinian-lampung-2025.jpg.webp",
+        "imageDescription": "Interior living space dengan furniture dan dekorasi yang mengikuti tren desain terkini",
+        "content": "Living space dirancang dengan furniture dan dekorasi yang mengikuti tren desain terkini. Color palette yang fresh dan texture yang varied menciptakan suasana yang energetic namun tetap comfortable untuk daily living activities."
+      },
+      {
+        "title": "Bedroom Modern Yang Stylish",
+        "image": "/assets/projects/modern/caeli/project-interior-modern-kekinian2-lampung-2025.jpg.webp",
+        "imageDescription": "Bedroom dengan desain modern yang stylish dan storage solutions yang smart",
+        "content": "Bedroom dirancang dengan pendekatan modern yang stylish, dilengkapi dengan storage solutions yang smart dan efficient. Built-in wardrobes dan multifunctional furniture memaksimalkan penggunaan ruang tanpa mengorbankan aesthetic appeal."
+      }
+    ],
+    "stats": {
+      "land": "200m²",
+      "floor": "160m²",
+      "carport": "yes",
+      "pool": "yes",
+      "bathroom": "3",
+      "room": "4"
+    },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
+    "projectDetails": {
+      "TIPE PROYEK": { "value": "Modern Contemporary Villa Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Way Halim, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
+    }
+  },
+
+  // CLASSIC STYLE (1 project: dahlia)
+  {
+    "id": 1753464374780,
+    "title": "DAHLIA\nCLASSIC\nMANSION",
+    "slug": "dahlia-classic-mansion",
+    "categoryId": "classic",
+    "year": 2025,
+    "month": "APR",
+    "description": "Mansion klasik dengan detail arsitektur yang timeless dan elegan. Menggabungkan kemegahan tradisional dengan kenyamanan modern untuk menciptakan hunian yang prestigious.",
+    "images": {
+      "thumbnail": "/assets/projects/classic/dahlia/project-exterior-classic-lampung-2025.jpg.webp",
+      "mobile": "/assets/projects/classic/dahlia/project-exterior-classic-lampung-2025.jpg.webp",
+      "tablet": "/assets/projects/classic/dahlia/project-exterior-classic-lampung-2025.jpg.webp",
+      "desktop": "/assets/projects/classic/dahlia/project-exterior-classic-lampung-2025.jpg.webp"
+    },
+    "contentSections": [
+      {
+        "title": "Kemegahan Arsitektur Klasik",
+        "image": "/assets/projects/classic/dahlia/project-exterior-classic-lampung-2025.jpg.webp",
+        "imageDescription": "Eksterior mansion dengan detail arsitektur klasik yang menampilkan kemegahan dan prestise",
+        "content": "Mansion Dahlia menampilkan kemegahan arsitektur klasik dengan detail ornamen yang rich dan sophisticated. Kolom-kolom Corinthian, molding yang intricate, dan proportions yang perfect menciptakan facade yang timeless dan impressive, mencerminkan prestise dan refined taste."
+      },
+      {
+        "title": "Grand Living Room Yang Elegant",
+        "image": "/assets/projects/classic/dahlia/project-interior-classic-lampung-2025.jpg.webp",
+        "imageDescription": "Living room dengan furniture antik dan dekorasi klasik yang menciptakan suasana elegant",
+        "content": "Grand living room dirancang dengan furniture antik dan dekorasi klasik yang carefully curated. Crystal chandelier, Persian rugs, dan artwork klasik menciptakan suasana yang elegant dan sophisticated, perfect untuk entertaining guests atau intimate family gatherings."
+      },
+      {
+        "title": "Dining Room Yang Magnificent",
+        "image": "/assets/projects/classic/dahlia/project-interior-classic-2-lampung-2025.jpg.webp",
+        "imageDescription": "Dining room dengan meja makan besar dan setting yang magnificent untuk entertaining",
+        "content": "Dining room yang magnificent dengan meja makan besar yang dapat menampung banyak tamu. Detail woodwork yang handcrafted dan table setting yang exquisite menciptakan atmosphere yang perfect untuk formal dinner parties dan special occasions."
+      }
+    ],
+    "stats": {
+      "land": "500m²",
+      "floor": "400m²",
+      "carport": "yes",
+      "pool": "yes",
+      "bathroom": "6",
+      "room": "7"
+    },
+    "statsConfig": {
+      "LAND AREA": { "icon": "land.svg", "key": "land", "order": 1 },
+      "FLOOR AREA": { "icon": "floor.svg", "key": "floor", "order": 2 },
+      "ROOM": { "icon": "room.svg", "key": "room", "order": 3 },
+      "BATHROOM": { "icon": "bathroom.svg", "key": "bathroom", "order": 4 },
+      "CARPORT": { "icon": "garage.svg", "key": "carport", "order": 5 },
+      "POOL": { "icon": "pool.svg", "key": "pool", "order": 6 }
+    },
+    "projectDetails": {
+      "TIPE PROYEK": { "value": "Classic Mansion Style", "order": 1 },
+      "PRINCIPLE DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 2 },
+      "LOKASI": { "value": "Enggal, Bandar Lampung", "order": 3 },
+      "INTERIOR DESIGNER": { "value": "Kurnia Firmanda Ageng, S.Ars", "order": 4 }
+    }
+  }
 ];
 
 export const projectStatuses = {
@@ -128,3 +553,33 @@ export const getFeaturedProjects = () => projects.filter(project => project.feat
 export const getProjectBySlug = (slug) => projects.find(project => project.slug === slug);
 export const getProjectsByCategoryId = (categoryId) => projects.filter(project => project.categoryId === categoryId);
 export const getProjectsByStatus = (status) => projects.filter(project => project.status === status);
+
+// UPDATED: Efficient helper function for stats
+export const getOrderedStats = (project) => {
+  if (!project.stats || !project.statsConfig) return [];
+  
+  return Object.entries(project.statsConfig)
+    .map(([label, config]) => ({
+      label,
+      value: project.stats[config.key],
+      icon: config.icon,
+      order: config.order
+    }))
+    .filter(stat => stat.value !== undefined) // Only include stats that have values
+    .sort((a, b) => (a.order || 999) - (b.order || 999));
+};
+
+// UPDATED: Efficient helper function for project details
+export const getOrderedProjectDetails = (project) => {
+  if (!project.projectDetails) return [];
+  
+  return Object.entries(project.projectDetails)
+    .map(([label, detail]) => {
+      // Support both old format (string) and new format (object)
+      if (typeof detail === 'string') {
+        return { label, value: detail, order: 999 };
+      }
+      return { label, value: detail.value, order: detail.order };
+    })
+    .sort((a, b) => (a.order || 999) - (b.order || 999));
+};

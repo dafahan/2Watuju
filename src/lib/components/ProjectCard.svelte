@@ -77,7 +77,7 @@
       <!-- Fallback image -->
       <img 
         src="{project.images.thumbnail}" 
-        alt="{project.name} - {project.location}" 
+        alt="{project.name} " 
         class="object-cover w-full h-full rounded-lg transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
         width="400"
         height="250"

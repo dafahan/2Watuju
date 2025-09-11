@@ -139,7 +139,7 @@
     
     <!-- Description -->
     <div class="prose prose-gray max-w-none">
-      <p class="text-gray-700 leading-relaxed text-base lg:text-lg group-hover:text-gray-900 transition-colors duration-300">
+      <p class="text-gray-700 leading-relaxed text-base lg:text-lg group-hover:text-gray-900 transition-colors duration-300 text-justify">
         {project.description}
       </p>
     </div>

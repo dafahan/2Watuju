@@ -772,9 +772,8 @@ function createCustomHotspot(hotSpotDiv, args) {
           </div>
           
           <!-- Combined Scene Navigation & Current Scene Info -->
-          <div class="absolute bottom-4 right-4 z-50 control-group">
+          <div class="absolute bottom-4 right-4 z-50 control-group hidden sm:flex">
             <div class="glass-panel p-4 max-w-md">
-              <!-- Current Scene Info -->
               <div class="flex items-center gap-3 text-white text-sm mb-2">
                 <div class="text-start">
                   <div class="text-xs opacity-75 font-chivo-mono">CURRENT SCENE</div>
@@ -782,7 +781,6 @@ function createCustomHotspot(hotSpotDiv, args) {
                 </div>
               </div>
 
-              <!-- Scene Navigation -->
               {#if availableScenes.length > 0}
                 <div class="border-t border-gray-600 pt-2">
                   <h4 class="text-sm font-roboto-condensed font-bold text-white mb-3 flex items-center gap-2">

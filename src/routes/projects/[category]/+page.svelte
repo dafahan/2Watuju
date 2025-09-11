@@ -6,6 +6,7 @@
   import SeeMoreButton from '$lib/components/SeeMoreButton.svelte';
   import Cta from '$lib/components/Cta.svelte';
   import FeaturedProjects from '$lib/components/FeaturedProjects.svelte';
+  import { getOrderedStats } from '$lib/data/projects.js';
 
   export let data;
   $: ({ category, projects } = data);
@@ -30,7 +31,6 @@
   }
   
   function handleProjectClick(projectSlug) {
-    // Navigate to the project detail page using category ID and project slug
     goto(`${base}/projects/${category.id}/${projectSlug}`);
   }
   
@@ -55,26 +55,29 @@
   // Event handlers
   function handleWorkflowClick() {
     console.log('Workflow clicked');
-    // Navigate to workflow page or scroll to process section
     document.querySelector('.process-section')?.scrollIntoView({ behavior: 'smooth' });
   }
 
   function handleConsultationClick() {
     console.log('Consultation clicked');
-    // Navigate to consultation page or scroll to CTA
     document.querySelector('.cta-section')?.scrollIntoView({ behavior: 'smooth' });
   }
 
   function handleProjectClickCategory(projectSlug) {
     console.log('Project clicked:', projectSlug);
-    // Navigate to project detail page
     goto(`${base}/projects/${projectSlug}`);
   }
 
   function handleViewAllProjects() {
     console.log('View all projects clicked');
-    // Navigate to projects page
     goto(`${base}/projects`);
+  }
+
+  // NEW: Function to chunk stats for responsive layout
+  function getStatsForGrid(project) {
+    const orderedStats = getOrderedStats(project);
+    // For grid layout, we want to show max 6 items in 2 columns (mobile) or 3 columns (desktop)
+    return orderedStats.slice(0, 6);
   }
 </script>
 
@@ -132,7 +135,7 @@
                 {category.name}
               </div>
               <div class="text-sm sm:text-base md:text-lg lg:text-xl font-roboto-mono uppercase text-gray-800 mt-1">
-                {project.location} - {project.year}
+                TIMELINE PROJECT - {project.year}
               </div>
             </div>
           </div>
@@ -171,7 +174,7 @@
               <!-- Fallback image -->
               <img 
                 src="{project.images.thumbnail}" 
-                alt="{project.title} - {project.location}" 
+                alt="{project.title}" 
                 class="w-full h-48 sm:h-56 md:h-64 lg:h-80 xl:h-96 object-cover transition-transform duration-300 group-hover:scale-105"
                 loading="lazy"
                 decoding="async"
@@ -190,79 +193,33 @@
           <!-- Project Details -->
           <div class="py-4 sm:py-6 flex flex-col justify-between">
             <!-- Description -->
-            <p class="text-gray-800 leading-relaxed text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-roboto text-pretty">
+            <p class="text-gray-800 leading-relaxed text-base sm:text-lg md:text-xl mb-4 sm:mb-6 font-roboto text-justify">
               {project.description}
             </p>
               
             <!-- Stats and Button Layout -->
             <div class="flex flex-col lg:flex-row lg:justify-between gap-6 lg:gap-8">
-              <!-- Stats Grid - Responsive -->
+              <!-- UPDATED: Dynamic Stats Grid - Responsive -->
               <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 w-full lg:w-4/5">
-                <!-- Land Area -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/land.svg`} alt="Land area icon" class="object-contain w-full h-full">
+                {#each getStatsForGrid(project) as stat}
+                  <div class="flex flex-row items-center justify-start gap-3">
+                    <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
+                      <img 
+                        src={`${base}/icons/${stat.icon}`} 
+                        alt="{stat.label} icon" 
+                        class="object-contain w-full h-full"
+                        on:error={(e) => {
+                          // Fallback to a default icon if the specific icon doesn't exist
+                          e.target.src = `${base}/icons/default.svg`;
+                        }}
+                      >
+                    </div>
+                    <div class="flex flex-col font-roboto-mono">
+                      <h4 class="font-bold text-sm sm:text-base leading-tight">{stat.label}</h4>
+                      <span class="font-normal text-xs sm:text-sm md:text-base">{stat.value}</span>
+                    </div>
                   </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h4 class="font-bold text-sm sm:text-base leading-tight">LAND AREA</h4>
-                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.land}</span>
-                  </div>
-                </div>
-
-                <!-- Floor Area -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/floor.svg`} alt="Floor area icon" class="object-contain w-full h-full">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h4 class="font-bold text-sm sm:text-base leading-tight">FLOOR AREA</h4>
-                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.floor}</span>
-                  </div>
-                </div>
-
-                <!-- Room -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/room.svg`} alt="Room icon" class="object-contain w-full h-full">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h4 class="font-bold text-sm sm:text-base leading-tight">ROOM</h4>
-                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.room}</span>
-                  </div>
-                </div>
-
-                <!-- Bathroom -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/bathroom.svg`} alt="Bathroom icon" class="object-contain w-full h-full">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h4 class="font-bold text-sm sm:text-base leading-tight">BATHROOM</h4>
-                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.bathroom}</span>
-                  </div>
-                </div>
-
-                <!-- Garage -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/garage.svg`} alt="Garage icon" class="object-contain w-full h-full">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h4 class="font-bold text-sm sm:text-base leading-tight">CARPORT</h4>
-                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.carport}</span>
-                  </div>
-                </div>
-
-                <!-- Pool -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-6 h-6 sm:w-8 sm:h-8 md:w-12 md:h-12 flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/pool.svg`} alt="Pool icon" class="object-contain w-full h-full">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h4 class="font-bold text-sm sm:text-base leading-tight">POOL</h4>
-                    <span class="font-normal text-xs sm:text-sm md:text-base">{project.stats.pool}</span>
-                  </div>
-                </div>
+                {/each}
               </div>
 
               <!-- Button Container -->

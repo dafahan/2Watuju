@@ -6,7 +6,7 @@
   import FeaturedProjects from '$lib/components/FeaturedProjects.svelte';
   import PanoramicViewer from '$lib/components/PanoramicViewer.svelte';
   import Cta from "$lib/components/Cta.svelte";
-  
+  import { getOrderedStats, getOrderedProjectDetails } from '$lib/data/projects.js';
 
   /** @type {import('./$types').PageData} */
   export let data;
@@ -14,6 +14,10 @@
   $: project = data.project;
   $: category = data.category;
   $: relatedProjects = data.relatedProjects;
+  
+  // NEW: Get ordered stats and project details
+  $: orderedStats = getOrderedStats(project);
+  $: orderedProjectDetails = getOrderedProjectDetails(project);
   
   let currentImageIndex = 0;
   let touchStates = new Map();
@@ -41,14 +45,11 @@
 
   function handleViewAllProjects() {
     console.log('View all projects clicked');
-    // Navigate to projects page
     goto('/projects');
   }
 
-
   function handleProjectClick(projectId) {
     console.log('Project clicked:', projectId);
-    // Navigate to project detail page
     goto(`/projects/${projectId}`);
   }
 
@@ -97,12 +98,21 @@
   function handleBackToHome() {
     goto(`${base}/`);
   }
+
+  // NEW: Function to chunk array into groups for responsive layout
+  function chunkArray(array, size) {
+    const chunks = [];
+    for (let i = 0; i < array.length; i += size) {
+      chunks.push(array.slice(i, i + size));
+    }
+    return chunks;
+  }
 </script>
 
 <svelte:head>
   <title>{project.title.replace('\n', ' ')} - 2WATUJU Architecture</title>
   <meta name="description" content="{project.description}" />
-  <meta name="keywords" content="proyek {project.title.toLowerCase()}, arsitektur {project.location.toLowerCase()}, {category.name.toLowerCase()}, 2watuju" />
+  <meta name="keywords" content="proyek {project.title.toLowerCase()}, arsitektur bandar lampung, {category.name.toLowerCase()}, 2watuju" />
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="{project.title.replace('\n', ' ')} - 2WATUJU Architecture" />
@@ -132,7 +142,7 @@
     <!-- Project Info -->
     <div class="flex flex-col sm:flex-row font-roboto-mono w-full justify-between items-start sm:items-center py-8 sm:py-12 border-b-2 border-gray-200 gap-4">
       <h1 class="font-semibold text-2xl sm:text-3xl md:text-4xl lg:text-5xl leading-tight">{project.title.replace('\n', ' ')}</h1>
-      <h2 class="uppercase text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600">{category.name} | {project.year}</h2>
+      <h2 class="uppercase text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600">{category.name} | {project.month} {project.year}</h2>
     </div>
   </section>
   
@@ -141,115 +151,56 @@
     <div class="flex w-full border-b-2 border-gray-200 pb-8 sm:pb-12">
       <div class="max-w-5xl mx-auto flex flex-col gap-y-6 sm:gap-y-8 justify-center items-center w-full">
         
-        <!-- Project Details Grid -->
-        {#each Object.entries(project.projectDetails || {}) as [key, value], i}
-          {#if i % 2 === 0} 
-            <div class="flex w-full justify-between"> <!-- Row container -->
-              <!-- Current item (left side) -->
+        <!-- UPDATED: Dynamic Project Details Grid -->
+        {#each chunkArray(orderedProjectDetails, 2) as chunk}
+          <div class="flex w-full justify-between"> <!-- Row container -->
+            {#each chunk as detail}
               <div class="flex w-fit flex-col">
                 <h1 class="uppercase font-bold text-3xl">
-                  {key}
+                  {detail.label}
                 </h1>
                 <h2 class="text-xl">
-                  {value}
+                  {detail.value}
                 </h2>
               </div>
-              
-              <!-- Next item (right side) -->
-              {#if Object.entries(project.projectDetails || {})[i + 1]}
-                {@const [nextKey, nextValue] = Object.entries(project.projectDetails || {})[i + 1]}
-                <div class="flex w-fit flex-col">
-                  <h1 class="uppercase font-bold text-3xl">
-                    {nextKey}
-                  </h1>
-                  <h2 class="text-xl">
-                    {nextValue}
-                  </h2>
-                </div>
-              {/if}
-            </div>
-          {/if}
+            {/each}
+            
+            <!-- Fill empty space if odd number of items -->
+            {#if chunk.length === 1}
+              <div class="flex w-fit flex-col"></div>
+            {/if}
+          </div>
         {/each}
         
-        <!-- Project Statistics -->
-        {#if project.stats}
+        <!-- UPDATED: Dynamic Project Statistics -->
+        {#if orderedStats.length > 0}
           <div class="w-full pt-6 sm:pt-8 mt-6 sm:mt-8">
-            <!-- Responsive grid for stats -->
+            <!-- Responsive grid for stats - Using dynamic chunks of 2 for mobile, 3 for desktop -->
             <div class="flex w-full justify-between">
-              <!-- Column 1: Land Area & Room -->
-              <div class="flex flex-col gap-6">
-                <!-- Land Area -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/land.svg`} alt="icon" class="object-contain w-16 h-16">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h1 class="font-bold text-lg leading-tight">LAND AREA</h1>
-                    <h2 class="font-normal text-base">{project.stats.land}</h2>
-                  </div>
+              <!-- Create 3 columns dynamically -->
+              {#each chunkArray(orderedStats, Math.ceil(orderedStats.length / 3)) as column, columnIndex}
+                <div class="flex flex-col gap-6">
+                  {#each column as stat}
+                    <div class="flex flex-row items-center justify-start gap-3">
+                      <div class="w-16 h-16 flex items-center justify-center flex-shrink-0">
+                        <img 
+                          src={`${base}/icons/${stat.icon}`} 
+                          alt="{stat.label} icon" 
+                          class="object-contain w-16 h-16"
+                          on:error={(e) => {
+                            // Fallback to a default icon if the specific icon doesn't exist
+                            e.target.src = `${base}/icons/default.svg`;
+                          }}
+                        >
+                      </div>
+                      <div class="flex flex-col font-roboto-mono">
+                        <h1 class="font-bold text-lg leading-tight">{stat.label}</h1>
+                        <h2 class="font-normal text-base">{stat.value}</h2>
+                      </div>
+                    </div>
+                  {/each}
                 </div>
-
-                <!-- Room -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/room.svg`} alt="icon" class="object-contain w-16 h-16">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h1 class="font-bold text-lg leading-tight">ROOM</h1>
-                    <h2 class="font-normal text-base">{project.stats.room}</h2>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Column 2: Floor Area & Bathroom -->
-              <div class="flex flex-col gap-6">
-                <!-- Floor Area -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/floor.svg`} alt="icon" class="object-contain w-16 h-16">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h1 class="font-bold text-lg leading-tight">FLOOR AREA</h1>
-                    <h2 class="font-normal text-base">{project.stats.floor}</h2>
-                  </div>
-                </div>
-
-                <!-- Bathroom -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/bathroom.svg`} alt="icon" class="object-contain w-16 h-16">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h1 class="font-bold text-lg leading-tight">BATHROOM</h1>
-                    <h2 class="font-normal text-base">{project.stats.bathroom}</h2>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Column 3: Garage & Pool -->
-              <div class="flex flex-col gap-6">
-                <!-- Garage -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/garage.svg`} alt="icon" class="object-contain w-16 h-16">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h1 class="font-bold text-lg leading-tight">CARPORT</h1>
-                    <h2 class="font-normal text-base">{project.stats.carport}</h2>
-                  </div>
-                </div>
-
-                <!-- Pool -->
-                <div class="flex flex-row items-center justify-start gap-3">
-                  <div class="w-16 h-16  flex items-center justify-center flex-shrink-0">
-                    <img src={`${base}/icons/pool.svg`} alt="icon" class="object-contain w-16 h-16">
-                  </div>
-                  <div class="flex flex-col font-roboto-mono">
-                    <h1 class="font-bold text-lg leading-tight">POOL</h1>
-                    <h2 class="font-normal text-base">{project.stats.pool}</h2>
-                  </div>
-                </div>
-              </div>
+              {/each}
             </div>
           </div>
         {/if}
@@ -275,7 +226,7 @@
               </h1>
 
               <div class="space-y-4 sm:space-y-6">
-                <p class="text-pretty text-sm sm:text-base md:text-lg lg:text-xl font-roboto leading-relaxed">
+                <p class="text-pretty text-sm sm:text-base md:text-lg lg:text-xl font-roboto leading-relaxed text-justify">
                   {section.content}
                 </p>
                 
