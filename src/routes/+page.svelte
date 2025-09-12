@@ -201,7 +201,7 @@
   function handleViewAllProjects() {
     console.log('View all projects clicked');
     // Navigate to projects page
-    goto('/projects');
+    goto(`${base}/projects`);
   }
 
   function handleImageLoad() {
