@@ -57,7 +57,7 @@
         <!-- Category Image -->
         <div class="relative overflow-hidden rounded-lg bg-gray-100" style="contain: layout;">
           <img 
-            src="{category.thumbnail}" 
+            src="{base}{category.thumbnail}" 
             alt="{category.name}" 
             class="object-cover w-full h-full rounded-lg transition-transform duration-700 group-hover:scale-110 group-active:scale-110"
             width="400"
