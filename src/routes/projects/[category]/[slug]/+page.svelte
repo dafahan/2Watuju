@@ -227,7 +227,7 @@
 
               <div class="space-y-4 sm:space-y-6">
                 <p class="text-pretty text-sm sm:text-base md:text-lg lg:text-xl font-roboto leading-relaxed text-justify">
-                  {section.content}
+                  {@html section.content}
                 </p>
                 
                 {#if section.imageDescription}
